@@ -1,0 +1,6 @@
+[submodule "mingw-std-threads"]
+	path = mingw-std-threads
+	url = git@github.com:meganz/mingw-std-threads.git
+[submodule "SFML"]
+	path = SFML
+	url = git@github.com:SFML/SFML.git
