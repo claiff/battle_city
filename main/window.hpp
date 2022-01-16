@@ -7,9 +7,13 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 #include <SFML/Graphics/Sprite.hpp>
 
-#include "types/iwindow.hpp"
 #include <mingw.thread.h>
 #include <atomic>
+#include <mingw.mutex.h>
+
+#include "types/iwindow.hpp"
+
+
 namespace main_program
 {
 	class Window
@@ -20,8 +24,12 @@ namespace main_program
 		~Window() override;
 		void ReDraw() const override;
 	private:
+		void DrawSprite() const;
+
 		mutable sf::RenderWindow *mWindow;
-		sf::Sprite const& mDrawingSprite;
+		sf::Sprite const& mDrawSprite;
+		mutable std::mutex mDrawSpriteMutex;
+
 	};
 
 }

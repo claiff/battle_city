@@ -9,7 +9,7 @@
 namespace main_program
 {
 	Window::Window( sf::Rect < unsigned int > const& rect, sf::String const& title, sf::Sprite const& drawing_sprite )
-			: mDrawingSprite( drawing_sprite )
+			: mDrawSprite( drawing_sprite )
 	{
 		//FIXME
 //		mWindow.setSize( {rect.width, rect.height} );
@@ -37,9 +37,16 @@ namespace main_program
 
 			// clear the window with black color
 			mWindow->clear( sf::Color::Black );
-			mWindow->draw( mDrawingSprite );
+			DrawSprite();
 			mWindow->display();
 		}
+	}
+
+	void Window::DrawSprite() const
+	{
+		std::lock_guard< std::mutex > lock {mDrawSpriteMutex};
+		auto color = mDrawSprite.getColor();
+		mWindow->draw( mDrawSprite );
 	}
 
 	Window::~Window()
