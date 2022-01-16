@@ -11,6 +11,7 @@ namespace main_program
 	Window::Window( sf::Rect < unsigned int > const& rect, sf::String const& title, sf::Sprite const& drawing_sprite )
 			: mDrawingSprite( drawing_sprite )
 	{
+		//FIXME
 //		mWindow.setSize( {rect.width, rect.height} );
 //		sf::Vector2i position = {static_cast<int>(rect.left), static_cast<int>(rect.top)};
 //		mWindow.setPosition( position );
