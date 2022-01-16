@@ -84,6 +84,8 @@ namespace resource::png
 		sf::Sprite result;
 		result.setTexture( mTextureSet );
 		result.setTextureRect( {position.x, position.y, 8, 8} );
+		//FIXME Как протащить scale?
+		result.setScale(2,2);
 		return result;
 	}
 
