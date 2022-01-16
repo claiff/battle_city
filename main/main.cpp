@@ -10,8 +10,7 @@
 int main()
 {
 	//FIXME Builders
-	//FIXME Compile
-	using namespace std::chrono_literals;
+	//FIXME config file
 	sf::Rect < unsigned int > window_rect = {50, 50, 800, 600};
 	sf::String title = "Title";
 	sf::Sprite drawing_sprite;
