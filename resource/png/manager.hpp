@@ -4,10 +4,10 @@
 
 #pragma once
 
-#include <SFML/Graphics/Sprite.hpp>
-#include <SFML/Graphics/Texture.hpp>
+#include "SFML/include/SFML/Graphics/Sprite.hpp"
+#include "SFML/include/SFML/Graphics/Texture.hpp"
 
-namespace resource
+namespace resource::png
 {
 	class Manager
 	{

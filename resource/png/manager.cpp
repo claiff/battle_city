@@ -4,7 +4,7 @@
 
 #include "manager.hpp"
 
-namespace resource
+namespace resource::png
 {
 	sf::Texture Manager::mTextureSet = {};
 

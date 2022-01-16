@@ -18,8 +18,12 @@ set(MAIN
         )
 
 set(RESOURCE
-        ${RESOURCE_DIRECTORY}/manager.hpp
-        ${RESOURCE_DIRECTORY}/manager.cpp
+        ${RESOURCE_DIRECTORY}/png/manager.hpp
+        ${RESOURCE_DIRECTORY}/png/manager.cpp
+        ${RESOURCE_DIRECTORY}/ini/ini_reader.hpp
+        ${RESOURCE_DIRECTORY}/ini/ini_reader.cpp
+        ${RESOURCE_DIRECTORY}/ini/parser.hpp
+        ${RESOURCE_DIRECTORY}/ini/parser.cpp
         )
 
 set(PICTURE
