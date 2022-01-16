@@ -3,6 +3,8 @@ project(battle_city)
 
 set(MAIN_DIRECTORY main)
 set(CMAKE_CXX_STANDARD 20)
+set(RESOURCE_DIRECTORY resource)
+
 set(MAIN
         ${MAIN_DIRECTORY}/main.cpp
         ${MAIN_DIRECTORY}/types/iwindow.hpp
@@ -13,8 +15,13 @@ set(MAIN
         ${MAIN_DIRECTORY}/window.hpp
         )
 
+set(RESOURCE
+        ${RESOURCE_DIRECTORY}/manager.hpp
+        ${RESOURCE_DIRECTORY}/manager.cpp
+        )
+
 add_subdirectory(SFML)
 add_subdirectory(mingw-std-threads)
 
-add_executable(battle_city ${MAIN})
+add_executable(battle_city ${MAIN} ${RESOURCE})
 target_link_libraries(battle_city sfml-graphics mingw_stdthreads)
