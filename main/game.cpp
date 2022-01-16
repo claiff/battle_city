@@ -18,5 +18,6 @@ namespace main_program
 	void Game::Play()
 	{
 		mWindow->ReDraw();
+		//FIXME logic thread
 	}
 }
