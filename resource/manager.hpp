@@ -16,7 +16,15 @@ namespace resource
 		~Manager() = default;
 
 		static sf::Sprite GetBackgroundSprite();
+		static sf::Sprite GetBorderdSprite();
+
 		static sf::Sprite GetBrickSprite();
+		static sf::Sprite GetIronSprite();
+		static sf::Sprite GetIceSprite();
+		static sf::Sprite GetGreenSprite();
+		static sf::Sprite GetRiverSpriteI();
+		static sf::Sprite GetRiverSpriteII();
+		static sf::Sprite GetRiverSpriteIII();
 	private:
 
 		static sf::Sprite GetStandardSprite( sf::Vector2i const& position );

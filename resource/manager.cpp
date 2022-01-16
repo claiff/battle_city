@@ -24,6 +24,61 @@ namespace resource
 		return GetStandardSprite( POSITION );
 	}
 
+	sf::Sprite Manager::GetBorderdSprite()
+	{
+		static const sf::Vector2i POSITION = {368, 0};
+
+		CheckTexture();
+		return GetStandardSprite( POSITION );
+	}
+
+	sf::Sprite Manager::GetIronSprite()
+	{
+		static const sf::Vector2i POSITION = {256, 0};
+
+		CheckTexture();
+		return GetStandardSprite( POSITION );
+	}
+
+	sf::Sprite Manager::GetIceSprite()
+	{
+		static const sf::Vector2i POSITION = {288, 32};
+
+		CheckTexture();
+		return GetStandardSprite( POSITION );
+	}
+
+	sf::Sprite Manager::GetGreenSprite()
+	{
+		static const sf::Vector2i POSITION = {272, 32};
+
+		CheckTexture();
+		return GetStandardSprite( POSITION );
+	}
+
+	sf::Sprite Manager::GetRiverSpriteI()
+	{
+		static const sf::Vector2i POSITION = {256, 80};
+
+		CheckTexture();
+		return GetStandardSprite( POSITION );
+	}
+	sf::Sprite Manager::GetRiverSpriteII()
+	{
+		static const sf::Vector2i POSITION = {264, 80};
+
+		CheckTexture();
+		return GetStandardSprite( POSITION );
+	}
+
+	sf::Sprite Manager::GetRiverSpriteIII()
+	{
+		static const sf::Vector2i POSITION = {272, 80};
+
+		CheckTexture();
+		return GetStandardSprite( POSITION );
+	}
+
 	sf::Sprite Manager::GetStandardSprite( sf::Vector2i const& position )
 	{
 		sf::Sprite result;
