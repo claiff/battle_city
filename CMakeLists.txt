@@ -1,8 +1,10 @@
 cmake_minimum_required(VERSION 3.18)
 project(battle_city)
 
-set(MAIN_DIRECTORY main)
 set(CMAKE_CXX_STANDARD 20)
+
+set(MAIN_DIRECTORY main)
+set(PICTURE_DIRECTORY picture)
 set(RESOURCE_DIRECTORY resource)
 
 set(MAIN
@@ -20,8 +22,14 @@ set(RESOURCE
         ${RESOURCE_DIRECTORY}/manager.cpp
         )
 
+set(PICTURE
+        ${PICTURE_DIRECTORY}/picture_builder.cpp
+        ${PICTURE_DIRECTORY}/picture_builder.hpp
+        )
+
 add_subdirectory(SFML)
 add_subdirectory(mingw-std-threads)
 
-add_executable(battle_city ${MAIN} ${RESOURCE})
-target_link_libraries(battle_city sfml-graphics mingw_stdthreads)
+add_executable(${PROJECT_NAME} ${MAIN} ${PICTURE} ${RESOURCE})
+target_include_directories(${PROJECT_NAME} PRIVATE .)
+target_link_libraries(${PROJECT_NAME} sfml-graphics mingw_stdthreads)
