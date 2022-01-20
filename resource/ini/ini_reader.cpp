@@ -1,31 +1,22 @@
 //
 // Created by claif on 16.01.2022.
 //
+#include <fstream>
 
 #include "ini_reader.hpp"
-#include <fstream>
+#include "parser.hpp"
 
 namespace resource::ini
 {
-	IniReader::IniReader( Parser const& parser, std::string const& path )
+	ParametersSet IniReader::mParameters {};
+	bool IniReader::mIsInit = false;
+
+	std::string IniReader::GetValue( std::string const& parameter ) noexcept
 	{
-		std::string line;
-		std::ifstream ini_file( path );
-
-		if( !ini_file.is_open())
+		if( !mIsInit )
 		{
-			throw "IniReader::IniReader Отсутствует ini файл";
+			InitReader();
 		}
-
-		while( getline( ini_file, line ))
-		{
-			ProcessLine( parser, line );
-		}
-		ini_file.close();
-	}
-
-	std::string IniReader::GetValue( std::string const& parameter ) const noexcept
-	{
 		try
 		{
 			return mParameters.at( parameter );
@@ -36,9 +27,29 @@ namespace resource::ini
 		}
 	}
 
-	void IniReader::ProcessLine( Parser const& parser, const std::string& line )
+	void IniReader::InitReader()
 	{
-		auto result = parser.Parse(line);
+		static const std::string PATH = R"(C:\Users\claif\Documents\projects\battle_city\settings.ini)";
+
+		std::string line;
+		std::ifstream ini_file( PATH );
+
+		if( !ini_file.is_open())
+		{
+			throw "IniReader::IniReader Отсутствует ini файл";
+		}
+
+		while( getline( ini_file, line ))
+		{
+			ProcessLine( line );
+		}
+		ini_file.close();
+	}
+
+	void IniReader::ProcessLine( std::string const& line )
+	{
+		Parser parser;
+		auto result = parser.Parse( line );
 		if( !result )
 		{
 			return;
