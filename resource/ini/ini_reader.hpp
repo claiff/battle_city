@@ -7,8 +7,6 @@
 #include <string>
 #include <unordered_map>
 
-#include "parser.hpp"
-
 namespace resource::ini
 {
 	using ParametersSet = std::unordered_map < std::string, std::string >;
@@ -16,13 +14,14 @@ namespace resource::ini
 	class IniReader
 	{
 	public:
-		IniReader( Parser const& parser, std::string const& path );
 		~IniReader() = default;
 
-		std::string GetValue( std::string const& parameter ) const noexcept;
+		static std::string GetValue( std::string const& parameter ) noexcept;
 	private:
-		void ProcessLine( Parser const& parser, const std::string& line );
+		static void InitReader();
+		static void ProcessLine(  std::string const& line );
 
-		ParametersSet mParameters;
+		static ParametersSet mParameters;
+		static bool mIsInit;
 	};
 }
