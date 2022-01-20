@@ -33,9 +33,21 @@ set(PICTURE
         )
 
 set(LAYERS
-        ${LAYERS_DIRECTORY}/background.hpp
-        ${LAYERS_DIRECTORY}/background.cpp
+        ${LAYERS_DIRECTORY}/decorators/background.hpp
+        ${LAYERS_DIRECTORY}/decorators/background.cpp
+        ${LAYERS_DIRECTORY}/decorators/border_decorator.hpp
+        ${LAYERS_DIRECTORY}/decorators/border_decorator.cpp
+
+        ${LAYERS_DIRECTORY}/controller/background.hpp
+        ${LAYERS_DIRECTORY}/controller/background.cpp
+        ${LAYERS_DIRECTORY}/controller/border.hpp
+        ${LAYERS_DIRECTORY}/controller/border.cpp
+
+        ${LAYERS_DIRECTORY}/layers_builder.hpp
+        ${LAYERS_DIRECTORY}/layers_builder.cpp
         ${LAYERS_DIRECTORY}/types/ilayer.hpp
+        ${LAYERS_DIRECTORY}/types/idecorator.hpp
+        ${LAYERS_DIRECTORY}/types/idecorator.cpp
         )
 
 add_subdirectory(SFML)

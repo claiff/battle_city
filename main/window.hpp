@@ -5,14 +5,13 @@
 #pragma once
 
 #include <SFML/Graphics/RenderWindow.hpp>
-#include <SFML/Graphics/Sprite.hpp>
 
 #include <mingw.thread.h>
 #include <atomic>
 #include <mingw.mutex.h>
 
 #include "types/iwindow.hpp"
-
+#include "layers/types/ilayer.hpp"
 
 namespace main_program
 {
@@ -20,14 +19,14 @@ namespace main_program
 			: public types::IWindow
 	{
 	public:
-		Window( sf::Rect < unsigned int > const& rect, sf::String const& title, sf::Sprite const& drawing_sprite );
+		Window( sf::Rect < unsigned int > const& rect, sf::String const& title, layer::types::ILayerPtr const& layers );
 		~Window() override;
 		void ReDraw() const override;
 	private:
 		void DrawSprite() const;
 
 		mutable sf::RenderWindow *mWindow;
-		sf::Sprite const& mDrawSprite;
+		layer::types::ILayerPtr const& mLayers;
 		mutable std::mutex mDrawSpriteMutex;
 
 	};

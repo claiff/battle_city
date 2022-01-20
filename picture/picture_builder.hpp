@@ -8,6 +8,7 @@
 #include <mingw.mutex.h>
 
 #include "types/ipicture_builder.hpp"
+#include "layers/controller_full.hpp"
 
 namespace picture
 {
@@ -15,12 +16,12 @@ namespace picture
 			: public types::IPictureBuilder
 	{
 	public:
-		explicit PictureBuilder( sf::Sprite& draw_sprite );
+		explicit PictureBuilder( layer::ControllersFull const& controllers );
 		~PictureBuilder() override = default;
 
 		void ReDraw() override;
 	private:
-		sf::Sprite& mDrawSprite;
+		layer::ControllersFull const& mControllers;
 		std::mutex mSpriteMutex;
 	};
 }
