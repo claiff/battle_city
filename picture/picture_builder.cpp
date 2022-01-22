@@ -9,19 +9,15 @@
 namespace picture
 {
 
-	PictureBuilder::PictureBuilder( sf::Sprite& draw_sprite )
-			: mDrawSprite( draw_sprite )
+	PictureBuilder::PictureBuilder( layer::ControllersFull const& controllers )
+			: mControllers( controllers )
 	{
 
 	}
 
 	void PictureBuilder::ReDraw()
 	{
-		using namespace std::chrono_literals;
 
-		std::this_thread::sleep_for( 2000ms );
-		std::lock_guard < std::mutex > lock( mSpriteMutex );
-		mDrawSprite.setColor( sf::Color::Cyan );
 	}
 
 }

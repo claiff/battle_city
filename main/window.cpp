@@ -5,18 +5,18 @@
 #include "window.hpp"
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/String.hpp>
+#include "resource/ini/ini_reader.hpp"
 
 namespace main_program
 {
-	Window::Window( sf::Rect < unsigned int > const& rect, sf::String const& title, sf::Sprite const& drawing_sprite )
-			: mDrawSprite( drawing_sprite )
+	Window::Window(
+			layer::types::ILayerPtr const& layers )
+			: mLayers( layers )
 	{
+		auto width = std::stoi( resource::ini::IniReader::GetValue( "default_window_width" ));
+		auto height = std::stoi( resource::ini::IniReader::GetValue( "default_window_height" ));
 		//FIXME
-//		mWindow.setSize( {rect.width, rect.height} );
-//		sf::Vector2i position = {static_cast<int>(rect.left), static_cast<int>(rect.top)};
-//		mWindow.setPosition( position );
-//		mWindow.setTitle( title );
-		mWindow = new sf::RenderWindow{sf::VideoMode( 800, 600 ), "My window"};
+		mWindow = new sf::RenderWindow{sf::VideoMode( width, height ), "My window"};
 		mWindow->setFramerateLimit( 60 );
 	}
 
@@ -36,7 +36,7 @@ namespace main_program
 			}
 
 			// clear the window with black color
-			mWindow->clear( sf::Color::Black );
+			mWindow->clear( sf::Color::Red );
 			DrawSprite();
 			mWindow->display();
 		}
@@ -44,9 +44,9 @@ namespace main_program
 
 	void Window::DrawSprite() const
 	{
-		std::lock_guard< std::mutex > lock {mDrawSpriteMutex};
-		auto color = mDrawSprite.getColor();
-		mWindow->draw( mDrawSprite );
+		std::lock_guard < std::mutex > lock{mDrawSpriteMutex};
+		auto sprite = mLayers->GetSprite();
+		mWindow->draw( sprite );
 	}
 
 	Window::~Window()

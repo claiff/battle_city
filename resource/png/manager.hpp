@@ -26,8 +26,9 @@ namespace resource::png
 		static sf::Sprite GetRiverSpriteII();
 		static sf::Sprite GetRiverSpriteIII();
 	private:
-
 		static sf::Sprite GetStandardSprite( sf::Vector2i const& position );
+		static sf::Vector2f ComputeScale( sf::Sprite const& sprite );
+		static sf::Vector2f GetDesiredSize();
 		static void CheckTexture();
 		static void InitTexture();
 		static sf::Texture mTextureSet;

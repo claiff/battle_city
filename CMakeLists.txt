@@ -6,6 +6,7 @@ set(CMAKE_CXX_STANDARD 20)
 set(MAIN_DIRECTORY main)
 set(PICTURE_DIRECTORY picture)
 set(RESOURCE_DIRECTORY resource)
+set(LAYERS_DIRECTORY layers)
 
 set(MAIN
         ${MAIN_DIRECTORY}/main.cpp
@@ -31,9 +32,29 @@ set(PICTURE
         ${PICTURE_DIRECTORY}/picture_builder.hpp
         )
 
+set(LAYERS
+        ${LAYERS_DIRECTORY}/decorators/background.hpp
+        ${LAYERS_DIRECTORY}/decorators/background.cpp
+        ${LAYERS_DIRECTORY}/decorators/border_decorator.hpp
+        ${LAYERS_DIRECTORY}/decorators/border_decorator.cpp
+
+        ${LAYERS_DIRECTORY}/controller/background.hpp
+        ${LAYERS_DIRECTORY}/controller/background.cpp
+        ${LAYERS_DIRECTORY}/controller/border.hpp
+        ${LAYERS_DIRECTORY}/controller/border.cpp
+
+        ${LAYERS_DIRECTORY}/layers_builder.hpp
+        ${LAYERS_DIRECTORY}/layers_builder.cpp
+
+        ${LAYERS_DIRECTORY}/types/ilayer.hpp
+        ${LAYERS_DIRECTORY}/types/ilayer.cpp
+        ${LAYERS_DIRECTORY}/types/idecorator.hpp
+        ${LAYERS_DIRECTORY}/types/idecorator.cpp
+        )
+
 add_subdirectory(SFML)
 add_subdirectory(mingw-std-threads)
 
-add_executable(${PROJECT_NAME} ${MAIN} ${PICTURE} ${RESOURCE})
+add_executable(${PROJECT_NAME} ${MAIN} ${PICTURE} ${RESOURCE} ${LAYERS})
 target_include_directories(${PROJECT_NAME} PRIVATE .)
 target_link_libraries(${PROJECT_NAME} sfml-graphics mingw_stdthreads)
