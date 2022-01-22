@@ -6,4 +6,8 @@
 namespace layer::controller
 {
 
+	Background::Background( const types::ILayerPtr& layer )
+	{
+
+	}
 }

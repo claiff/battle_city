@@ -15,8 +15,8 @@ namespace layer
 		ControllersFull() = default;
 		~ControllersFull() = default;
 
-		controller::Background mBackgroundController;
-		controller::Border mBorderController;
+		controller::Background mBackgroundController{nullptr};
+		controller::Border mBorderController{nullptr};
 	};
 }
 

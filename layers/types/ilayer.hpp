@@ -23,8 +23,6 @@ namespace layer::types
 		void ShiftSpriteY( sf::Sprite& sprite );
 		void ResetSpriteX( sf::Sprite& sprite, float default_value = 0);
 		void SetPosition( float x, float y, sf::Sprite& sprite );
-
-		sf::RenderTexture mRenderTexture;
 	};
 
 	using ILayerPtr = std::shared_ptr < ILayer >;

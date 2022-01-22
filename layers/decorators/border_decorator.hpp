@@ -15,7 +15,7 @@ namespace layer
 			: public types::IDecorator
 	{
 	public:
-		explicit Border( types::ILayerPtr const& layer, controller::Border const& controller );
+		explicit Border( types::ILayerPtr const& layer );
 		~Border() override = default;
 
 		sf::Sprite GetSprite() override;
@@ -24,7 +24,6 @@ namespace layer
 		void DrawHorizontalLine(float x, float y, int height, sf::Sprite& sprite);
 		void DrawVerticalLine(float x, float y, int width, sf::Sprite& sprite);
 
-		sf::Texture mTexture;
-		controller::Border mController;
+		sf::RenderTexture mRenderTexture;
 	};
 }

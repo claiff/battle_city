@@ -4,12 +4,14 @@
 
 #pragma once
 
+#include "layers/types/ilayer.hpp"
+
 namespace layer::controller
 {
 	class Border
 	{
 	public:
-		Border() = default;
+		explicit Border(types::ILayerPtr const& layer);
 		~Border() = default;
 	};
 }

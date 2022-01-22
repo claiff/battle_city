@@ -7,10 +7,12 @@
 
 namespace layer
 {
-	Background::Background( controller::Background const& controller )
-			: mController( controller )
+	Background::Background()
 	{
-
+		if( !mRenderTexture.create( 800, 600 ))
+		{
+			throw "IDecorator::IDecorator Невозможно отрисовать mRenderTexture";
+		}
 	}
 
 	sf::Sprite Background::GetSprite()
