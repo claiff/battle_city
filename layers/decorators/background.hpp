@@ -21,9 +21,6 @@ namespace layer
 		sf::Sprite GetSprite() override;
 	private:
 		void FillOnBackground( sf::Sprite& sprite );
-		void ShiftSpriteX( sf::Sprite& sprite );
-		void ShiftSpriteY( sf::Sprite& sprite );
-		void ResetSpriteX(sf::Sprite& sprite);
 
 		controller::Background mController;
 	};

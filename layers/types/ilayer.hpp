@@ -14,18 +14,16 @@ namespace layer::types
 	class ILayer
 	{
 	public:
-		ILayer()
-		{
-			if( !mRenderTexture.create( 800, 600 ))
-			{
-				throw "IDecorator::IDecorator Невозможно отрисовать mRenderTexture";
-			}
-		}
-
+		ILayer();
 		virtual ~ILayer() = default;
 
 		virtual sf::Sprite GetSprite() = 0;
 	protected:
+		void ShiftSpriteX( sf::Sprite& sprite );
+		void ShiftSpriteY( sf::Sprite& sprite );
+		void ResetSpriteX( sf::Sprite& sprite, float default_value = 0);
+		void SetPosition( float x, float y, sf::Sprite& sprite );
+
 		sf::RenderTexture mRenderTexture;
 	};
 

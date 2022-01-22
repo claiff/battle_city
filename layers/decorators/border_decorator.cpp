@@ -4,6 +4,7 @@
 
 #include "border_decorator.hpp"
 #include "resource/png/manager.hpp"
+#include "resource/ini/ini_reader.hpp"
 
 namespace layer
 {
@@ -18,6 +19,7 @@ namespace layer
 	{
 		auto decorator_sprite = types::IDecorator::GetSprite();
 		auto border_sprite = resource::png::Manager::GetBorderdSprite();
+
 		mRenderTexture.clear();
 		mRenderTexture.draw( decorator_sprite );
 		FillBorder( border_sprite );
@@ -29,89 +31,57 @@ namespace layer
 
 	void Border::FillBorder( sf::Sprite& sprite )
 	{
-		DrawVerticalBorders( sprite );
-		DrawHorizontalBorders( sprite );
+		static constexpr int ZERO_POSITION = 0;
+
+		static constexpr int UP_HOR_LINE_WIDTH = 1;
+		static constexpr int DOWN_HOR_LINE_WIDTH = 1;
+		static constexpr int LEFT_VERT_LINE_WIDTH = 2;
+		static constexpr int RIGHT_VERT_LINE_WIDTH = 4;
+
+		auto count_sprite_in_row = std::stoi( resource::ini::IniReader::GetValue( "count_sprite_in_row" ));
+		auto count_sprite_in_column = std::stoi( resource::ini::IniReader::GetValue( "count_sprite_in_column" ));
+
+		auto down_hor_line_position = count_sprite_in_column - DOWN_HOR_LINE_WIDTH;
+		auto right_ver_line_position = count_sprite_in_row - RIGHT_VERT_LINE_WIDTH;
+
+		DrawHorizontalLine( ZERO_POSITION, ZERO_POSITION, UP_HOR_LINE_WIDTH, sprite );
+		DrawHorizontalLine( ZERO_POSITION, down_hor_line_position, DOWN_HOR_LINE_WIDTH, sprite );
+		DrawVerticalLine( ZERO_POSITION, ZERO_POSITION, LEFT_VERT_LINE_WIDTH, sprite );
+		DrawVerticalLine( right_ver_line_position, ZERO_POSITION, RIGHT_VERT_LINE_WIDTH, sprite );
 	}
 
-	void Border::DrawVerticalBorders( sf::Sprite& sprite )
+	void Border::DrawHorizontalLine( float x, float y, int height, sf::Sprite& sprite )
 	{
-		SetPosition( 0, 0, sprite );
-		for( auto y = 0; y < 32; y++ )
+		auto count_sprite_in_row = std::stoi( resource::ini::IniReader::GetValue( "count_sprite_in_row" ));
+		SetPosition( x, y, sprite );
+		for( auto local_y = 0; local_y < height; local_y++ )
 		{
-			for( auto x = 0; x < 2; x++ )
+			for( auto local_x = 0; local_x < count_sprite_in_row; local_x++ )
 			{
-				ShiftSpriteX( sprite );
 				mRenderTexture.draw( sprite );
+				ShiftSpriteX( sprite );
 			}
 			ShiftSpriteY( sprite );
-			ResetSpriteX( sprite );
+			ResetSpriteX( sprite, x );
 		}
+	}
 
-		SetPosition( 28, 0, sprite );
-
-		for( auto y = 0; y < 32; y++ )
+	void Border::DrawVerticalLine( float x, float y, int width, sf::Sprite& sprite )
+	{
+		auto count_sprite_in_column = std::stoi( resource::ini::IniReader::GetValue( "count_sprite_in_column" ));
+		SetPosition( x, y, sprite );
+		for( auto local_y = 0; local_y < count_sprite_in_column; local_y++ )
 		{
-			for( auto x = 0; x < 4; x++ )
+			for( auto local_x = 0; local_x < width; local_x++ )
 			{
-				ShiftSpriteX( sprite );
 				mRenderTexture.draw( sprite );
+				ShiftSpriteX( sprite );
 			}
 			ShiftSpriteY( sprite );
-			ResetSpriteX( sprite, 28 );
+			ResetSpriteX( sprite, x );
 		}
-	}
-
-
-	void Border::DrawHorizontalBorders( sf::Sprite& sprite )
-	{
-		SetPosition( 0, 0, sprite );
-		for( auto y = 0; y < 1; y++ )
-		{
-			for( auto x = 0; x < 32; x++ )
-			{
-				ShiftSpriteX( sprite );
-				mRenderTexture.draw( sprite );
-			}
-		}
-
-		SetPosition( 0, 31, sprite );
-
-		for( auto y = 0; y < 1; y++ )
-		{
-			for( auto x = 0; x < 32; x++ )
-			{
-				ShiftSpriteX( sprite );
-				mRenderTexture.draw( sprite );
-			}
-		}
-	}
-
-	void Border::ShiftSpriteX( sf::Sprite& sprite )
-	{
-		auto position = sprite.getPosition();
-		auto width = sprite.getTextureRect().width * sprite.getScale().x;
-		sprite.setPosition( position.x + width, position.y );
-	}
-
-	void Border::ShiftSpriteY( sf::Sprite& sprite )
-	{
-		auto position = sprite.getPosition();
-		auto height = sprite.getTextureRect().height * sprite.getScale().y;
-		sprite.setPosition( position.x, position.y + height );
-	}
-
-	void Border::ResetSpriteX( sf::Sprite& sprite, float default_value )
-	{
-		auto width = sprite.getTextureRect().width * sprite.getScale().x;
-		auto position = sprite.getPosition();
-		sprite.setPosition( default_value * width, position.y );
-	}
-
-	void Border::SetPosition( float x, float y, sf::Sprite& sprite )
-	{
-		auto height = sprite.getTextureRect().height * sprite.getScale().y;
-		auto width = sprite.getTextureRect().width * sprite.getScale().x;
-		sprite.setPosition( x * width, y * height );
 	}
 
 }
+
+

@@ -17,7 +17,7 @@ namespace layer
 	{
 		auto sprite = resource::png::Manager::GetBackgroundSprite();
 
-		mRenderTexture.clear( sf::Color::White );
+		mRenderTexture.clear( sf::Color::Red );
 		FillOnBackground( sprite );
 		mRenderTexture.display();
 
@@ -31,34 +31,11 @@ namespace layer
 		{
 			for( auto x = 0; x < 32; x++ )
 			{
-				ShiftSpriteX( sprite );
 				mRenderTexture.draw( sprite );
+				ShiftSpriteX( sprite );
 			}
 			ShiftSpriteY( sprite );
 			ResetSpriteX( sprite );
 		}
 	}
-
-	void Background::ShiftSpriteX( sf::Sprite& sprite )
-	{
-		auto position = sprite.getPosition();
-		auto width = sprite.getTextureRect().width * sprite.getScale().x;
-		sprite.setPosition( position.x + width, position.y );
-	}
-
-	void Background::ShiftSpriteY( sf::Sprite& sprite )
-	{
-		auto position = sprite.getPosition();
-		auto height = sprite.getTextureRect().height * sprite.getScale().y;
-		sprite.setPosition( position.x, position.y + height );
-	}
-
-	void Background::ResetSpriteX( sf::Sprite& sprite )
-	{
-		static constexpr int ZERO_X = 0;
-		auto position = sprite.getPosition();
-		sprite.setPosition( ZERO_X, position.y );
-	}
-
-
 }

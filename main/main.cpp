@@ -12,15 +12,11 @@
 
 int main()
 {
-	//FIXME Builders
-	sf::Rect < unsigned int > window_rect = {50, 50, 800, 600};
-	sf::String title = "Title";
-
 	layer::LayersBuilder builder{};
 	auto layers = builder.MakeLayersDecorators();
 	auto controllers = builder.MakeControllersClass();
 
-	auto window = std::make_shared < main_program::Window >( window_rect, title, layers );
+	auto window = std::make_shared < main_program::Window >(  layers );
 	auto picture_builder = std::make_shared < picture::PictureBuilder >( controllers );
 	main_program::Game game{window, picture_builder};
 	game.Play();

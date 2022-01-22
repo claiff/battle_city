@@ -5,19 +5,18 @@
 #include "window.hpp"
 #include <SFML/Window/Event.hpp>
 #include <SFML/System/String.hpp>
+#include "resource/ini/ini_reader.hpp"
 
 namespace main_program
 {
-	Window::Window( sf::Rect < unsigned int > const& rect, sf::String const& title,
-					layer::types::ILayerPtr const& layers )
+	Window::Window(
+			layer::types::ILayerPtr const& layers )
 			: mLayers( layers )
 	{
+		auto width = std::stoi( resource::ini::IniReader::GetValue( "default_window_width" ));
+		auto height = std::stoi( resource::ini::IniReader::GetValue( "default_window_height" ));
 		//FIXME
-//		mWindow.setSize( {rect.width, rect.height} );
-//		sf::Vector2i position = {static_cast<int>(rect.left), static_cast<int>(rect.top)};
-//		mWindow.setPosition( position );
-//		mWindow.setTitle( title );
-		mWindow = new sf::RenderWindow{sf::VideoMode( 800, 600 ), "My window"};
+		mWindow = new sf::RenderWindow{sf::VideoMode( width, height ), "My window"};
 		mWindow->setFramerateLimit( 60 );
 	}
 
@@ -37,7 +36,7 @@ namespace main_program
 			}
 
 			// clear the window with black color
-			mWindow->clear( sf::Color::White );
+			mWindow->clear( sf::Color::Red );
 			DrawSprite();
 			mWindow->display();
 		}

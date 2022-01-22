@@ -45,7 +45,9 @@ set(LAYERS
 
         ${LAYERS_DIRECTORY}/layers_builder.hpp
         ${LAYERS_DIRECTORY}/layers_builder.cpp
+
         ${LAYERS_DIRECTORY}/types/ilayer.hpp
+        ${LAYERS_DIRECTORY}/types/ilayer.cpp
         ${LAYERS_DIRECTORY}/types/idecorator.hpp
         ${LAYERS_DIRECTORY}/types/idecorator.cpp
         )

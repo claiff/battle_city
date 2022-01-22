@@ -21,12 +21,8 @@ namespace layer
 		sf::Sprite GetSprite() override;
 	private:
 		void FillBorder( sf::Sprite& sprite );
-		void DrawVerticalBorders( sf::Sprite& sprite );
-		void DrawHorizontalBorders( sf::Sprite& sprite );
-		void ShiftSpriteX( sf::Sprite& sprite );
-		void ShiftSpriteY( sf::Sprite& sprite );
-		void ResetSpriteX( sf::Sprite& sprite, float default_value = 0);
-		void SetPosition( float x, float y, sf::Sprite& sprite );
+		void DrawHorizontalLine(float x, float y, int height, sf::Sprite& sprite);
+		void DrawVerticalLine(float x, float y, int width, sf::Sprite& sprite);
 
 		sf::Texture mTexture;
 		controller::Border mController;

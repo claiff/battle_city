@@ -19,7 +19,7 @@ namespace main_program
 			: public types::IWindow
 	{
 	public:
-		Window( sf::Rect < unsigned int > const& rect, sf::String const& title, layer::types::ILayerPtr const& layers );
+		Window( layer::types::ILayerPtr const& layers );
 		~Window() override;
 		void ReDraw() const override;
 	private:
