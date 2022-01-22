@@ -8,10 +8,7 @@ namespace layer::types
 {
 	ILayer::ILayer()
 	{
-		if( !mRenderTexture.create( 800, 600 ))
-		{
-			throw "IDecorator::IDecorator Невозможно отрисовать mRenderTexture";
-		}
+
 	}
 
 	void ILayer::ShiftSpriteX( sf::Sprite& sprite )

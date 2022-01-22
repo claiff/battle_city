@@ -7,4 +7,8 @@
 namespace layer::controller
 {
 
+	Border::Border( const types::ILayerPtr& layer )
+	{
+
+	}
 }

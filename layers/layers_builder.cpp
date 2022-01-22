@@ -13,10 +13,11 @@ namespace layer
 {
 	types::ILayerPtr LayersBuilder::MakeLayersDecorators()
 	{
-		mControllersFull.mBackgroundController = controller::Background();
-		mControllersFull.mBorderController = controller::Border();
-		auto background = std::make_shared < Background >( mControllersFull.mBackgroundController);
-		return std::make_shared < Border >( background,mControllersFull.mBorderController  );
+		auto background = std::make_shared < Background >();
+		mControllersFull.mBackgroundController = controller::Background( background );
+		auto border = std::make_shared < Border >( background );
+		mControllersFull.mBorderController = controller::Border( border );
+		return border;
 	}
 
 	ControllersFull LayersBuilder::MakeControllersClass()

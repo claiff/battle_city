@@ -8,11 +8,13 @@
 
 namespace layer
 {
-	Border::Border( types::ILayerPtr const& layer, controller::Border const& controller )
+	Border::Border( types::ILayerPtr const& layer )
 			: IDecorator( layer )
-			, mController( controller )
 	{
-
+		if( !mRenderTexture.create( 800, 600 ))
+		{
+			throw "IDecorator::IDecorator Невозможно отрисовать mRenderTexture";
+		}
 	}
 
 	sf::Sprite Border::GetSprite()
@@ -25,8 +27,7 @@ namespace layer
 		FillBorder( border_sprite );
 		mRenderTexture.display();
 
-		mTexture = mRenderTexture.getTexture();
-		return sf::Sprite{mTexture};
+		return sf::Sprite{mRenderTexture.getTexture()};
 	}
 
 	void Border::FillBorder( sf::Sprite& sprite )

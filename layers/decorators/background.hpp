@@ -15,14 +15,14 @@ namespace layer
 			: public types::ILayer
 	{
 	public:
-		explicit Background( controller::Background const& controller );
+		Background();
 		~Background() override = default;
 
 		sf::Sprite GetSprite() override;
 	private:
 		void FillOnBackground( sf::Sprite& sprite );
 
-		controller::Background mController;
+		sf::RenderTexture mRenderTexture;
 	};
 }
 

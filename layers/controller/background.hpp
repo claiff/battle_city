@@ -4,12 +4,14 @@
 
 #pragma once
 
+#include "layers/types/ilayer.hpp"
+
 namespace layer::controller
 {
 	class Background
 	{
 	public:
-		Background() = default;
+		explicit Background( types::ILayerPtr const& layer );
 		~Background() = default;
 	};
 }
