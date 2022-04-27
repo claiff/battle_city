@@ -4,24 +4,31 @@
 
 
 #include "game.hpp"
-#include "SFML/Graphics/Color.hpp"
+#include "state/menu.hpp"
 
 
 namespace app
 {
-	Game::Game( std::shared_ptr < sf::RenderWindow > const& window )
+	Game::Game( std::shared_ptr < sf::RenderWindow > const& window, types::KeysPtr const& keys )
 			: mWindow( window )
+			, mKeys( keys )
 	{
-
+		mState = state::Menu::GetInstance( window );
 	}
 
 	void Game::Run()
 	{
-		sf::Color color{0xDF, 0xEE, 0x11};
 		while( mWindow->isOpen())
 		{
-			mWindow->clear( color );
-			mWindow->display();
+			auto keys = mKeys->Get();
+
+			mState->HandleKeys( keys, this );
+			mState->Draw();
 		}
+	}
+
+	void Game::ChangeState( state::types::StatePtr const& new_state )
+	{
+		mState = new_state;
 	}
 }
