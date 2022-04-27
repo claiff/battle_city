@@ -4,6 +4,7 @@
 
 #include "game.hpp"
 #include "menu.hpp"
+#include "app/types/ikeys.hpp"
 
 namespace state
 {
@@ -23,11 +24,14 @@ namespace state
 	void Game::Draw()
 	{
 		mWindow->clear( {0x00, 0x00, 0x00} );
+		mWindow->display();
 	}
 
-	void Game::HandleKeys( types::Keys key, app::Game* game )
+	void Game::HandleKeys( app::types::Keys key, app::Game* game )
 	{
-		if( key == types::Keys::PushUp )
+		using namespace app::types;
+
+		if( key == Keys::RealizeUp )
 		{
 			game->ChangeState( Menu::GetInstance( mWindow ));
 		}

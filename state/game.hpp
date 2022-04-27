@@ -21,7 +21,7 @@ namespace state
 
 		void Update() override;
 		void Draw() override;
-		void HandleKeys( types::Keys key, app::Game* game ) override;
+		void HandleKeys( app::types::Keys key, app::Game* game ) override;
 
 		static std::shared_ptr < Game > GetInstance( std::shared_ptr < sf::RenderWindow > const& window );
 	private:

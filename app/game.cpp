@@ -6,10 +6,12 @@
 #include "game.hpp"
 #include "state/menu.hpp"
 
+
 namespace app
 {
-	Game::Game( std::shared_ptr < sf::RenderWindow > const& window )
+	Game::Game( std::shared_ptr < sf::RenderWindow > const& window, types::KeysPtr const& keys )
 			: mWindow( window )
+			, mKeys( keys )
 	{
 		mState = state::Menu::GetInstance( window );
 	}
@@ -18,6 +20,9 @@ namespace app
 	{
 		while( mWindow->isOpen())
 		{
+			auto keys = mKeys->Get();
+
+			mState->HandleKeys( keys, this );
 			mState->Draw();
 		}
 	}

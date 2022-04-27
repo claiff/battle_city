@@ -24,11 +24,13 @@ namespace state
 	void Menu::Draw()
 	{
 		mWindow->clear({0xFF,0xFF,0xFF});
+		mWindow->display();
 	}
 
-	void Menu::HandleKeys( types::Keys key, app::Game* game )
+	void Menu::HandleKeys( app::types::Keys key, app::Game* game )
 	{
-		if( key == types::Keys::PushUp )
+		using namespace app::types;
+		if( key == Keys::RealizeUp )
 		{
 			game->ChangeState( Game::GetInstance( mWindow ));
 		}

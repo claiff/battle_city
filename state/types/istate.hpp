@@ -9,18 +9,14 @@
 namespace app
 {
 	class Game;
+	namespace types
+	{
+		enum class Keys;
+	}
 }
 
 namespace state::types
 {
-	enum class Keys
-	{
-		PushUp,
-		RealizeUp,
-		PushUse,
-		RealizeUse,
-	};
-
 	class IState
 	{
 	public:
@@ -33,7 +29,7 @@ namespace state::types
 
 		virtual void Update() = 0;
 		virtual void Draw() = 0;
-		virtual void HandleKeys( Keys key, app::Game* game ) = 0;
+		virtual void HandleKeys( app::types::Keys key, app::Game* game ) = 0;
 	protected:
 		std::shared_ptr < sf::RenderWindow > mWindow;
 	};
