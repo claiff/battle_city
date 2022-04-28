@@ -7,7 +7,7 @@
 namespace resource
 {
 
-	Manager::Manager( sf::Texture const& texture )
+	Manager::Manager( sf::Texture const& texture)
 			: mTexture( texture )
 	{
 

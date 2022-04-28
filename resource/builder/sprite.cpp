@@ -9,11 +9,16 @@
 
 namespace resource::builder
 {
+	Sprite::Sprite( sf::Rect < int > const& window_rect )
+			: mWindow_rect( window_rect )
+	{
+
+	}
 	//
 	// Public methods
 	//
 
-	Manager Sprite::Build()
+	Manager Sprite::Build() const
 	{
 		static const sf::Rect < int > BACKGROUND_RECT = {{336, 0},
 														 {8,   8}};
@@ -39,4 +44,6 @@ namespace resource::builder
 		assert( is_load_file );
 		return result;
 	}
+
+
 }
