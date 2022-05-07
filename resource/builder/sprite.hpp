@@ -12,13 +12,15 @@ namespace resource::builder
 	class Sprite
 	{
 	public:
-		explicit Sprite( sf::Rect < int > const& window_rect );
+		Sprite() = default;
 		~Sprite() = default;
 
 		[[nodiscard]] Manager Build() const;
-		[[nodiscard]] sf::Texture GetTexture() const;
-
 	private:
+		[[nodiscard]] sf::Vector2f GetScale() const;
+		[[nodiscard]] sf::Vector2i GetSpriteSize() const;
+		[[nodiscard]] sf::Vector2i GetWindowSize() const;
+
 		sf::Rect < int > mWindow_rect;
 	};
 }

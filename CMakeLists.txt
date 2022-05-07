@@ -2,28 +2,42 @@ cmake_minimum_required(VERSION 3.22)
 project(battle_city)
 
 set(CMAKE_CXX_STANDARD 23)
+set(APP_DIR app)
+set(RESOURCE_DIR resource)
+set(STATE_DIR state)
+set(LAYER_DIR layer)
 
 add_executable(${PROJECT_NAME}
         main.cpp
-        app/game.cpp
-        app/game.hpp
-        app/builder/window.cpp
-        app/builder/window.hpp
-        state/types/istate.hpp
-        state/game.cpp
-        state/game.hpp
-        state/menu.cpp
-        state/menu.hpp
-        app/keyboard_keys.cpp
-        app/keyboard_keys.hpp
-        app/types/ikeys.hpp
-        layer/types/ilayer.hpp
-        layer/background.cpp
-        layer/background.hpp
-        resource/manager.cpp
-        resource/manager.hpp
-        resource/builder/sprite.cpp
-        resource/builder/sprite.hpp)
+        ${APP_DIR}/game.cpp
+        ${APP_DIR}/game.hpp
+        ${APP_DIR}/builder/window.cpp
+        ${APP_DIR}/builder/window.hpp
+        ${APP_DIR}/keyboard_keys.cpp
+        ${APP_DIR}/keyboard_keys.hpp
+        ${APP_DIR}/types/ikeys.hpp
+
+        ${RESOURCE_DIR}/manager.cpp
+        ${RESOURCE_DIR}/manager.hpp
+        ${RESOURCE_DIR}/ini_reader.cpp
+        ${RESOURCE_DIR}/ini_reader.hpp
+        ${RESOURCE_DIR}/parser.cpp
+        ${RESOURCE_DIR}/parser.hpp
+        ${RESOURCE_DIR}/builder/sprite.cpp
+        ${RESOURCE_DIR}/builder/sprite.hpp
+
+        ${STATE_DIR}/types/istate.hpp
+        ${STATE_DIR}/game.cpp
+        ${STATE_DIR}/game.hpp
+        ${STATE_DIR}/menu.cpp
+        ${STATE_DIR}/menu.hpp
+
+        ${LAYER_DIR}/types/ilayer.hpp
+        ${LAYER_DIR}/background.cpp
+        ${LAYER_DIR}/background.hpp
+
+
+        )
 add_subdirectory(SFML)
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)

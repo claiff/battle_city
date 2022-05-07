@@ -5,6 +5,8 @@
 #include "game.hpp"
 #include "menu.hpp"
 #include "app/types/ikeys.hpp"
+#include "layer/background.hpp"
+#include "resource/builder/sprite.hpp"
 
 namespace state
 {
@@ -13,7 +15,8 @@ namespace state
 	Game::Game( std::shared_ptr < sf::RenderWindow > const& window )
 			: IState( window )
 	{
-
+		auto sprite_manager = resource::builder::Sprite{}.Build();
+		mLayers = std::make_shared < layer::Background >( std::move( sprite_manager ));
 	}
 
 	void Game::Update()
@@ -23,7 +26,12 @@ namespace state
 
 	void Game::Draw()
 	{
-		mWindow->clear( {0x00, 0x00, 0x00} );
+		mWindow->clear( {0xFF, 0xFF, 0xFF} );
+		if( mLayers )
+		{
+			mWindow->draw( *mLayers );
+		}
+
 		mWindow->display();
 	}
 
@@ -37,7 +45,8 @@ namespace state
 		}
 	}
 
-	std::shared_ptr < Game > Game::GetInstance( std::shared_ptr < sf::RenderWindow > const& window )
+	std::shared_ptr < Game >
+	Game::GetInstance( std::shared_ptr < sf::RenderWindow > const& window )
 	{
 		if( !mInstance )
 		{

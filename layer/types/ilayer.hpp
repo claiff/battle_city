@@ -4,13 +4,19 @@
 
 #pragma once
 
+#include <memory>
+
+#include <SFML/Graphics/Drawable.hpp>
+
 namespace layer::types
 {
 	class ILayer
+			: public sf::Drawable
 	{
 	public:
-		virtual ~ILayer() = 0;
+		~ILayer() override = default;
 
-		virtual void Draw() = 0;
 	};
+
+	using LayerPtr = std::shared_ptr < ILayer >;
 }

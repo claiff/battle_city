@@ -21,13 +21,13 @@ namespace resource
 	class Manager
 	{
 	public:
-		explicit Manager( sf::Texture const& texture);
+		explicit Manager( std::string const& texture_path );
 		~Manager() = default;
 
-		void Add( Id id, sf::Rect < int > const& rect_texture );
-		sf::Sprite& Get( Id id );
+		void Add( Id id, sf::Rect < int > const& rect_texture, sf::Vector2f const& scale );
+		sf::Sprite Get( Id id ) const;
 	private:
-		sf::Texture mTexture;
+		std::shared_ptr < sf::Texture > mTexture;
 		std::map < Id, sf::Sprite > mResource;
 	};
 }

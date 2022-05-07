@@ -5,6 +5,8 @@
 
 #pragma once
 
+#include <SFML/Graphics/RenderTarget.hpp>
+
 #include "types/ilayer.hpp"
 #include "resource/manager.hpp"
 
@@ -14,11 +16,13 @@ namespace layer
 			: public types::ILayer
 	{
 	public:
-		explicit Background( resource::Manager const& sprite_manager );
+		explicit Background( const resource::Manager& sprite_manager );
 		~Background() override = default;
-		virtual void Draw() override;
+
+		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;
 	private:
-		resource::Manager  mSpriteManager;
+		resource::Manager mSpriteManager;
+		sf::Vector2f GetScale() const;
 	};
 
 }
