@@ -2,11 +2,7 @@
 // Created by claiff on 27.04.22.
 //
 
-
-
 #include "background.hpp"
-
-#include <utility>
 #include "resource/ini_reader.hpp"
 
 namespace layer
@@ -22,13 +18,20 @@ namespace layer
 	{
 		auto sprite = mSpriteManager.Get( resource::Id::Background );
 
-		auto scale = GetScale();
-		sprite.setScale( scale );
-		sprite.setPosition( {0, 0} );
+		SetScaleOnFullWindow( sprite );
+
 		target.draw( sprite );
 	}
 
-	sf::Vector2f Background::GetScale() const
+	void Background::SetScaleOnFullWindow( sf::Sprite& sprite ) const
+	{
+		auto scale = GetScaleOnWhileWindow();
+		auto default_scale = sprite.getScale();
+		sprite.setScale( {default_scale.x * scale.x, default_scale.y * scale.y} );
+		sprite.setPosition( {0, 0} );
+	}
+
+	sf::Vector2f Background::GetScaleOnWhileWindow() const
 	{
 		auto count_sprite_in_row = std::stoi( resource::IniReader::GetValue( "count_sprite_in_row" ));
 		auto count_sprite_in_column = std::stoi( resource::IniReader::GetValue( "count_sprite_in_column" ));

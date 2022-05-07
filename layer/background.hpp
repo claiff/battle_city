@@ -21,8 +21,10 @@ namespace layer
 
 		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;
 	private:
+		void SetScaleOnFullWindow( sf::Sprite& sprite ) const;
+		[[nodiscard]] sf::Vector2f GetScaleOnWhileWindow() const;
+
 		resource::Manager mSpriteManager;
-		sf::Vector2f GetScale() const;
 	};
 
 }

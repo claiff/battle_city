@@ -24,7 +24,7 @@ namespace resource
 		explicit Manager( std::string const& texture_path );
 		~Manager() = default;
 
-		void Add( Id id, sf::Rect < int > const& rect_texture, sf::Vector2f const& scale );
+		void Add( Id id, sf::IntRect const& rect_texture, sf::Vector2f const& scale );
 		sf::Sprite Get( Id id ) const;
 	private:
 		std::shared_ptr < sf::Texture > mTexture;

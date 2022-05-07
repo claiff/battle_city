@@ -17,8 +17,19 @@ namespace resource::builder
 
 		[[nodiscard]] Manager Build() const;
 	private:
+		/*!
+		\brief Определяет масштабирование спрайта
+		*/
 		[[nodiscard]] sf::Vector2f GetScale() const;
-		[[nodiscard]] sf::Vector2i GetSpriteSize() const;
+
+		/*!
+		\brief Определяет размер спрайта по размеру окна
+		*/
+		[[nodiscard]] sf::Vector2f GetSpriteSizeOnWindow() const;
+
+		/*!
+		\brief Определяет размер окна по файлу settings
+		*/
 		[[nodiscard]] sf::Vector2i GetWindowSize() const;
 
 		sf::Rect < int > mWindow_rect;

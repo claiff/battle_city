@@ -35,20 +35,20 @@ namespace resource::builder
 
 	sf::Vector2f Sprite::GetScale() const
 	{
-		auto sprite_size = GetSpriteSize();
-		auto scale_x = static_cast<float>(sprite_size.x) / DEFAULT_SIZE.x;
-		auto scale_y = static_cast<float>(sprite_size.y) / DEFAULT_SIZE.y;
+		auto sprite_size_on_window = GetSpriteSizeOnWindow();
+		auto scale_x = sprite_size_on_window.x / DEFAULT_SIZE.x;
+		auto scale_y = sprite_size_on_window.y / DEFAULT_SIZE.y;
 		return {scale_x, scale_y};
 	}
 
-	sf::Vector2i Sprite::GetSpriteSize() const
+	sf::Vector2f Sprite::GetSpriteSizeOnWindow() const
 	{
 		auto window_size = GetWindowSize();
 		auto count_sprite_in_row = std::stoi( IniReader::GetValue( "count_sprite_in_row" ));
 		auto count_sprite_in_column = std::stoi( IniReader::GetValue( "count_sprite_in_column" ));
 
-		auto width = window_size.x / count_sprite_in_row;
-		auto height = window_size.y / count_sprite_in_column;
+		auto width = static_cast<float>(window_size.x) / count_sprite_in_row;
+		auto height = static_cast<float>(window_size.y) / count_sprite_in_column;
 		return {width, height};
 	}
 

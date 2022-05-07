@@ -8,12 +8,12 @@ namespace resource
 {
 	Manager::Manager( std::string const& texture_path )
 	{
-		mTexture = std::make_shared <sf::Texture>();
+		mTexture = std::make_shared < sf::Texture >();
 		auto is_load_file = mTexture->loadFromFile( texture_path );
 		assert( is_load_file );
 	}
 
-	void Manager::Add( Id id, const sf::Rect < int >& rect_texture, sf::Vector2f const& scale )
+	void Manager::Add( Id id, sf::IntRect const& rect_texture, sf::Vector2f const& scale )
 	{
 		sf::Sprite sprite;
 		sprite.setTexture( *mTexture );
