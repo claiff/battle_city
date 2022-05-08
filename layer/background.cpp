@@ -14,12 +14,14 @@ namespace layer
 
 	}
 
-	void Background::draw( sf::RenderTarget& target, const sf::RenderStates& states ) const
+	void Background::draw( sf::RenderTarget& target, sf::RenderStates const& states ) const
 	{
+		if( mBase )
+		{
+			mBase->draw( target, states );
+		}
 		auto sprite = mSpriteManager.Get( resource::Id::Background );
-
 		SetScaleOnFullWindow( sprite );
-
 		target.draw( sprite );
 	}
 

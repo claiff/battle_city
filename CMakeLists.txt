@@ -33,6 +33,7 @@ add_executable(${PROJECT_NAME}
         ${STATE_DIR}/menu.hpp
 
         ${LAYER_DIR}/types/ilayer.hpp
+        ${LAYER_DIR}/types/idecorator.hpp
         ${LAYER_DIR}/background.cpp
         ${LAYER_DIR}/background.hpp
         ${LAYER_DIR}/border.cpp

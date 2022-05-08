@@ -7,7 +7,7 @@
 
 namespace layer
 {
-	static const sf::Vector2f ZERO_POSITION = {0,0};
+	static const sf::Vector2f ZERO_POSITION = {0, 0};
 
 	//
 	//Constructors
@@ -25,6 +25,11 @@ namespace layer
 
 	void Border::draw( sf::RenderTarget& target, sf::RenderStates const& states ) const
 	{
+		if( mBase )
+		{
+			mBase->draw( target, states );
+		}
+
 		auto sprite = mSpriteManager.Get( resource::Id::Border );
 
 		DrawHorizontalLines( target, sprite );
@@ -97,7 +102,7 @@ namespace layer
 		return result;
 	}
 
-	sf::Sprite Border::GetSpriteRight(  sf::Sprite const& sprite, int count_sprite_in_column ) const
+	sf::Sprite Border::GetSpriteRight( sf::Sprite const& sprite, int count_sprite_in_column ) const
 	{
 		static constexpr int ZERO_POSITION_Y = 0;
 

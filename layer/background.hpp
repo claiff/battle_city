@@ -8,18 +8,19 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 
 #include "types/ilayer.hpp"
+#include "types/idecorator.hpp"
 #include "resource/manager.hpp"
 
 namespace layer
 {
 	class Background
-			: public types::ILayer
+			: public types::IDecorator < types::ILayer >
 	{
 	public:
-		explicit Background( const resource::Manager& sprite_manager );
+		explicit Background( resource::Manager const& sprite_manager );
 		~Background() override = default;
 
-		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;
+		void draw( sf::RenderTarget& target, sf::RenderStates const& states ) const override;
 	private:
 		void SetScaleOnFullWindow( sf::Sprite& sprite ) const;
 		[[nodiscard]] sf::Vector2f GetScaleOnWhileWindow() const;

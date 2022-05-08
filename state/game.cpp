@@ -18,7 +18,11 @@ namespace state
 	{
 		auto sprite_manager = resource::builder::Sprite{}.Build();
 		//mLayers = std::make_shared < layer::Background >( std::move( sprite_manager ));
-		mLayers = std::make_shared < layer::Border >( std::move( sprite_manager ));
+		//mLayers = std::make_shared < layer::Border >( std::move( sprite_manager ));
+		//mLayers.
+		auto layers = std::make_shared < layer::Border >( sprite_manager );
+		layers->Apply( std::make_shared < layer::Background >( sprite_manager ));
+		mLayers = layers;
 	}
 
 	void Game::Update()

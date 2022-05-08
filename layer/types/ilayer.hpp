@@ -6,16 +6,17 @@
 
 #include <memory>
 
-#include <SFML/Graphics/Drawable.hpp>
+#include <SFML/include/SFML/Graphics/Drawable.hpp>
 
 namespace layer::types
 {
-	class ILayer
-			: public sf::Drawable
+class ILayer : public sf::Drawable
 	{
 	public:
 		~ILayer() override = default;
 
+		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override
+		{}
 	};
 
 	using LayerPtr = std::shared_ptr < ILayer >;
