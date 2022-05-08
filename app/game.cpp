@@ -5,7 +5,11 @@
 
 #include "game.hpp"
 #include "state/menu.hpp"
+#include "state/game.hpp"
 
+#include <utility>
+#include "layer/background.hpp"
+#include "resource/manager.hpp"
 
 namespace app
 {
@@ -13,7 +17,8 @@ namespace app
 			: mWindow( window )
 			, mKeys( keys )
 	{
-		mState = state::Menu::GetInstance( window );
+
+		mState = state::Game::GetInstance( window );
 	}
 
 	void Game::Run()

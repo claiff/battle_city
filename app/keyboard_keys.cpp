@@ -44,7 +44,6 @@ namespace app
 						mWindow->close();
 					}
 					break;
-
 			}
 
 
