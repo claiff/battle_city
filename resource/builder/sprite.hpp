@@ -20,7 +20,7 @@ namespace resource::builder
 		/*!
 		\brief Определяет масштабирование спрайта
 		*/
-		[[nodiscard]] sf::Vector2f GetScale() const;
+		[[nodiscard]] sf::Vector2f GetScale( sf::Vector2i const& sprite_size ) const;
 
 		/*!
 		\brief Определяет размер спрайта по размеру окна

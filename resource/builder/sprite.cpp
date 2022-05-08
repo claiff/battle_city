@@ -19,13 +19,15 @@ namespace resource::builder
 
 		static const sf::Vector2i BACKGROUND_POSITION = {336, 0};
 		static const sf::Vector2i BORDER_POSITION = {368, 0};
+		static const sf::Vector2i PLAYER_POSITION = {1, 2};
+		static const sf::Vector2i PLAYER_SIZE = {13, 13};
 		static const std::string TEXTURE_PATH = "../../battle_city/media/general_sprites.png";
 
 		Manager result{TEXTURE_PATH};
-		auto scale = GetScale();
 
-		result.Add( resource::Id::Background, {BACKGROUND_POSITION, DEFAULT_SIZE}, scale );
-		result.Add( resource::Id::Border, {BORDER_POSITION, DEFAULT_SIZE}, scale );
+		result.Add( resource::Id::Background, {BACKGROUND_POSITION, DEFAULT_SIZE}, GetScale( DEFAULT_SIZE ));
+		result.Add( resource::Id::Border, {BORDER_POSITION, DEFAULT_SIZE}, GetScale( DEFAULT_SIZE ) );
+		result.Add( resource::Id::Player, {PLAYER_POSITION, PLAYER_SIZE}, GetScale( PLAYER_SIZE ) );
 		return result;
 	}
 
@@ -33,11 +35,11 @@ namespace resource::builder
 	// Private methods
 	//
 
-	sf::Vector2f Sprite::GetScale() const
+	sf::Vector2f Sprite::GetScale( sf::Vector2i const& sprite_size ) const
 	{
 		auto sprite_size_on_window = GetSpriteSizeOnWindow();
-		auto scale_x = sprite_size_on_window.x / DEFAULT_SIZE.x;
-		auto scale_y = sprite_size_on_window.y / DEFAULT_SIZE.y;
+		auto scale_x = sprite_size_on_window.x / sprite_size.x;
+		auto scale_y = sprite_size_on_window.y / sprite_size.y;
 		return {scale_x, scale_y};
 	}
 

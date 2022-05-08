@@ -17,9 +17,22 @@ namespace state
 			: IState( window )
 	{
 		auto sprite_manager = resource::builder::Sprite{}.Build();
-		auto layers = std::make_shared < layer::Border >( sprite_manager );
-		layers->Apply( std::make_shared < layer::Background >( sprite_manager ));
+		ApplyLayers( sprite_manager );
+		ApplyPlayer( sprite_manager );
+	}
+
+	void Game::ApplyLayers( resource::Manager const& manager )
+	{
+
+		auto layers = std::make_shared < layer::Border >( manager );
+		layers->Apply( std::make_shared < layer::Background >( manager ));
 		mLayers = layers;
+	}
+
+	void Game::ApplyPlayer( resource::Manager const& manager )
+	{
+		auto sprite = manager.Get( resource::Id::Player );
+		mPlayer = std::make_shared < entity::Player >( sprite );
 	}
 
 	void Game::Update()
@@ -34,6 +47,10 @@ namespace state
 		{
 			mWindow->draw( *mLayers );
 		}
+		if( mPlayer )
+		{
+			mWindow->draw( *mPlayer );
+		}
 
 		mWindow->display();
 	}
@@ -42,9 +59,27 @@ namespace state
 	{
 		using namespace app::types;
 
-		if( key == Keys::RealizeUp )
+		if( key == Keys::PushUp )
 		{
-			game->ChangeState( Menu::GetInstance( mWindow ));
+			auto position = mPlayer->GetPosition();
+			position.y -= 50;
+			auto collisions = mLayers->GetCollisions( position );
+			if( collisions.empty())
+			{
+				mPlayer->Move( {0, -50} );
+			}
+		}
+		if( key == Keys::PushDown )
+		{
+			mPlayer->Move( {0, 50} );
+		}
+		if( key == Keys::PushLeft )
+		{
+			mPlayer->Move( {-50, 0} );
+		}
+		if( key == Keys::PushRight )
+		{
+			mPlayer->Move( {50, 0} );
 		}
 	}
 

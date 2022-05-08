@@ -6,6 +6,7 @@ set(APP_DIR app)
 set(RESOURCE_DIR resource)
 set(STATE_DIR state)
 set(LAYER_DIR layer)
+set(ENTITY_DIR entity)
 
 add_executable(${PROJECT_NAME}
         main.cpp
@@ -37,7 +38,11 @@ add_executable(${PROJECT_NAME}
         ${LAYER_DIR}/background.cpp
         ${LAYER_DIR}/background.hpp
         ${LAYER_DIR}/border.cpp
-        ${LAYER_DIR}/border.hpp)
+        ${LAYER_DIR}/border.hpp
+
+        ${ENTITY_DIR}/player.cpp
+        ${ENTITY_DIR}/player.hpp
+        ${ENTITY_DIR}/types/ientity.hpp)
 add_subdirectory(SFML)
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)
