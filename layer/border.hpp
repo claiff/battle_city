@@ -17,10 +17,11 @@ namespace layer
 			: public types::IDecorator < types::ILayer >
 	{
 	public:
-		explicit Border(  resource::Manager const& sprite_manager );
+		explicit Border( resource::Manager const& sprite_manager );
 		~Border() override = default;
 
 		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;
+		types::CollisionsSet GetCollisions( const sf::Vector2f& position ) override;
 	private:
 		void DrawHorizontalLines( sf::RenderTarget& target, sf::Sprite const& sprite ) const;
 		sf::Sprite GetSpriteUp( sf::Sprite const& sprite, int count_sprite_in_row ) const;
@@ -28,6 +29,7 @@ namespace layer
 		void DrawVerticalLines( sf::RenderTarget& target, sf::Sprite const& sprite ) const;
 		sf::Sprite GetSpriteLeft( sf::Sprite const& sprite, int count_sprite_in_column ) const;
 		sf::Sprite GetSpriteRight( sf::Sprite const& sprite, int count_sprite_in_column ) const;
+		sf::Rect < float > GetRectContainer() const;
 
 		resource::Manager mSpriteManager;
 	};

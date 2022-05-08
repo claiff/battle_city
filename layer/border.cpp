@@ -38,6 +38,23 @@ namespace layer
 		target.draw( sprite );
 	}
 
+	types::CollisionsSet Border::GetCollisions( sf::Vector2f const& position )
+	{
+		types::CollisionsSet result;
+		if( mBase )
+		{
+			result = mBase->GetCollisions( position );
+		}
+
+		auto rect = GetRectContainer();
+		if( !rect.contains( position ))
+		{
+			result.push_back( this );
+		}
+
+		return result;
+	}
+
 	//
 	//Private methods
 	//
@@ -113,6 +130,22 @@ namespace layer
 
 		result.setPosition( {sprite_x, ZERO_POSITION_Y} );
 		result.setScale( {init_scale.x, init_scale.y * count_sprite_in_column} );
+
+		return result;
+	}
+
+	sf::Rect < float > Border::GetRectContainer() const
+	{
+		sf::Rect < float > result;
+		auto sprite = mSpriteManager.Get( resource::Id::Border );
+		auto window_width = std::stoi( resource::IniReader::GetValue( "default_window_width" ));
+		auto height_width = std::stoi( resource::IniReader::GetValue( "default_window_height" ));
+		auto init_scale = sprite.getScale();
+
+		result.left = sprite.getTextureRect().width * init_scale.x;
+		result.width = window_width - 2 * result.left;
+		result.top = result.left;
+		result.height = height_width - 2 * result.left;
 
 		return result;
 	}

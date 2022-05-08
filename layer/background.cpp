@@ -8,11 +8,19 @@
 namespace layer
 {
 
+	//
+	//Constructors
+	//
+
 	Background::Background( resource::Manager const& sprite_manager )
 			: mSpriteManager( sprite_manager )
 	{
 
 	}
+
+	//
+	//Public methods
+	//
 
 	void Background::draw( sf::RenderTarget& target, sf::RenderStates const& states ) const
 	{
@@ -24,6 +32,20 @@ namespace layer
 		SetScaleOnFullWindow( sprite );
 		target.draw( sprite );
 	}
+
+	types::CollisionsSet Background::GetCollisions(  sf::Vector2f const& position )
+	{
+		types::CollisionsSet result;
+		if( mBase )
+		{
+			result = mBase->GetCollisions( position );
+		}
+		return result;
+	}
+
+	//
+	//Private methods
+	//
 
 	void Background::SetScaleOnFullWindow( sf::Sprite& sprite ) const
 	{

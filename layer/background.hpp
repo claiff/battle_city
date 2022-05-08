@@ -21,6 +21,7 @@ namespace layer
 		~Background() override = default;
 
 		void draw( sf::RenderTarget& target, sf::RenderStates const& states ) const override;
+		virtual types::CollisionsSet GetCollisions( const sf::Vector2f& position ) override;
 	private:
 		void SetScaleOnFullWindow( sf::Sprite& sprite ) const;
 		[[nodiscard]] sf::Vector2f GetScaleOnWhileWindow() const;
