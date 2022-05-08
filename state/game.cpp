@@ -6,6 +6,7 @@
 #include "menu.hpp"
 #include "app/types/ikeys.hpp"
 #include "layer/background.hpp"
+#include "layer/border.hpp"
 #include "resource/builder/sprite.hpp"
 
 namespace state
@@ -16,7 +17,8 @@ namespace state
 			: IState( window )
 	{
 		auto sprite_manager = resource::builder::Sprite{}.Build();
-		mLayers = std::make_shared < layer::Background >( std::move( sprite_manager ));
+		//mLayers = std::make_shared < layer::Background >( std::move( sprite_manager ));
+		mLayers = std::make_shared < layer::Border >( std::move( sprite_manager ));
 	}
 
 	void Game::Update()

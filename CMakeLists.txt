@@ -35,9 +35,8 @@ add_executable(${PROJECT_NAME}
         ${LAYER_DIR}/types/ilayer.hpp
         ${LAYER_DIR}/background.cpp
         ${LAYER_DIR}/background.hpp
-
-
-        )
+        ${LAYER_DIR}/border.cpp
+        ${LAYER_DIR}/border.hpp)
 add_subdirectory(SFML)
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)
