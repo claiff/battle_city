@@ -9,17 +9,14 @@
 namespace entity
 {
 
-	Player::Player( sf::Sprite const& view )
+	Player::Player( sf::Sprite const& view, layer::types::LayerPtr const& layers, MovementInfo const& move_info )
 			: mView( view )
+			, mLayers( layers )
 	{
-		mView.setPosition( {200, 200} );
-	}
-
-	void Player::Move( sf::Vector2f const& step )
-	{
-		auto position = mView.getPosition();
-		position += step;
-		mView.setPosition( position );
+		mTimerPolicy = std::make_shared < utils::TimerPolicy >( move_info.period_ms );
+		mStepMove = move_info.step;
+		mDirection = types::Direction::Up;
+		mIsMove = false;
 	}
 
 	void Player::Fire()
@@ -35,5 +32,72 @@ namespace entity
 	sf::Vector2f Player::GetPosition() const
 	{
 		return mView.getPosition();
+	}
+
+	void Player::StartMove( types::Direction direction )
+	{
+		mDirection = direction;
+		//TODO Сделать через политику таймера
+		// вариант к политике притянуть декоратор отключения/включения
+		mIsMove = true;
+	}
+
+	void Player::StopMove()
+	{
+		mIsMove = false;
+	}
+
+	void Player::Move( const sf::Vector2f& step )
+	{
+		auto position = mView.getPosition();
+		position += step;
+		mView.setPosition( position );
+	}
+
+	void Player::Update()
+	{
+		if( !mIsMove || !mTimerPolicy->IsTime())
+		{
+			return;
+		}
+
+		auto step = GetStepOnDirection();
+		if( IsEnableStep( step ))
+		{
+			Move( step );
+		}
+
+	}
+
+	sf::Vector2f Player::GetStepOnDirection() const noexcept
+	{
+		static constexpr int ZERO_STEP = 0;
+
+		sf::Vector2f result;
+		switch( mDirection )
+		{
+			case types::Direction::Up:
+				result = {ZERO_STEP, -mStepMove};
+				break;
+			case types::Direction::Down:
+				result = {ZERO_STEP, mStepMove};
+				break;
+			case types::Direction::Left:
+				result = {-mStepMove, ZERO_STEP};
+				break;
+			case types::Direction::Right:
+				result = {mStepMove, ZERO_STEP};
+				break;
+			default:
+				result = {};
+		}
+		return result;
+	}
+
+	bool Player::IsEnableStep( sf::Vector2f const& step ) const noexcept
+	{
+		auto position = mView.getPosition() + step;
+		auto collisions = mLayers->GetCollisions( position );
+		return collisions.empty();
 	}
 }

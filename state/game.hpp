@@ -31,10 +31,13 @@ namespace state
 	private:
 		void ApplyLayers( resource::Manager const& manager );
 		void ApplyPlayer( resource::Manager const& manager );
-		static std::shared_ptr < Game > mInstance;
+		void DrawLayers();
+		void DrawPlayer();
 
+		static std::shared_ptr < Game > mInstance;
 		layer::types::LayerPtr mLayers;
 		entity::types::IEntityPtr mPlayer;
+		bool IsKeyRealized( const app::types::Keys& key ) const noexcept;
 	};
 }
 

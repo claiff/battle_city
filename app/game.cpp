@@ -19,6 +19,7 @@ namespace app
 	{
 
 		mState = state::Game::GetInstance( window );
+		mWindow->setKeyRepeatEnabled( false );
 	}
 
 	void Game::Run()
@@ -28,6 +29,7 @@ namespace app
 			auto keys = mKeys->Get();
 
 			mState->HandleKeys( keys, this );
+			mState->Update();
 			mState->Draw();
 		}
 	}

@@ -13,6 +13,10 @@ namespace state
 {
 	std::shared_ptr < Game > Game::mInstance = nullptr;
 
+	//
+	//Constructors
+	//
+
 	Game::Game( std::shared_ptr < sf::RenderWindow > const& window )
 			: IState( window )
 	{
@@ -23,7 +27,6 @@ namespace state
 
 	void Game::ApplyLayers( resource::Manager const& manager )
 	{
-
 		auto layers = std::make_shared < layer::Border >( manager );
 		layers->Apply( std::make_shared < layer::Background >( manager ));
 		mLayers = layers;
@@ -32,27 +35,39 @@ namespace state
 	void Game::ApplyPlayer( resource::Manager const& manager )
 	{
 		auto sprite = manager.Get( resource::Id::Player );
-		mPlayer = std::make_shared < entity::Player >( sprite );
+		sprite.setPosition( {200, 200} );
+		mPlayer = std::make_shared < entity::Player >( sprite, mLayers, entity::MovementInfo{5, 50} );
 	}
 
 	void Game::Update()
 	{
-
+		mPlayer->Update();
 	}
 
 	void Game::Draw()
 	{
 		mWindow->clear( {0xFF, 0xFF, 0xFF} );
+
+		DrawLayers();
+		DrawPlayer();
+
+		mWindow->display();
+	}
+
+	void Game::DrawLayers()
+	{
 		if( mLayers )
 		{
 			mWindow->draw( *mLayers );
 		}
+	}
+
+	void Game::DrawPlayer()
+	{
 		if( mPlayer )
 		{
 			mWindow->draw( *mPlayer );
 		}
-
-		mWindow->display();
 	}
 
 	void Game::HandleKeys( app::types::Keys key, app::Game* game )
@@ -61,26 +76,32 @@ namespace state
 
 		if( key == Keys::PushUp )
 		{
-			auto position = mPlayer->GetPosition();
-			position.y -= 50;
-			auto collisions = mLayers->GetCollisions( position );
-			if( collisions.empty())
-			{
-				mPlayer->Move( {0, -50} );
-			}
+			mPlayer->StartMove( entity::types::Direction::Up );
 		}
 		if( key == Keys::PushDown )
 		{
-			mPlayer->Move( {0, 50} );
+			mPlayer->StartMove( entity::types::Direction::Down );
 		}
 		if( key == Keys::PushLeft )
 		{
-			mPlayer->Move( {-50, 0} );
+			mPlayer->StartMove( entity::types::Direction::Left );
 		}
 		if( key == Keys::PushRight )
 		{
-			mPlayer->Move( {50, 0} );
+			mPlayer->StartMove( entity::types::Direction::Right );
 		}
+		if( IsKeyRealized( key ))
+		{
+			mPlayer->StopMove();
+		}
+
+	}
+
+	bool Game::IsKeyRealized( const app::types::Keys& key ) const noexcept
+	{
+		using namespace app::types;
+		return key == Keys::RealizeUp || key == Keys::RealizeDown || key == Keys::RealizeRight ||
+			   key == Keys::RealizeLeft;
 	}
 
 	std::shared_ptr < Game >
