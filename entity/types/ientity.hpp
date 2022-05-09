@@ -10,6 +10,14 @@
 
 namespace entity::types
 {
+	enum class Direction
+	{
+		Up,
+		Down,
+		Right,
+		Left
+	};
+
 	class IEntity
 			: public sf::Drawable
 	{
@@ -19,6 +27,9 @@ namespace entity::types
 		virtual void Move( sf::Vector2f const& step ) = 0;
 		virtual sf::Vector2f GetPosition() const = 0;
 		virtual void Fire() = 0;
+		virtual void Update() = 0;
+		virtual void StartMove( Direction direction ) =0;
+		virtual void StopMove( ) =0;
 	};
 
 	using IEntityPtr = std::shared_ptr < IEntity >;
