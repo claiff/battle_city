@@ -42,8 +42,12 @@ namespace entity
 		mIsMove = true;
 	}
 
-	void Player::StopMove()
+	void Player::StopMove( types::Direction direction )
 	{
+		if( direction != mDirection )
+		{
+			return;
+		}
 		mIsMove = false;
 	}
 

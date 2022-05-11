@@ -33,11 +33,14 @@ namespace state
 		void ApplyPlayer( resource::Manager const& manager );
 		void DrawLayers();
 		void DrawPlayer();
+		[[nodiscard]] bool IsKeyPushed( app::types::Keys key ) const noexcept;
+		entity::types::Direction ConvertKeysToDirection( app::types::Keys key ) const noexcept;
+		[[nodiscard]] bool IsKeyRealized( const app::types::Keys& key ) const noexcept;
 
 		static std::shared_ptr < Game > mInstance;
 		layer::types::LayerPtr mLayers;
 		entity::types::IEntityPtr mPlayer;
-		bool IsKeyRealized( const app::types::Keys& key ) const noexcept;
+
 	};
 }
 
