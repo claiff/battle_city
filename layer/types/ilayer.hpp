@@ -25,7 +25,7 @@ namespace layer::types
 		{
 		}
 
-		[[nodiscard]] virtual CollisionsSet GetCollisions( sf::Vector2f const& position ) = 0;
+		[[nodiscard]] virtual CollisionsSet GetCollisions( sf::Rect<float> const& rect ) = 0;
 	};
 
 
