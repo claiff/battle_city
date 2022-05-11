@@ -28,8 +28,8 @@ namespace entity::types
 		virtual sf::Vector2f GetPosition() const = 0;
 		virtual void Fire() = 0;
 		virtual void Update() = 0;
-		virtual void StartMove( Direction direction ) =0;
-		virtual void StopMove( ) =0;
+		virtual void StartMove( Direction direction ) = 0;
+		virtual void StopMove( Direction direction ) = 0;
 	};
 
 	using IEntityPtr = std::shared_ptr < IEntity >;

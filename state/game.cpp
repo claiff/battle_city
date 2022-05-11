@@ -72,29 +72,47 @@ namespace state
 
 	void Game::HandleKeys( app::types::Keys key, app::Game* game )
 	{
+		entity::types::Direction direction;
+		if( IsKeyPushed( key ))
+		{
+			direction = ConvertKeysToDirection( key );
+			mPlayer->StartMove( direction );
+		}
+		else if( IsKeyRealized( key ))
+		{
+			direction = ConvertKeysToDirection( key );
+			mPlayer->StopMove( direction );
+		}
+	}
+
+	bool Game::IsKeyPushed( app::types::Keys key ) const noexcept
+	{
 		using namespace app::types;
+		return key == Keys::PushUp || key == Keys::PushDown || key == Keys::PushLeft || key == Keys::PushRight;
+	}
 
-		if( key == Keys::PushUp )
-		{
-			mPlayer->StartMove( entity::types::Direction::Up );
-		}
-		if( key == Keys::PushDown )
-		{
-			mPlayer->StartMove( entity::types::Direction::Down );
-		}
-		if( key == Keys::PushLeft )
-		{
-			mPlayer->StartMove( entity::types::Direction::Left );
-		}
-		if( key == Keys::PushRight )
-		{
-			mPlayer->StartMove( entity::types::Direction::Right );
-		}
-		if( IsKeyRealized( key ))
-		{
-			mPlayer->StopMove();
-		}
+	entity::types::Direction Game::ConvertKeysToDirection( app::types::Keys key ) const noexcept
+	{
+		using namespace app::types;
+		using namespace entity::types;
 
+		switch( key )
+		{
+			case Keys::PushUp :
+			case Keys::RealizeUp :
+				return Direction::Up;
+			case Keys::PushDown:
+			case Keys::RealizeDown:
+				return Direction::Down;
+			case Keys::PushLeft:
+			case Keys::RealizeLeft:
+				return Direction::Left;
+			case Keys::PushRight:
+			case Keys::RealizeRight:
+				return Direction::Right;
+			default:
+				return Direction::Up;
+		}
 	}
 
 	bool Game::IsKeyRealized( const app::types::Keys& key ) const noexcept

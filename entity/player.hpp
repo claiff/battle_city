@@ -29,7 +29,7 @@ namespace entity
 		~Player() override = default;
 
 		void StartMove( types::Direction direction ) override;
-		void StopMove( ) override;
+		void StopMove( types::Direction direction ) override;
 		void Move( const sf::Vector2f& step ) override;
 		void Fire() override;
 		sf::Vector2f GetPosition() const override;
