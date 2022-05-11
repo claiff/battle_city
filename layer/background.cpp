@@ -33,12 +33,12 @@ namespace layer
 		target.draw( sprite );
 	}
 
-	types::CollisionsSet Background::GetCollisions(  sf::Vector2f const& position )
+	types::CollisionsSet Background::GetCollisions(  sf::Rect<float> const& rect )
 	{
 		types::CollisionsSet result;
 		if( mBase )
 		{
-			result = mBase->GetCollisions( position );
+			result = mBase->GetCollisions( rect );
 		}
 		return result;
 	}

@@ -100,8 +100,16 @@ namespace entity
 
 	bool Player::IsEnableStep( sf::Vector2f const& step ) const noexcept
 	{
-		auto position = mView.getPosition() + step;
-		auto collisions = mLayers->GetCollisions( position );
+		auto rect = GetPlayerRect( step );
+		auto collisions = mLayers->GetCollisions( rect );
 		return collisions.empty();
+	}
+
+	sf::Rect < float > Player::GetPlayerRect( sf::Vector2f const& step ) const noexcept
+	{
+		sf::Vector2f position{mView.getPosition().x + step.x, mView.getPosition().y + step.y};
+		sf::Vector2f size{static_cast<float>(mView.getTextureRect().width * mView.getScale().x ),
+						  static_cast<float>(mView.getTextureRect().height * mView.getScale().y)};
+		return {position, size};
 	}
 }

@@ -21,7 +21,7 @@ namespace layer
 		~Border() override = default;
 
 		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;
-		types::CollisionsSet GetCollisions( const sf::Vector2f& position ) override;
+		types::CollisionsSet GetCollisions( sf::Rect<float> const& rect ) override;
 	private:
 		void DrawHorizontalLines( sf::RenderTarget& target, sf::Sprite const& sprite ) const;
 		sf::Sprite GetSpriteUp( sf::Sprite const& sprite, int count_sprite_in_row ) const;
@@ -32,6 +32,10 @@ namespace layer
 		sf::Rect < float > GetRectContainer() const;
 
 		resource::Manager mSpriteManager;
+		bool IsRightSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const;
+		bool IsDownSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const;
+		bool IsUpSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const;
+		bool IsLeftSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const;
 	};
 
 }

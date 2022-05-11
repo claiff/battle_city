@@ -40,6 +40,8 @@ namespace entity
 	private:
 		sf::Vector2f GetStepOnDirection() const noexcept;
 		bool IsEnableStep( sf::Vector2f const& step ) const noexcept;
+		sf::Rect < float > GetPlayerRect( sf::Vector2f const& step ) const noexcept;
+
 		sf::Sprite mView;
 		utils::types::IPolicyPtr mTimerPolicy;
 		float mStepMove;

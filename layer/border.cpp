@@ -38,21 +38,43 @@ namespace layer
 		target.draw( sprite );
 	}
 
-	types::CollisionsSet Border::GetCollisions( sf::Vector2f const& position )
+	types::CollisionsSet Border::GetCollisions( sf::Rect < float > const& rect )
 	{
 		types::CollisionsSet result;
 		if( mBase )
 		{
-			result = mBase->GetCollisions( position );
+			result = mBase->GetCollisions( rect );
 		}
 
-		auto rect = GetRectContainer();
-		if( !rect.contains( position ))
+		auto background_rect = GetRectContainer();
+		if( IsRightSideOut( rect, background_rect ) ||
+			IsDownSideOut( rect, background_rect ) ||
+			IsUpSideOut( rect, background_rect ) ||
+			IsLeftSideOut( rect, background_rect ))
 		{
 			result.push_back( this );
 		}
-
 		return result;
+	}
+
+	bool Border::IsLeftSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const
+	{
+		return rect.left < background_rect.left;
+	}
+
+	bool Border::IsUpSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const
+	{
+		return rect.top < background_rect.top;
+	}
+
+	bool Border::IsDownSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const
+	{
+		return rect.top + rect.height > background_rect.top + background_rect.height;
+	}
+
+	bool Border::IsRightSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const
+	{
+		return rect.left + rect.width > background_rect.left + background_rect.width;
 	}
 
 	//
