@@ -38,7 +38,7 @@ namespace layer
 		target.draw( sprite );
 	}
 
-	types::CollisionsSet Border::GetCollisions( sf::Rect < float > const& rect )
+	types::CollisionsSet Border::GetCollisions( sf::FloatRect const& rect )
 	{
 		types::CollisionsSet result;
 		if( mBase )
@@ -55,26 +55,6 @@ namespace layer
 			result.push_back( this );
 		}
 		return result;
-	}
-
-	bool Border::IsLeftSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const
-	{
-		return rect.left < background_rect.left;
-	}
-
-	bool Border::IsUpSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const
-	{
-		return rect.top < background_rect.top;
-	}
-
-	bool Border::IsDownSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const
-	{
-		return rect.top + rect.height > background_rect.top + background_rect.height;
-	}
-
-	bool Border::IsRightSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const
-	{
-		return rect.left + rect.width > background_rect.left + background_rect.width;
 	}
 
 	//
@@ -156,7 +136,7 @@ namespace layer
 		return result;
 	}
 
-	sf::Rect < float > Border::GetRectContainer() const
+	sf::FloatRect Border::GetRectContainer() const
 	{
 		sf::Rect < float > result;
 		auto sprite = mSpriteManager.Get( resource::Id::Border );
@@ -170,5 +150,28 @@ namespace layer
 		result.height = height_width - 2 * result.left;
 
 		return result;
+	}
+
+	bool
+	Border::IsLeftSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept
+	{
+		return rect.left < background_rect.left;
+	}
+
+	bool Border::IsUpSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept
+	{
+		return rect.top < background_rect.top;
+	}
+
+	bool
+	Border::IsDownSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept
+	{
+		return rect.top + rect.height > background_rect.top + background_rect.height;
+	}
+
+	bool
+	Border::IsRightSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept
+	{
+		return rect.left + rect.width > background_rect.left + background_rect.width;
 	}
 }
