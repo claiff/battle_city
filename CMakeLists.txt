@@ -27,6 +27,8 @@ add_executable(${PROJECT_NAME}
         ${RESOURCE_DIR}/parser.hpp
         ${RESOURCE_DIR}/builder/sprite.cpp
         ${RESOURCE_DIR}/builder/sprite.hpp
+        ${RESOURCE_DIR}/rect_sprite.cpp
+        ${RESOURCE_DIR}/rect_sprite.hpp
 
         ${STATE_DIR}/types/istate.hpp
         ${STATE_DIR}/game.cpp

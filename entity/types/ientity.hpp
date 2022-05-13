@@ -24,7 +24,6 @@ namespace entity::types
 	public:
 		~IEntity() override = default;
 
-		virtual void Move( sf::Vector2f const& step ) = 0;
 		virtual sf::Vector2f GetPosition() const = 0;
 		virtual void Fire() = 0;
 		virtual void Update() = 0;

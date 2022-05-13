@@ -15,7 +15,7 @@ namespace resource
 
 	void Manager::Add( Id id, sf::IntRect const& rect_texture, sf::Vector2f const& scale )
 	{
-		sf::Sprite sprite;
+		RectSprite sprite;
 		sprite.setTexture( *mTexture );
 		sprite.setTextureRect( rect_texture );
 		sprite.setScale( scale );
@@ -23,7 +23,7 @@ namespace resource
 		assert( result.second );
 	}
 
-	sf::Sprite Manager::Get( Id id ) const
+	RectSprite Manager::Get( Id id ) const
 	{
 		auto find = mResource.find( id );
 		if( find == mResource.end())

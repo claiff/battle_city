@@ -8,6 +8,8 @@
 #include "layer/background.hpp"
 #include "layer/border.hpp"
 #include "resource/builder/sprite.hpp"
+#include "resource/rect_sprite.hpp"
+#include <SFML/Graphics/RectangleShape.hpp>
 
 namespace state
 {
@@ -35,7 +37,8 @@ namespace state
 	void Game::ApplyPlayer( resource::Manager const& manager )
 	{
 		auto sprite = manager.Get( resource::Id::Player );
-		sprite.setPosition( {900, 200} );
+		sprite.setPosition( {700, 200} );
+
 		mPlayer = std::make_shared < entity::Player >( sprite, mLayers, entity::MovementInfo{5, 50} );
 	}
 

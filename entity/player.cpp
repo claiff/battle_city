@@ -8,30 +8,30 @@
 
 namespace entity
 {
+	//
+	//Constructors
+	//
 
-	Player::Player( sf::Sprite const& view, layer::types::LayerPtr const& layers, MovementInfo const& move_info )
+	Player::Player( resource::RectSprite const& view, layer::types::LayerPtr const& layers,
+					MovementInfo const& move_info )
 			: mView( view )
 			, mLayers( layers )
+			, mTimerPolicy( std::make_shared < utils::TimerPolicy >( move_info.period_ms ))
+			, mStepMove( move_info.step )
+			, mDirection( types::Direction::Up )
+			, mIsMove( false )
 	{
-		mTimerPolicy = std::make_shared < utils::TimerPolicy >( move_info.period_ms );
-		mStepMove = move_info.step;
-		mDirection = types::Direction::Up;
-		mIsMove = false;
+		FixSprite();
+		ApplyRotation();
 	}
+
+	//
+	//Public methods
+	//
 
 	void Player::Fire()
 	{
 
-	}
-
-	void Player::draw( sf::RenderTarget& target, sf::RenderStates const& states ) const
-	{
-		target.draw( mView );
-	}
-
-	sf::Vector2f Player::GetPosition() const
-	{
-		return mView.getPosition();
 	}
 
 	void Player::StartMove( types::Direction direction )
@@ -51,11 +51,9 @@ namespace entity
 		mIsMove = false;
 	}
 
-	void Player::Move( const sf::Vector2f& step )
+	sf::Vector2f Player::GetPosition() const
 	{
-		auto position = mView.getPosition();
-		position += step;
-		mView.setPosition( position );
+		return mView.getPosition();
 	}
 
 	void Player::Update()
@@ -65,22 +63,46 @@ namespace entity
 			return;
 		}
 
+		ApplyRotation();
+		ApplyMovement();
+	}
+
+	void Player::draw( sf::RenderTarget& target, sf::RenderStates const& states ) const
+	{
+		target.draw( mView );
+	}
+
+	//
+	//Private methods
+	//
+
+	void Player::FixSprite()
+	{
+		sf::Vector2f center_point = {static_cast<float>(mView.getTextureRect().width / 2),
+									 static_cast<float>(mView.getTextureRect().height / 2)};
+		mView.setOrigin( center_point );
+		mView.move( {static_cast<float>(center_point.x * mView.getScale().x),
+					 static_cast<float>(center_point.y * mView.getScale().y)} );
+	}
+
+	void Player::ApplyRotation()
+	{
 		auto angle_on_direction = ConvertDirectionToAngle( mDirection );
-		auto default_rotate = mView.getRotation();
-
-		if( angle_on_direction != default_rotate )
+		if( angle_on_direction != mView.getRotation())
 		{
-			auto rotate = angle_on_direction - default_rotate;
-			mView.setRotation( rotate );
-			return;
+			mView.setRotation( angle_on_direction );
 		}
+	}
 
+	void Player::ApplyMovement()
+	{
 		auto step = GetStepOnDirection();
 		if( IsEnableStep( step ))
 		{
-			Move( step );
+			mView.move( step );
 		}
 	}
+
 
 	sf::Angle Player::ConvertDirectionToAngle( types::Direction direction ) const noexcept
 	{
@@ -133,10 +155,10 @@ namespace entity
 
 	sf::FloatRect Player::GetPlayerRect( sf::Vector2f const& step ) const noexcept
 	{
+		sf::Vector2f origin = {mView.getOrigin().x * mView.getScale().x, mView.getOrigin().y * mView.getScale().y};
 		sf::Vector2f position{mView.getPosition().x + step.x, mView.getPosition().y + step.y};
-		sf::Vector2f size{static_cast<float>(mView.getTextureRect().width * mView.getScale().x ),
-						  static_cast<float>(mView.getTextureRect().height * mView.getScale().y)};
-		return {position, size};
+		sf::Vector2f size = mView.GetSize();
+		return {position - origin, size};
 	}
 
 

@@ -160,7 +160,7 @@ namespace layer
 
 	bool Border::IsUpSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept
 	{
-		return rect.top < background_rect.top;
+			return rect.top < background_rect.top;
 	}
 
 	bool
