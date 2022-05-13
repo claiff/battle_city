@@ -14,9 +14,13 @@ namespace layer
 	//
 
 	Border::Border( resource::Manager const& sprite_manager )
-			: mSpriteManager( sprite_manager )
 	{
+		auto sprite = sprite_manager.Get( resource::Id::Border );
+		ApplyBorderUp( sprite );
 
+		ApplyBorderDown( sprite );
+		ApplyBorderLeft( sprite );
+		ApplyBorderRight( sprite );
 	}
 
 	//
@@ -30,12 +34,10 @@ namespace layer
 			mBase->draw( target, states );
 		}
 
-		auto sprite = mSpriteManager.Get( resource::Id::Border );
-
-		DrawHorizontalLines( target, sprite );
-		DrawVerticalLines( target, sprite );
-
-		target.draw( sprite );
+		target.draw( mUp );
+		target.draw( mRight );
+		target.draw( mDown );
+		target.draw( mLeft );
 	}
 
 	types::CollisionsSet Border::GetCollisions( sf::FloatRect const& rect )
@@ -45,133 +47,121 @@ namespace layer
 		{
 			result = mBase->GetCollisions( rect );
 		}
-
-		auto background_rect = GetRectContainer();
-		if( IsRightSideOut( rect, background_rect ) ||
-			IsDownSideOut( rect, background_rect ) ||
-			IsUpSideOut( rect, background_rect ) ||
-			IsLeftSideOut( rect, background_rect ))
+		if( GetIntersection( mUp, rect ) ||
+			GetIntersection( mRight, rect ) ||
+			GetIntersection( mDown, rect ) ||
+			GetIntersection( mLeft, rect ))
 		{
 			result.push_back( this );
 		}
+
 		return result;
+	}
+
+	bool Border::GetIntersection( sf::RectangleShape const& border, sf::FloatRect const& rect ) const
+	{
+		auto bounds = border.getGlobalBounds();
+		return bounds.findIntersection( rect ) ? true : false;
 	}
 
 	//
 	//Private methods
 	//
-
-	void Border::DrawHorizontalLines( sf::RenderTarget& target, sf::Sprite const& sprite ) const
+	void Border::ApplyBorderUp( sf::Sprite const& sprite )
 	{
-		auto count_sprite_in_row = std::stoi( resource::IniReader::GetValue( "count_sprite_in_row" ));
-
-		auto sprite_up = GetSpriteUp( sprite, count_sprite_in_row );
-		auto sprite_down = GetSpriteDown( sprite, count_sprite_in_row );
-
-		target.draw( sprite_up );
-		target.draw( sprite_down );
+		mUp.setPosition( ZERO_POSITION );
+		mUp.setSize( GetSizeUpBorder( sprite ));
+		ApplyTexture( mUp, sprite );
 	}
 
-	sf::Sprite Border::GetSpriteUp( sf::Sprite const& sprite, int count_sprite_in_row ) const
+	sf::Vector2f Border::GetSizeUpBorder( const sf::Sprite& sprite ) const
 	{
-		auto result = sprite;
-		auto init_scale = sprite.getScale();
-
-		result.setScale( {init_scale.x * count_sprite_in_row, init_scale.y} );
-		result.setPosition( ZERO_POSITION );
-
-		return result;
+		auto window_size = GetWindowSize();
+		auto y = sprite.getTextureRect().height * sprite.getScale().y;
+		return {window_size.x, y};
 	}
 
-	sf::Sprite
-	Border::GetSpriteDown( sf::Sprite const& sprite, int count_sprite_in_row ) const
+	void Border::ApplyBorderRight( sf::Sprite const& sprite )
 	{
-		static constexpr int ZERO_POSITION_X = 0;
+		//TODO выпилить
+		auto position = GetPositionRightBorder( sprite );
+		auto size = GetSizeRightBorder( position, sprite );
 
-		auto height_width = std::stoi( resource::IniReader::GetValue( "default_window_height" ));
-		auto result = sprite;
-		auto init_scale = sprite.getScale();
-		float sprite_y = height_width - result.getTextureRect().height * init_scale.y;
-
-		result.setScale( {init_scale.x * count_sprite_in_row, init_scale.y} );
-		result.setPosition( {ZERO_POSITION_X, sprite_y} );
-
-		return result;
+		mRight.setPosition( position );
+		mRight.setSize( size );
+		ApplyTexture( mRight, sprite );
 	}
 
-	void Border::DrawVerticalLines( sf::RenderTarget& target, sf::Sprite const& sprite ) const
-	{
-		auto count_sprite_in_column = std::stoi( resource::IniReader::GetValue( "count_sprite_in_column" ));
-
-		auto sprite_left = GetSpriteLeft( sprite, count_sprite_in_column );
-		auto sprite_right = GetSpriteRight( sprite, count_sprite_in_column );
-
-		target.draw( sprite_left );
-		target.draw( sprite_right );
-	}
-
-	sf::Sprite Border::GetSpriteLeft( sf::Sprite const& sprite, int count_sprite_in_column ) const
-	{
-		auto result = sprite;
-		auto init_scale = sprite.getScale();
-
-		result.setPosition( ZERO_POSITION );
-		result.setScale( {init_scale.x, init_scale.y * count_sprite_in_column} );
-
-		return result;
-	}
-
-	sf::Sprite Border::GetSpriteRight( sf::Sprite const& sprite, int count_sprite_in_column ) const
+	sf::Vector2f Border::GetPositionRightBorder( sf::Sprite const& sprite ) const
 	{
 		static constexpr int ZERO_POSITION_Y = 0;
 
-		auto window_width = std::stoi( resource::IniReader::GetValue( "default_window_width" ));
-		auto result = sprite;
+		auto window_size = GetWindowSize();
 		auto init_scale = sprite.getScale();
-		float sprite_x = window_width - sprite.getTextureRect().width * init_scale.x;
-
-		result.setPosition( {sprite_x, ZERO_POSITION_Y} );
-		result.setScale( {init_scale.x, init_scale.y * count_sprite_in_column} );
-
-		return result;
+		float x = window_size.x - sprite.getTextureRect().width * init_scale.x;
+		return {x, ZERO_POSITION_Y};
 	}
 
-	sf::FloatRect Border::GetRectContainer() const
+	sf::Vector2f Border::GetSizeRightBorder( sf::Vector2f const& position, sf::Sprite const& sprite ) const
 	{
-		sf::Rect < float > result;
-		auto sprite = mSpriteManager.Get( resource::Id::Border );
-		auto window_width = std::stoi( resource::IniReader::GetValue( "default_window_width" ));
-		auto height_width = std::stoi( resource::IniReader::GetValue( "default_window_height" ));
+		auto window_size = GetWindowSize();
+		auto x = window_size.x - position.x;
+		return {x, window_size.y};
+	}
+
+	void Border::ApplyBorderDown( sf::Sprite const& sprite )
+	{
+		auto position = GetPositionDownBorder( sprite );
+		auto size = GetSizeDownBorder( position, sprite );
+
+		mDown.setPosition( position );
+		mDown.setSize( size );
+		ApplyTexture( mDown, sprite );
+	}
+
+	sf::Vector2f Border::GetPositionDownBorder( sf::Sprite const& sprite ) const
+	{
+		static constexpr int ZERO_POSITION_X = 0;
+
+		auto window_size = GetWindowSize();
 		auto init_scale = sprite.getScale();
-
-		result.left = sprite.getTextureRect().width * init_scale.x;
-		result.width = window_width - 2 * result.left;
-		result.top = result.left;
-		result.height = height_width - 2 * result.left;
-
-		return result;
+		float y = window_size.y - sprite.getTextureRect().height * init_scale.y;
+		return {ZERO_POSITION_X, y};
 	}
 
-	bool
-	Border::IsLeftSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept
+	sf::Vector2f Border::GetSizeDownBorder( const sf::Vector2f& position, const sf::Sprite& sprite ) const
 	{
-		return rect.left < background_rect.left;
+		auto window_size = GetWindowSize();
+		auto y = window_size.y - position.y;
+		return {window_size.x, y};
 	}
 
-	bool Border::IsUpSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept
+	void Border::ApplyBorderLeft( sf::Sprite const& sprite )
 	{
-			return rect.top < background_rect.top;
+		mLeft.setPosition( ZERO_POSITION );
+		mLeft.setSize( GetSizeLeftBorder( sprite ));
+		ApplyTexture( mLeft, sprite );
 	}
 
-	bool
-	Border::IsDownSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept
+	sf::Vector2f Border::GetSizeLeftBorder( sf::Sprite const& sprite ) const
 	{
-		return rect.top + rect.height > background_rect.top + background_rect.height;
+		auto window_size = GetWindowSize();
+		auto x = sprite.getTextureRect().width * sprite.getScale().x;
+		return {x, window_size.y};
 	}
 
-	bool
-	Border::IsRightSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept
+	void Border::ApplyTexture( sf::RectangleShape& rect_shape, const sf::Sprite& sprite )
 	{
-		return rect.left + rect.width > background_rect.left + background_rect.width;
+		rect_shape.setTexture( sprite.getTexture());
+		rect_shape.setTextureRect( sprite.getTextureRect());
 	}
+
+	sf::Vector2f Border::GetWindowSize() const
+	{
+		auto window_width = std::stof( resource::IniReader::GetValue( "default_window_width" ));
+		auto window_height = std::stof( resource::IniReader::GetValue( "default_window_height" ));
+		return {window_width, window_height};
+	}
+
+
 }
