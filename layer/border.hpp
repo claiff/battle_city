@@ -6,6 +6,7 @@
 #pragma once
 
 #include <SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include "types/ilayer.hpp"
 #include "types/idecorator.hpp"
@@ -23,19 +24,29 @@ namespace layer
 		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;
 		types::CollisionsSet GetCollisions( sf::FloatRect const& rect ) override;
 	private:
-		void DrawHorizontalLines( sf::RenderTarget& target, sf::Sprite const& sprite ) const;
-		sf::Sprite GetSpriteUp( sf::Sprite const& sprite, int count_sprite_in_row ) const;
-		sf::Sprite GetSpriteDown( sf::Sprite const& sprite, int count_sprite_in_row ) const;
-		void DrawVerticalLines( sf::RenderTarget& target, sf::Sprite const& sprite ) const;
-		sf::Sprite GetSpriteLeft( sf::Sprite const& sprite, int count_sprite_in_column ) const;
-		sf::Sprite GetSpriteRight( sf::Sprite const& sprite, int count_sprite_in_column ) const;
-		sf::FloatRect GetRectContainer() const;
-		bool IsRightSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept;
-		bool IsDownSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept;
-		bool IsUpSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept;
-		bool IsLeftSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept;
+		void ApplyBorderUp( sf::Sprite const& sprite );
+		sf::Vector2f GetSizeUpBorder( sf::Sprite const& sprite ) const;
 
-		resource::Manager mSpriteManager;
+		void ApplyBorderRight( sf::Sprite const& sprite );
+		sf::Vector2f GetPositionRightBorder( sf::Sprite const& sprite ) const;
+		sf::Vector2f GetSizeRightBorder( sf::Vector2f const& position, sf::Sprite const& sprite ) const;
+
+		void ApplyBorderDown( sf::Sprite const& sprite );
+		sf::Vector2f GetPositionDownBorder( sf::Sprite const& sprite ) const;
+		sf::Vector2f GetSizeDownBorder( sf::Vector2f const& position, sf::Sprite const& sprite ) const;
+
+		void ApplyBorderLeft( sf::Sprite const& sprite );
+		sf::Vector2f GetSizeLeftBorder( sf::Sprite const& sprite ) const;
+
+		void ApplyTexture( sf::RectangleShape& rect_shape, sf::Sprite const& sprite );
+		sf::Vector2f GetWindowSize() const;
+
+		bool GetIntersection( sf::RectangleShape const& border, sf::FloatRect const& rect ) const;
+
+		sf::RectangleShape mUp;
+		sf::RectangleShape mRight;
+		sf::RectangleShape mDown;
+		sf::RectangleShape mLeft;
 	};
 
 }

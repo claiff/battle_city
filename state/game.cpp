@@ -37,13 +37,13 @@ namespace state
 	void Game::ApplyPlayer( resource::Manager const& manager )
 	{
 		auto sprite = manager.Get( resource::Id::Player );
-		sprite.setPosition( {700, 200} );
 
 		sf::RectangleShape rect;
 		rect.setTexture( sprite.getTexture());
 		rect.setPosition( {700, 200} );
 		rect.setTextureRect( sprite.getTextureRect());
-		rect.setSize( sprite.GetSize());
+		rect.setSize( {static_cast<float>(sprite.getTextureRect().width * sprite.getScale().x),
+					   static_cast<float>(sprite.getTextureRect().height) * sprite.getScale().y} );
 
 		mPlayer = std::make_shared < entity::Player >( rect, mLayers, entity::MovementInfo{5, 50} );
 	}
