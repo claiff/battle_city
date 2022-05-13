@@ -39,7 +39,13 @@ namespace state
 		auto sprite = manager.Get( resource::Id::Player );
 		sprite.setPosition( {700, 200} );
 
-		mPlayer = std::make_shared < entity::Player >( sprite, mLayers, entity::MovementInfo{5, 50} );
+		sf::RectangleShape rect;
+		rect.setTexture( sprite.getTexture());
+		rect.setPosition( {700, 200} );
+		rect.setTextureRect( sprite.getTextureRect());
+		rect.setSize( sprite.GetSize());
+
+		mPlayer = std::make_shared < entity::Player >( rect, mLayers, entity::MovementInfo{5, 50} );
 	}
 
 	void Game::Update()

@@ -24,7 +24,7 @@ namespace entity
 			: public types::IEntity
 	{
 	public:
-		Player( resource::RectSprite const& view, layer::types::LayerPtr const& layers, MovementInfo const& move_info );
+		Player( sf::RectangleShape const& view, layer::types::LayerPtr const& layers, MovementInfo const& move_info );
 		~Player() override = default;
 
 		void Fire() override;
@@ -42,9 +42,9 @@ namespace entity
 		sf::Vector2f GetStepOnDirection() const noexcept;
 		bool IsEnableStep( sf::Vector2f const& step ) const noexcept;
 		sf::FloatRect GetPlayerRect( sf::Vector2f const& step ) const noexcept;
-		sf::Angle ConvertDirectionToAngle(types::Direction direction) const noexcept;
+		sf::Angle ConvertDirectionToAngle( types::Direction direction ) const noexcept;
 
-		resource::RectSprite mView;
+		sf::RectangleShape mView;
 		utils::types::IPolicyPtr mTimerPolicy;
 		float mStepMove;
 		types::Direction mDirection;

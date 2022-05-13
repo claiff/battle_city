@@ -12,7 +12,7 @@ namespace entity
 	//Constructors
 	//
 
-	Player::Player( resource::RectSprite const& view, layer::types::LayerPtr const& layers,
+	Player::Player( sf::RectangleShape const& view, layer::types::LayerPtr const& layers,
 					MovementInfo const& move_info )
 			: mView( view )
 			, mLayers( layers )
@@ -78,11 +78,7 @@ namespace entity
 
 	void Player::FixSprite()
 	{
-		sf::Vector2f center_point = {static_cast<float>(mView.getTextureRect().width / 2),
-									 static_cast<float>(mView.getTextureRect().height / 2)};
-		mView.setOrigin( center_point );
-		mView.move( {static_cast<float>(center_point.x * mView.getScale().x),
-					 static_cast<float>(center_point.y * mView.getScale().y)} );
+		mView.setOrigin( mView.getSize() / 2.f );
 	}
 
 	void Player::ApplyRotation()
@@ -157,7 +153,7 @@ namespace entity
 	{
 		sf::Vector2f origin = {mView.getOrigin().x * mView.getScale().x, mView.getOrigin().y * mView.getScale().y};
 		sf::Vector2f position{mView.getPosition().x + step.x, mView.getPosition().y + step.y};
-		sf::Vector2f size = mView.GetSize();
+		sf::Vector2f size = mView.getSize();
 		return {position - origin, size};
 	}
 
