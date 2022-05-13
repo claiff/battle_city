@@ -8,30 +8,30 @@
 
 namespace entity
 {
+	//
+	//Constructors
+	//
 
-	Player::Player( sf::Sprite const& view, layer::types::LayerPtr const& layers, MovementInfo const& move_info )
+	Player::Player( sf::RectangleShape const& view, layer::types::LayerPtr const& layers,
+					MovementInfo const& move_info )
 			: mView( view )
 			, mLayers( layers )
+			, mTimerPolicy( std::make_shared < utils::TimerPolicy >( move_info.period_ms ))
+			, mStepMove( move_info.step )
+			, mDirection( types::Direction::Up )
+			, mIsMove( false )
 	{
-		mTimerPolicy = std::make_shared < utils::TimerPolicy >( move_info.period_ms );
-		mStepMove = move_info.step;
-		mDirection = types::Direction::Up;
-		mIsMove = false;
+		FixSprite();
+		ApplyRotation();
 	}
+
+	//
+	//Public methods
+	//
 
 	void Player::Fire()
 	{
 
-	}
-
-	void Player::draw( sf::RenderTarget& target, sf::RenderStates const& states ) const
-	{
-		target.draw( mView );
-	}
-
-	sf::Vector2f Player::GetPosition() const
-	{
-		return mView.getPosition();
 	}
 
 	void Player::StartMove( types::Direction direction )
@@ -51,11 +51,9 @@ namespace entity
 		mIsMove = false;
 	}
 
-	void Player::Move( const sf::Vector2f& step )
+	sf::Vector2f Player::GetPosition() const
 	{
-		auto position = mView.getPosition();
-		position += step;
-		mView.setPosition( position );
+		return mView.getPosition();
 	}
 
 	void Player::Update()
@@ -65,12 +63,58 @@ namespace entity
 			return;
 		}
 
+		ApplyRotation();
+		ApplyMovement();
+	}
+
+	void Player::draw( sf::RenderTarget& target, sf::RenderStates const& states ) const
+	{
+		target.draw( mView );
+	}
+
+	//
+	//Private methods
+	//
+
+	void Player::FixSprite()
+	{
+		mView.setOrigin( mView.getSize() / 2.f );
+	}
+
+	void Player::ApplyRotation()
+	{
+		auto angle_on_direction = ConvertDirectionToAngle( mDirection );
+		if( angle_on_direction != mView.getRotation())
+		{
+			mView.setRotation( angle_on_direction );
+		}
+	}
+
+	void Player::ApplyMovement()
+	{
 		auto step = GetStepOnDirection();
 		if( IsEnableStep( step ))
 		{
-			Move( step );
+			mView.move( step );
 		}
+	}
 
+
+	sf::Angle Player::ConvertDirectionToAngle( types::Direction direction ) const noexcept
+	{
+		switch( direction )
+		{
+			case types::Direction::Up :
+				return sf::degrees( 0 );
+			case types::Direction::Right :
+				return sf::degrees( 90 );
+			case types::Direction::Down :
+				return sf::degrees( 180 );
+			case types::Direction::Left :
+				return sf::degrees( 270 );
+			default:
+				return sf::degrees( 0 );
+		}
 	}
 
 	sf::Vector2f Player::GetStepOnDirection() const noexcept
@@ -105,11 +149,13 @@ namespace entity
 		return collisions.empty();
 	}
 
-	sf::Rect < float > Player::GetPlayerRect( sf::Vector2f const& step ) const noexcept
+	sf::FloatRect Player::GetPlayerRect( sf::Vector2f const& step ) const noexcept
 	{
+		sf::Vector2f origin = {mView.getOrigin().x * mView.getScale().x, mView.getOrigin().y * mView.getScale().y};
 		sf::Vector2f position{mView.getPosition().x + step.x, mView.getPosition().y + step.y};
-		sf::Vector2f size{static_cast<float>(mView.getTextureRect().width * mView.getScale().x ),
-						  static_cast<float>(mView.getTextureRect().height * mView.getScale().y)};
-		return {position, size};
+		sf::Vector2f size = mView.getSize();
+		return {position - origin, size};
 	}
+
+
 }

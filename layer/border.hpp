@@ -21,7 +21,7 @@ namespace layer
 		~Border() override = default;
 
 		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;
-		types::CollisionsSet GetCollisions( sf::Rect<float> const& rect ) override;
+		types::CollisionsSet GetCollisions( sf::FloatRect const& rect ) override;
 	private:
 		void DrawHorizontalLines( sf::RenderTarget& target, sf::Sprite const& sprite ) const;
 		sf::Sprite GetSpriteUp( sf::Sprite const& sprite, int count_sprite_in_row ) const;
@@ -29,13 +29,13 @@ namespace layer
 		void DrawVerticalLines( sf::RenderTarget& target, sf::Sprite const& sprite ) const;
 		sf::Sprite GetSpriteLeft( sf::Sprite const& sprite, int count_sprite_in_column ) const;
 		sf::Sprite GetSpriteRight( sf::Sprite const& sprite, int count_sprite_in_column ) const;
-		sf::Rect < float > GetRectContainer() const;
+		sf::FloatRect GetRectContainer() const;
+		bool IsRightSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept;
+		bool IsDownSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept;
+		bool IsUpSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept;
+		bool IsLeftSideOut( sf::FloatRect const& rect, sf::FloatRect const& background_rect ) const noexcept;
 
 		resource::Manager mSpriteManager;
-		bool IsRightSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const;
-		bool IsDownSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const;
-		bool IsUpSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const;
-		bool IsLeftSideOut( const sf::Rect < float >& rect, const sf::Rect < float >& background_rect ) const;
 	};
 
 }

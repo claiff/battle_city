@@ -8,7 +8,8 @@
 #include <map>
 
 #include <SFML/Graphics/Texture.hpp>
-#include <SFML/Graphics/Sprite.hpp>
+
+#include "rect_sprite.hpp"
 
 namespace resource
 {
@@ -26,9 +27,9 @@ namespace resource
 		~Manager() = default;
 
 		void Add( Id id, sf::IntRect const& rect_texture, sf::Vector2f const& scale = {1, 1} );
-		sf::Sprite Get( Id id ) const;
+		RectSprite Get( Id id ) const;
 	private:
 		std::shared_ptr < sf::Texture > mTexture;
-		std::map < Id, sf::Sprite > mResource;
+		std::map < Id, RectSprite > mResource;
 	};
 }

@@ -12,6 +12,7 @@
 namespace layer::types
 {
 	class ILayer;
+
 	using LayerPtr = std::shared_ptr < ILayer >;
 	using CollisionsSet = std::vector < ILayer* >;
 
@@ -21,11 +22,11 @@ namespace layer::types
 	public:
 		~ILayer() override = default;
 
-		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override
+		void draw( sf::RenderTarget& target, sf::RenderStates const& states ) const override
 		{
 		}
 
-		[[nodiscard]] virtual CollisionsSet GetCollisions( sf::Rect<float> const& rect ) = 0;
+		[[nodiscard]] virtual CollisionsSet GetCollisions( sf::FloatRect const& rect ) = 0;
 	};
 
 
