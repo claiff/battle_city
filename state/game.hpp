@@ -30,7 +30,6 @@ namespace state
 		GetInstance( std::shared_ptr < sf::RenderWindow > const& window );
 	private:
 		void ApplyLayers( resource::Manager const& manager );
-		void ApplyPlayer( resource::Manager const& manager );
 		void DrawLayers();
 		void DrawPlayer();
 		[[nodiscard]] bool IsKeyPushed( app::types::Keys key ) const noexcept;
@@ -41,6 +40,7 @@ namespace state
 		layer::types::LayerPtr mLayers;
 		entity::types::IEntityPtr mPlayer;
 
+		sf::RectangleShape GetPlayerShape( const sf::Sprite& sprite ) const;
 	};
 }
 

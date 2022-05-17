@@ -9,13 +9,13 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "types/ilayer.hpp"
-#include "types/idecorator.hpp"
+#include "utils/types/idecorator.hpp"
 #include "resource/manager.hpp"
 
 namespace layer
 {
 	class Border
-			: public types::IDecorator < types::ILayer >
+			: public utils::types::IDecorator < types::ILayer >
 	{
 	public:
 		explicit Border( resource::Manager const& sprite_manager );

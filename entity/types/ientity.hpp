@@ -7,6 +7,7 @@
 #include <memory>
 
 #include <SFML/include/SFML/Graphics/Drawable.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 namespace entity::types
 {
@@ -24,11 +25,15 @@ namespace entity::types
 	public:
 		~IEntity() override = default;
 
-		virtual sf::Vector2f GetPosition() const = 0;
 		virtual void Fire() = 0;
 		virtual void Update() = 0;
 		virtual void StartMove( Direction direction ) = 0;
 		virtual void StopMove( Direction direction ) = 0;
+
+	public:
+		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override
+		{
+		}
 	};
 
 	using IEntityPtr = std::shared_ptr < IEntity >;

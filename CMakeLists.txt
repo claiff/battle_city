@@ -27,8 +27,6 @@ add_executable(${PROJECT_NAME}
         ${RESOURCE_DIR}/parser.hpp
         ${RESOURCE_DIR}/builder/sprite.cpp
         ${RESOURCE_DIR}/builder/sprite.hpp
-        ${RESOURCE_DIR}/rect_sprite.cpp
-        ${RESOURCE_DIR}/rect_sprite.hpp
 
         ${STATE_DIR}/types/istate.hpp
         ${STATE_DIR}/game.cpp
@@ -37,7 +35,6 @@ add_executable(${PROJECT_NAME}
         ${STATE_DIR}/menu.hpp
 
         ${LAYER_DIR}/types/ilayer.hpp
-        ${LAYER_DIR}/types/idecorator.hpp
         ${LAYER_DIR}/background.cpp
         ${LAYER_DIR}/background.hpp
         ${LAYER_DIR}/border.cpp
@@ -46,12 +43,18 @@ add_executable(${PROJECT_NAME}
         ${ENTITY_DIR}/player.cpp
         ${ENTITY_DIR}/player.hpp
         ${ENTITY_DIR}/types/ientity.hpp
+        ${ENTITY_DIR}/player_builder.cpp
+        ${ENTITY_DIR}/player_builder.hpp
+        ${ENTITY_DIR}/animate_rectangle_shape.cpp
+        ${ENTITY_DIR}/animate_rectangle_shape.hpp
 
         ${UTILS_DIR}/timer_policy.cpp
         ${UTILS_DIR}/timer_policy.hpp
         ${UTILS_DIR}/types/ipolicy.hpp
-
-        )
+        ${UTILS_DIR}/types/idecorator.hpp
+        ${UTILS_DIR}/types/registrator.hpp
+        ${UTILS_DIR}/consistent_registrator.hpp
+)
 add_subdirectory(SFML)
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)
