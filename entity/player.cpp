@@ -13,12 +13,14 @@ namespace entity
 	//Constructors
 	//
 
-	Player::Player( AnimateRectangleShape const& view, layer::types::LayerPtr const& layers,
-					MovementInfo const& move_info )
+	Player::Player( AnimateRectangleShape const& view, builder::Projectile const& projectile_builder,
+					layer::types::LayerPtr const& layers,
+					types::MovementInfo const& move_info )
 			:
 			mView( view )
+			, mProjectileBuilder( projectile_builder )
 			, mLayers( layers )
-			, mTimerPolicy( std::make_shared < utils::TimerPolicy >( move_info.period_ms ))
+			, mMovementPolicy( std::make_shared < utils::TimerPolicy >( move_info.period_ms ))
 			, mStepMove( move_info.step )
 			, mDirection( types::Direction::Up )
 			, mIsMove( false )
@@ -32,7 +34,10 @@ namespace entity
 
 	void Player::Fire()
 	{
-
+		auto position = mView.GetPlayerRect().getPosition();
+		auto direction = ConvertAngleToDirection( mView.GetRotation());
+		auto projectile = mProjectileBuilder.Build( position, direction );
+		mProjectiles.push_back( projectile );
 	}
 
 	void Player::StartMove( types::Direction direction )
@@ -56,18 +61,40 @@ namespace entity
 
 	void Player::Update()
 	{
-		if( !mIsMove || !mTimerPolicy->IsTime())
+		ApplyProjectiles();
+		if( !mIsMove || !mMovementPolicy->IsTime())
 		{
 			return;
 		}
 
 		ApplyRotation();
-		ApplyMovement();
+		ApplyPlayerMovement();
+	}
+
+	void Player::ApplyProjectiles()
+	{
+		for( auto it = mProjectiles.begin(); it != mProjectiles.end(); ++it )
+		{
+			auto rect = it->GetRect();
+			auto collisions = mLayers->GetCollisions( rect );
+			if( collisions.empty())
+			{
+				it->Update();
+			}
+			else
+			{
+				it = mProjectiles.erase( it );
+			}
+		}
 	}
 
 	void Player::draw( sf::RenderTarget& target, sf::RenderStates const& states ) const
 	{
 		target.draw( mView );
+		for( const auto& projectile: mProjectiles )
+		{
+			target.draw( projectile );
+		}
 	}
 
 	//
@@ -83,7 +110,7 @@ namespace entity
 		}
 	}
 
-	void Player::ApplyMovement()
+	void Player::ApplyPlayerMovement()
 	{
 		auto step = GetStepOnDirection();
 		if( IsEnableStep( step ))
@@ -107,6 +134,23 @@ namespace entity
 				return sf::degrees( 270 );
 			default:
 				return sf::degrees( 0 );
+		}
+	}
+
+	types::Direction Player::ConvertAngleToDirection( sf::Angle angle ) const noexcept
+	{
+		switch( static_cast<int>(angle.asDegrees()))
+		{
+			case 0 :
+				return types::Direction::Up;
+			case 90:
+				return types::Direction::Right;
+			case 180:
+				return types::Direction::Down;
+			case 270:
+				return types::Direction::Left;
+			default:
+				return types::Direction::Up;
 		}
 	}
 
@@ -143,4 +187,6 @@ namespace entity
 		auto collisions = mLayers->GetCollisions( rect );
 		return collisions.empty();
 	}
+
+
 }

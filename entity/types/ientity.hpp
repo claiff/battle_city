@@ -19,21 +19,19 @@ namespace entity::types
 		Left
 	};
 
+	struct MovementInfo
+	{
+		float step;
+		unsigned int period_ms;
+	};
+
 	class IEntity
 			: public sf::Drawable
 	{
 	public:
 		~IEntity() override = default;
 
-		virtual void Fire() = 0;
 		virtual void Update() = 0;
-		virtual void StartMove( Direction direction ) = 0;
-		virtual void StopMove( Direction direction ) = 0;
-
-	public:
-		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override
-		{
-		}
 	};
 
 	using IEntityPtr = std::shared_ptr < IEntity >;

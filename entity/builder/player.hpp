@@ -5,19 +5,19 @@
 
 #pragma once
 
-#include "types/ientity.hpp"
+#include "entity/types/itank_entity.hpp"
 #include "resource/manager.hpp"
 #include "layer/types/ilayer.hpp"
 
-namespace entity
+namespace entity::builder
 {
-	class PlayerBuilder
+	class Player
 	{
 	public:
-		PlayerBuilder() = default;
-		~PlayerBuilder() = default;
+		Player() = default;
+		~Player() = default;
 
-		[[nodiscard]] types::IEntityPtr
+		[[nodiscard]] types::ITankEntityPtr
 		Build( resource::Manager const& manager, layer::types::LayerPtr const& collisions ) const;
 
 	private:
