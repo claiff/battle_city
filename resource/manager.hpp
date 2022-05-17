@@ -17,7 +17,8 @@ namespace resource
 		Background,
 		Border,
 		PlayerYellow_1,
-		PlayerYellow_2
+		PlayerYellow_2,
+		Projectile
 	};
 
 	class Manager

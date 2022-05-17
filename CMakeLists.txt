@@ -43,10 +43,15 @@ add_executable(${PROJECT_NAME}
         ${ENTITY_DIR}/player.cpp
         ${ENTITY_DIR}/player.hpp
         ${ENTITY_DIR}/types/ientity.hpp
-        ${ENTITY_DIR}/player_builder.cpp
-        ${ENTITY_DIR}/player_builder.hpp
+        ${ENTITY_DIR}/types/itank_entity.hpp
+        ${ENTITY_DIR}/builder/player.cpp
+        ${ENTITY_DIR}/builder/player.hpp
+        ${ENTITY_DIR}/builder/projectile.cpp
+        ${ENTITY_DIR}/builder/projectile.hpp
         ${ENTITY_DIR}/animate_rectangle_shape.cpp
         ${ENTITY_DIR}/animate_rectangle_shape.hpp
+        ${ENTITY_DIR}/projectile.cpp
+        ${ENTITY_DIR}/projectile.hpp
 
         ${UTILS_DIR}/timer_policy.cpp
         ${UTILS_DIR}/timer_policy.hpp

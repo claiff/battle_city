@@ -5,25 +5,23 @@
 
 #pragma once
 
-#include "types/ientity.hpp"
+#include <list>
+
+#include "types/itank_entity.hpp"
 #include "utils/timer_policy.hpp"
 #include "layer/types/ilayer.hpp"
 #include "animate_rectangle_shape.hpp"
+#include "builder/projectile.hpp"
 
 namespace entity
 {
-	struct MovementInfo
-	{
-		float step;
-		unsigned int period_ms;
-	};
-
 	class Player
-			: public types::IEntity
+			: public types::ITankEntity
 	{
 	public:
-		Player( AnimateRectangleShape const& view, layer::types::LayerPtr const& layers,
-				MovementInfo const& move_info );
+		Player( AnimateRectangleShape const& view, builder::Projectile const& projectile_builder,
+				layer::types::LayerPtr const& layers,
+				types::MovementInfo const& move_info );
 		~Player() override = default;
 
 		void Fire() override;
@@ -33,18 +31,22 @@ namespace entity
 
 		void draw( sf::RenderTarget& target, sf::RenderStates const& states ) const override;
 	private:
+		void ApplyProjectiles();
 		void ApplyRotation();
-		void ApplyMovement();
+		void ApplyPlayerMovement();
 		sf::Vector2f GetStepOnDirection() const noexcept;
 		bool IsEnableStep( sf::Vector2f const& step ) const noexcept;
 		sf::Angle ConvertDirectionToAngle( types::Direction direction ) const noexcept;
+		types::Direction ConvertAngleToDirection( sf::Angle angle ) const noexcept;
 
-		utils::types::IPolicyPtr mTimerPolicy;
+		utils::types::IPolicyPtr mMovementPolicy;
 		float mStepMove;
 		types::Direction mDirection;
 		bool mIsMove;
 		layer::types::LayerPtr mLayers;
 		AnimateRectangleShape mView;
+		builder::Projectile mProjectileBuilder;
+		std::list < Projectile > mProjectiles;
 	};
 }
 

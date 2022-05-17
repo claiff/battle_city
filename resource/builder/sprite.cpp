@@ -21,6 +21,8 @@ namespace resource::builder
 		static const sf::Vector2i BORDER_POSITION = {368, 0};
 		static const sf::Vector2i PLAYER_ANIM_1_POSITION = {1, 2};
 		static const sf::Vector2i PLAYER_ANIM_2_POSITION = {17, 2};
+		static const sf::Vector2i PROJECTILE_POSITION = {323, 102};
+		static const sf::Vector2i PROJECTILE_SIZE = {3, 4};
 		static const sf::Vector2i PLAYER_SIZE = {13, 13};
 		static const std::string TEXTURE_PATH = "../../battle_city/media/general_sprites.png";
 
@@ -30,6 +32,7 @@ namespace resource::builder
 		result.Add( resource::Id::Border, {BORDER_POSITION, DEFAULT_SIZE}, GetScale( DEFAULT_SIZE ) );
 		result.Add( resource::Id::PlayerYellow_1, {PLAYER_ANIM_1_POSITION, PLAYER_SIZE}, GetScale( PLAYER_SIZE ) );
 		result.Add( resource::Id::PlayerYellow_2, {PLAYER_ANIM_2_POSITION, PLAYER_SIZE}, GetScale( PLAYER_SIZE ) );
+		result.Add( resource::Id::Projectile, {PROJECTILE_POSITION, PROJECTILE_SIZE}, GetScale( PROJECTILE_SIZE ) );
 		return result;
 	}
 

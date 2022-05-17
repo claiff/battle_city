@@ -2,15 +2,13 @@
 // Created by claiff on 26.04.22.
 //
 
-#include <SFML/Graphics/RectangleShape.hpp>
-
 #include "game.hpp"
 #include "menu.hpp"
 #include "app/types/ikeys.hpp"
 #include "layer/background.hpp"
 #include "layer/border.hpp"
 #include "resource/builder/sprite.hpp"
-#include "entity/player_builder.hpp"
+#include "entity/builder/player.hpp"
 
 namespace state
 {
@@ -25,7 +23,7 @@ namespace state
 	{
 		auto sprite_manager = resource::builder::Sprite{}.Build();
 		ApplyLayers( sprite_manager );
-		mPlayer = entity::PlayerBuilder{}.Build( sprite_manager, mLayers );
+		mPlayer = entity::builder::Player{}.Build( sprite_manager, mLayers );
 	}
 
 	void Game::ApplyLayers( resource::Manager const& manager )
@@ -79,6 +77,10 @@ namespace state
 			direction = ConvertKeysToDirection( key );
 			mPlayer->StopMove( direction );
 		}
+		else if( IsKeyFire( key ))
+		{
+			mPlayer->Fire();
+		}
 	}
 
 	bool Game::IsKeyPushed( app::types::Keys key ) const noexcept
@@ -118,6 +120,12 @@ namespace state
 			   key == Keys::RealizeLeft;
 	}
 
+	bool Game::IsKeyFire( const app::types::Keys& key ) const noexcept
+	{
+		using namespace app::types;
+		return key == Keys::PushUse;
+	}
+
 	std::shared_ptr < Game >
 	Game::GetInstance( std::shared_ptr < sf::RenderWindow > const& window )
 	{
@@ -127,6 +135,8 @@ namespace state
 		}
 		return mInstance;
 	}
+
+
 
 
 }

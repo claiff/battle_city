@@ -10,8 +10,8 @@
 #include "types/istate.hpp"
 #include "app/game.hpp"
 #include "layer/types/ilayer.hpp"
-#include "entity/player.hpp"
 #include "resource/manager.hpp"
+#include "entity/types/itank_entity.hpp"
 
 namespace state
 {
@@ -33,14 +33,13 @@ namespace state
 		void DrawLayers();
 		void DrawPlayer();
 		[[nodiscard]] bool IsKeyPushed( app::types::Keys key ) const noexcept;
-		entity::types::Direction ConvertKeysToDirection( app::types::Keys key ) const noexcept;
+		[[nodiscard]] entity::types::Direction ConvertKeysToDirection( app::types::Keys key ) const noexcept;
 		[[nodiscard]] bool IsKeyRealized( const app::types::Keys& key ) const noexcept;
+		bool IsKeyFire(const app::types::Keys& key ) const noexcept;
 
 		static std::shared_ptr < Game > mInstance;
 		layer::types::LayerPtr mLayers;
-		entity::types::IEntityPtr mPlayer;
-
-		sf::RectangleShape GetPlayerShape( const sf::Sprite& sprite ) const;
+		entity::types::ITankEntityPtr mPlayer;
 	};
 }
 
