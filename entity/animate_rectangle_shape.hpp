@@ -27,13 +27,13 @@ namespace entity
 		void SetRotation( sf::Angle const& angle );
 		sf::Angle GetRotation() const;
 		sf::FloatRect GetPlayerRect() const;
-		void SetAnimateEnable() noexcept;
-		void SetAnimateDisable() noexcept;
+		void SetAnimation( bool value );
 	protected:
 		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;
 	private:
 		void FixSprite();
 		void ApplyNewView() const;
+
 		mutable sf::RectangleShape mView;
 		RegistratorType mRegistrator;
 		utils::types::IPolicyPtr mTimerPolicy;

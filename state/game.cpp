@@ -10,7 +10,6 @@
 #include "layer/background.hpp"
 #include "layer/border.hpp"
 #include "resource/builder/sprite.hpp"
-#include "entity/decorator/animate_rectangle_shape.hpp"
 #include "entity/player_builder.hpp"
 
 namespace state

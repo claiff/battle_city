@@ -8,6 +8,10 @@
 
 namespace entity
 {
+	//
+	//Constructors
+	//
+
 	AnimateRectangleShape::AnimateRectangleShape( sf::RectangleShape const& view,
 												  AnimateRectangleShape::RegistratorType const& registrator,
 												  unsigned int reload_ms )
@@ -19,26 +23,9 @@ namespace entity
 		FixSprite();
 	}
 
-	void AnimateRectangleShape::draw( sf::RenderTarget& target, const sf::RenderStates& states ) const
-	{
-		if( mIsEnableAnimation && mTimerPolicy->IsTime())
-		{
-			ApplyNewView();
-		}
-		target.draw( mView );
-	}
-
-	void AnimateRectangleShape::ApplyNewView() const
-	{
-		auto sprite = mRegistrator->Get();
-		mView.setTexture( sprite.getTexture());
-		mView.setTextureRect( sprite.getTextureRect());
-	}
-
-	void AnimateRectangleShape::FixSprite()
-	{
-		mView.setOrigin( mView.getSize() / 2.f );
-	}
+	//
+	//Public methods
+	//
 
 	void AnimateRectangleShape::Move( const sf::Vector2f& step )
 	{
@@ -63,15 +50,37 @@ namespace entity
 		return {position - origin, size};
 	}
 
-	void AnimateRectangleShape::SetAnimateEnable() noexcept
+	void AnimateRectangleShape::SetAnimation( bool value )
 	{
-		mIsEnableAnimation = true;
+		mIsEnableAnimation = value;
 	}
 
-	void AnimateRectangleShape::SetAnimateDisable() noexcept
+	void AnimateRectangleShape::draw( sf::RenderTarget& target, const sf::RenderStates& states ) const
 	{
-		mIsEnableAnimation = false;
+		if( mIsEnableAnimation && mTimerPolicy->IsTime())
+		{
+			ApplyNewView();
+		}
+		target.draw( mView );
 	}
+
+	//
+	//Private methods
+	//
+
+	void AnimateRectangleShape::FixSprite()
+	{
+		mView.setOrigin( mView.getSize() / 2.f );
+	}
+
+	void AnimateRectangleShape::ApplyNewView() const
+	{
+		auto sprite = mRegistrator->Get();
+		mView.setTexture( sprite.getTexture());
+		mView.setTextureRect( sprite.getTextureRect());
+	}
+
+
 
 
 } // entity

@@ -35,7 +35,6 @@ add_executable(${PROJECT_NAME}
         ${STATE_DIR}/menu.hpp
 
         ${LAYER_DIR}/types/ilayer.hpp
-
         ${LAYER_DIR}/background.cpp
         ${LAYER_DIR}/background.hpp
         ${LAYER_DIR}/border.cpp
@@ -44,10 +43,10 @@ add_executable(${PROJECT_NAME}
         ${ENTITY_DIR}/player.cpp
         ${ENTITY_DIR}/player.hpp
         ${ENTITY_DIR}/types/ientity.hpp
-        ${ENTITY_DIR}/decorator/animate_rectangle_shape.cpp
-        ${ENTITY_DIR}/decorator/animate_rectangle_shape.hpp
         ${ENTITY_DIR}/player_builder.cpp
         ${ENTITY_DIR}/player_builder.hpp
+        ${ENTITY_DIR}/animate_rectangle_shape.cpp
+        ${ENTITY_DIR}/animate_rectangle_shape.hpp
 
         ${UTILS_DIR}/timer_policy.cpp
         ${UTILS_DIR}/timer_policy.hpp
@@ -55,7 +54,7 @@ add_executable(${PROJECT_NAME}
         ${UTILS_DIR}/types/idecorator.hpp
         ${UTILS_DIR}/types/registrator.hpp
         ${UTILS_DIR}/consistent_registrator.hpp
-        entity/animate_rectangle_shape.cpp entity/animate_rectangle_shape.hpp entity/animate_rectangle_shape.cpp entity/animate_rectangle_shape.hpp)
+)
 add_subdirectory(SFML)
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)

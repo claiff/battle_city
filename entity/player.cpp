@@ -16,8 +16,8 @@ namespace entity
 	Player::Player( AnimateRectangleShape const& view, layer::types::LayerPtr const& layers,
 					MovementInfo const& move_info )
 			:
-			mView(view),
-			mLayers( layers )
+			mView( view )
+			, mLayers( layers )
 			, mTimerPolicy( std::make_shared < utils::TimerPolicy >( move_info.period_ms ))
 			, mStepMove( move_info.step )
 			, mDirection( types::Direction::Up )
@@ -41,7 +41,7 @@ namespace entity
 		//TODO Сделать через политику таймера
 		// вариант к политике притянуть декоратор отключения/включения
 		mIsMove = true;
-		mView.SetAnimateEnable();
+		mView.SetAnimation( mIsMove );
 	}
 
 	void Player::StopMove( types::Direction direction )
@@ -51,7 +51,7 @@ namespace entity
 			return;
 		}
 		mIsMove = false;
-		mView.SetAnimateDisable();
+		mView.SetAnimation( mIsMove );
 	}
 
 	void Player::Update()
@@ -137,7 +137,7 @@ namespace entity
 
 	bool Player::IsEnableStep( sf::Vector2f const& step ) const noexcept
 	{
-		auto rect = mView.GetPlayerRect( );
+		auto rect = mView.GetPlayerRect();
 		rect.left += step.x;
 		rect.top += step.y;
 		auto collisions = mLayers->GetCollisions( rect );
