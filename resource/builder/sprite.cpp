@@ -32,7 +32,7 @@ namespace resource::builder
 		result.Add( resource::Id::Border, {BORDER_POSITION, DEFAULT_SIZE}, GetScale( DEFAULT_SIZE ) );
 		result.Add( resource::Id::PlayerYellow_1, {PLAYER_ANIM_1_POSITION, PLAYER_SIZE}, GetScale( PLAYER_SIZE ) );
 		result.Add( resource::Id::PlayerYellow_2, {PLAYER_ANIM_2_POSITION, PLAYER_SIZE}, GetScale( PLAYER_SIZE ) );
-		result.Add( resource::Id::Projectile, {PROJECTILE_POSITION, PROJECTILE_SIZE}, GetScale( PROJECTILE_SIZE ) );
+		result.Add( resource::Id::Projectile, {PROJECTILE_POSITION, PROJECTILE_SIZE}, GetScale( PLAYER_SIZE ) );
 		return result;
 	}
 

@@ -20,6 +20,6 @@ namespace entity::builder
 	private:
 		resource::Manager mManager;
 		types::MovementInfo mMoveInfo;
-		[[nodiscard]] sf::RectangleShape GetView( sf::Vector2f const& position ) const;
+		[[nodiscard]] sf::RectangleShape GetView( sf::Vector2f const& position, types::Direction direction ) const;
 	};
 }

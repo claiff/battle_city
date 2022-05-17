@@ -6,6 +6,7 @@
 
 #include "projectile.hpp"
 #include "utils/timer_policy.hpp"
+#include "utils/direction_helper.hpp"
 
 namespace entity
 {
@@ -13,7 +14,9 @@ namespace entity
 			: mView( view )
 			, mTimerPolicy( std::make_shared < utils::TimerPolicy >( move_info.period_ms ))
 	{
-		auto normal = ConvertDirectionToFloat( move_info.direction );
+		static constexpr unsigned int ONE_STEP = 1;
+
+		auto normal = utils::DirectionHelper::StepOnDirection( move_info.direction, ONE_STEP );
 		mStepMove = {move_info.step * normal.x, move_info.step * normal.y};
 	}
 
@@ -33,22 +36,5 @@ namespace entity
 	void Projectile::draw( sf::RenderTarget& target, const sf::RenderStates& states ) const
 	{
 		target.draw( mView );
-	}
-
-	sf::Vector2f Projectile::ConvertDirectionToFloat( types::Direction direction ) const
-	{
-		switch( direction )
-		{
-			case types::Direction::Up:
-				return {0, -1};
-			case types::Direction::Down:
-				return {0, 1};
-			case types::Direction::Left:
-				return {-1, 0};
-			case types::Direction::Right:
-				return {1, 0};
-			default:
-				return {0, 0};
-		}
 	}
 }

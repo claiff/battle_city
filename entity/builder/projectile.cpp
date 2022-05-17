@@ -3,6 +3,7 @@
 //
 
 #include "projectile.hpp"
+#include "utils/direction_helper.hpp"
 
 namespace entity::builder
 {
@@ -15,25 +16,22 @@ namespace entity::builder
 
 	entity::Projectile Projectile::Build( sf::Vector2f const& position, types::Direction direction ) const
 	{
-		auto view = GetView( position );
-		ProjectileInfo projectile_info{};
-		projectile_info.direction = direction;
-		projectile_info.step = mMoveInfo.step;
-		projectile_info.period_ms = mMoveInfo.period_ms;
-		return entity::Projectile{view, projectile_info};
+		return entity::Projectile{GetView( position, direction ), {mMoveInfo, direction}};
 	}
 
-	sf::RectangleShape Projectile::GetView( sf::Vector2f const& position ) const
+	sf::RectangleShape Projectile::GetView( sf::Vector2f const& position, types::Direction direction ) const
 	{
 		sf::RectangleShape result;
 		auto sprite = mManager.Get( resource::Id::Projectile );
-
 		auto sprite_size = sprite.getTextureRect().getSize();
-		result.setSize( {static_cast<float>(sprite_size.x), static_cast<float>(sprite_size.y)} );
-		result.setPosition( position );
+		auto sprite_scale = sprite.getScale();
 
+		result.setSize( {static_cast<float>(sprite_size.x) * sprite_scale.x,
+						 static_cast<float>(sprite_size.y) * sprite_scale.y} );
+		result.setPosition( position );
 		result.setTextureRect( sprite.getTextureRect());
 		result.setTexture( sprite.getTexture());
+		result.setRotation( utils::DirectionHelper::DirectionToAngle( direction ));
 
 		return result;
 	}
