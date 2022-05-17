@@ -58,12 +58,6 @@ namespace layer
 		return result;
 	}
 
-	bool Border::GetIntersection( sf::RectangleShape const& border, sf::FloatRect const& rect ) const
-	{
-		auto bounds = border.getGlobalBounds();
-		return bounds.findIntersection( rect ) ? true : false;
-	}
-
 	//
 	//Private methods
 	//
@@ -163,5 +157,10 @@ namespace layer
 		return {window_width, window_height};
 	}
 
+	bool Border::GetIntersection( sf::RectangleShape const& border, sf::FloatRect const& rect ) const
+	{
+		auto bounds = border.getGlobalBounds();
+		return bounds.findIntersection( rect ) ? true : false;
+	}
 
 }

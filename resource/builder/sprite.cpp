@@ -19,7 +19,8 @@ namespace resource::builder
 
 		static const sf::Vector2i BACKGROUND_POSITION = {336, 0};
 		static const sf::Vector2i BORDER_POSITION = {368, 0};
-		static const sf::Vector2i PLAYER_POSITION = {1, 2};
+		static const sf::Vector2i PLAYER_ANIM_1_POSITION = {1, 2};
+		static const sf::Vector2i PLAYER_ANIM_2_POSITION = {17, 2};
 		static const sf::Vector2i PLAYER_SIZE = {13, 13};
 		static const std::string TEXTURE_PATH = "../../battle_city/media/general_sprites.png";
 
@@ -27,7 +28,8 @@ namespace resource::builder
 
 		result.Add( resource::Id::Background, {BACKGROUND_POSITION, DEFAULT_SIZE}, GetScale( DEFAULT_SIZE ));
 		result.Add( resource::Id::Border, {BORDER_POSITION, DEFAULT_SIZE}, GetScale( DEFAULT_SIZE ) );
-		result.Add( resource::Id::Player, {PLAYER_POSITION, PLAYER_SIZE}, GetScale( PLAYER_SIZE ) );
+		result.Add( resource::Id::PlayerYellow_1, {PLAYER_ANIM_1_POSITION, PLAYER_SIZE}, GetScale( PLAYER_SIZE ) );
+		result.Add( resource::Id::PlayerYellow_2, {PLAYER_ANIM_2_POSITION, PLAYER_SIZE}, GetScale( PLAYER_SIZE ) );
 		return result;
 	}
 

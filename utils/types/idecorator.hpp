@@ -2,7 +2,7 @@
 
 #include <memory>
 
-namespace layer::types
+namespace utils::types
 {
 
 /**

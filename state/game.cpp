@@ -2,14 +2,16 @@
 // Created by claiff on 26.04.22.
 //
 
+#include <SFML/Graphics/RectangleShape.hpp>
+
 #include "game.hpp"
 #include "menu.hpp"
 #include "app/types/ikeys.hpp"
 #include "layer/background.hpp"
 #include "layer/border.hpp"
 #include "resource/builder/sprite.hpp"
-#include "resource/rect_sprite.hpp"
-#include <SFML/Graphics/RectangleShape.hpp>
+#include "entity/decorator/animate_rectangle_shape.hpp"
+#include "entity/player_builder.hpp"
 
 namespace state
 {
@@ -24,7 +26,7 @@ namespace state
 	{
 		auto sprite_manager = resource::builder::Sprite{}.Build();
 		ApplyLayers( sprite_manager );
-		ApplyPlayer( sprite_manager );
+		mPlayer = entity::PlayerBuilder{}.Build( sprite_manager, mLayers );
 	}
 
 	void Game::ApplyLayers( resource::Manager const& manager )
@@ -32,20 +34,6 @@ namespace state
 		auto layers = std::make_shared < layer::Border >( manager );
 		layers->Apply( std::make_shared < layer::Background >( manager ));
 		mLayers = layers;
-	}
-
-	void Game::ApplyPlayer( resource::Manager const& manager )
-	{
-		auto sprite = manager.Get( resource::Id::Player );
-
-		sf::RectangleShape rect;
-		rect.setTexture( sprite.getTexture());
-		rect.setPosition( {700, 200} );
-		rect.setTextureRect( sprite.getTextureRect());
-		rect.setSize( {static_cast<float>(sprite.getTextureRect().width * sprite.getScale().x),
-					   static_cast<float>(sprite.getTextureRect().height) * sprite.getScale().y} );
-
-		mPlayer = std::make_shared < entity::Player >( rect, mLayers, entity::MovementInfo{5, 50} );
 	}
 
 	void Game::Update()

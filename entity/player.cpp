@@ -3,6 +3,7 @@
 //
 
 #include <SFML/include/SFML/Graphics/RenderTarget.hpp>
+#include <SFML/Graphics/RectangleShape.hpp>
 
 #include "player.hpp"
 
@@ -12,16 +13,16 @@ namespace entity
 	//Constructors
 	//
 
-	Player::Player( sf::RectangleShape const& view, layer::types::LayerPtr const& layers,
+	Player::Player( AnimateRectangleShape const& view, layer::types::LayerPtr const& layers,
 					MovementInfo const& move_info )
-			: mView( view )
-			, mLayers( layers )
+			:
+			mView(view),
+			mLayers( layers )
 			, mTimerPolicy( std::make_shared < utils::TimerPolicy >( move_info.period_ms ))
 			, mStepMove( move_info.step )
 			, mDirection( types::Direction::Up )
 			, mIsMove( false )
 	{
-		FixSprite();
 		ApplyRotation();
 	}
 
@@ -40,6 +41,7 @@ namespace entity
 		//TODO Сделать через политику таймера
 		// вариант к политике притянуть декоратор отключения/включения
 		mIsMove = true;
+		mView.SetAnimateEnable();
 	}
 
 	void Player::StopMove( types::Direction direction )
@@ -49,11 +51,7 @@ namespace entity
 			return;
 		}
 		mIsMove = false;
-	}
-
-	sf::Vector2f Player::GetPosition() const
-	{
-		return mView.getPosition();
+		mView.SetAnimateDisable();
 	}
 
 	void Player::Update()
@@ -76,17 +74,12 @@ namespace entity
 	//Private methods
 	//
 
-	void Player::FixSprite()
-	{
-		mView.setOrigin( mView.getSize() / 2.f );
-	}
-
 	void Player::ApplyRotation()
 	{
 		auto angle_on_direction = ConvertDirectionToAngle( mDirection );
-		if( angle_on_direction != mView.getRotation())
+		if( angle_on_direction != mView.GetRotation())
 		{
-			mView.setRotation( angle_on_direction );
+			mView.SetRotation( angle_on_direction );
 		}
 	}
 
@@ -95,7 +88,7 @@ namespace entity
 		auto step = GetStepOnDirection();
 		if( IsEnableStep( step ))
 		{
-			mView.move( step );
+			mView.Move( step );
 		}
 	}
 
@@ -144,18 +137,10 @@ namespace entity
 
 	bool Player::IsEnableStep( sf::Vector2f const& step ) const noexcept
 	{
-		auto rect = GetPlayerRect( step );
+		auto rect = mView.GetPlayerRect( );
+		rect.left += step.x;
+		rect.top += step.y;
 		auto collisions = mLayers->GetCollisions( rect );
 		return collisions.empty();
 	}
-
-	sf::FloatRect Player::GetPlayerRect( sf::Vector2f const& step ) const noexcept
-	{
-		sf::Vector2f origin = {mView.getOrigin().x * mView.getScale().x, mView.getOrigin().y * mView.getScale().y};
-		sf::Vector2f position{mView.getPosition().x + step.x, mView.getPosition().y + step.y};
-		sf::Vector2f size = mView.getSize();
-		return {position - origin, size};
-	}
-
-
 }
