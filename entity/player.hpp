@@ -34,10 +34,9 @@ namespace entity
 		void ApplyProjectiles();
 		void ApplyRotation();
 		void ApplyPlayerMovement();
-		sf::Vector2f GetStepOnDirection() const noexcept;
 		bool IsEnableStep( sf::Vector2f const& step ) const noexcept;
-		sf::Angle ConvertDirectionToAngle( types::Direction direction ) const noexcept;
-		types::Direction ConvertAngleToDirection( sf::Angle angle ) const noexcept;
+		Projectile GetProjectile() const;
+		sf::Vector2f GetProjectilePosition() const;
 
 		utils::types::IPolicyPtr mMovementPolicy;
 		float mStepMove;

@@ -28,8 +28,6 @@ namespace entity
 	protected:
 		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;
 	private:
-		sf::Vector2f ConvertDirectionToFloat( types::Direction direction ) const;
-
 		sf::RectangleShape mView;
 		utils::types::IPolicyPtr mTimerPolicy;
 		sf::Vector2f mStepMove;

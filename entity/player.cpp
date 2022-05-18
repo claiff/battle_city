@@ -6,6 +6,7 @@
 #include <SFML/Graphics/RectangleShape.hpp>
 
 #include "player.hpp"
+#include "utils/direction_helper.hpp"
 
 namespace entity
 {
@@ -34,10 +35,7 @@ namespace entity
 
 	void Player::Fire()
 	{
-		auto position = mView.GetPlayerRect().getPosition();
-		auto direction = ConvertAngleToDirection( mView.GetRotation());
-		auto projectile = mProjectileBuilder.Build( position, direction );
-		mProjectiles.push_back( projectile );
+		mProjectiles.push_back( GetProjectile());
 	}
 
 	void Player::StartMove( types::Direction direction )
@@ -103,7 +101,7 @@ namespace entity
 
 	void Player::ApplyRotation()
 	{
-		auto angle_on_direction = ConvertDirectionToAngle( mDirection );
+		auto angle_on_direction = utils::DirectionHelper::DirectionToAngle( mDirection );
 		if( angle_on_direction != mView.GetRotation())
 		{
 			mView.SetRotation( angle_on_direction );
@@ -112,71 +110,11 @@ namespace entity
 
 	void Player::ApplyPlayerMovement()
 	{
-		auto step = GetStepOnDirection();
+		auto step = utils::DirectionHelper::StepOnDirection( mDirection, mStepMove );
 		if( IsEnableStep( step ))
 		{
 			mView.Move( step );
 		}
-	}
-
-
-	sf::Angle Player::ConvertDirectionToAngle( types::Direction direction ) const noexcept
-	{
-		switch( direction )
-		{
-			case types::Direction::Up :
-				return sf::degrees( 0 );
-			case types::Direction::Right :
-				return sf::degrees( 90 );
-			case types::Direction::Down :
-				return sf::degrees( 180 );
-			case types::Direction::Left :
-				return sf::degrees( 270 );
-			default:
-				return sf::degrees( 0 );
-		}
-	}
-
-	types::Direction Player::ConvertAngleToDirection( sf::Angle angle ) const noexcept
-	{
-		switch( static_cast<int>(angle.asDegrees()))
-		{
-			case 0 :
-				return types::Direction::Up;
-			case 90:
-				return types::Direction::Right;
-			case 180:
-				return types::Direction::Down;
-			case 270:
-				return types::Direction::Left;
-			default:
-				return types::Direction::Up;
-		}
-	}
-
-	sf::Vector2f Player::GetStepOnDirection() const noexcept
-	{
-		static constexpr int ZERO_STEP = 0;
-
-		sf::Vector2f result;
-		switch( mDirection )
-		{
-			case types::Direction::Up:
-				result = {ZERO_STEP, -mStepMove};
-				break;
-			case types::Direction::Down:
-				result = {ZERO_STEP, mStepMove};
-				break;
-			case types::Direction::Left:
-				result = {-mStepMove, ZERO_STEP};
-				break;
-			case types::Direction::Right:
-				result = {mStepMove, ZERO_STEP};
-				break;
-			default:
-				result = {};
-		}
-		return result;
 	}
 
 	bool Player::IsEnableStep( sf::Vector2f const& step ) const noexcept
@@ -188,5 +126,36 @@ namespace entity
 		return collisions.empty();
 	}
 
+	Projectile Player::GetProjectile() const
+	{
+		auto position = GetProjectilePosition();
+		auto direction = utils::DirectionHelper::AngleToDirection( mView.GetRotation());
+		return mProjectileBuilder.Build( position, direction );
+	}
 
+	sf::Vector2f Player::GetProjectilePosition() const
+	{
+		auto view_rect = mView.GetPlayerRect();
+		auto direction = utils::DirectionHelper::AngleToDirection( mView.GetRotation());
+		auto position = view_rect.getPosition();
+		if( direction == types::Direction::Up )
+		{
+			position.x += view_rect.width / 2;
+		}
+		if( direction == types::Direction::Right )
+		{
+			position.x += view_rect.width;
+			position.y += view_rect.height / 2;
+		}
+		if( direction == types::Direction::Down )
+		{
+			position.x += view_rect.width / 2;
+			position.y += view_rect.height;
+		}
+		if( direction == types::Direction::Left )
+		{
+			position.y += view_rect.height / 2;
+		}
+		return position;
+	}
 }

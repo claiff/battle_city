@@ -59,7 +59,9 @@ add_executable(${PROJECT_NAME}
         ${UTILS_DIR}/types/idecorator.hpp
         ${UTILS_DIR}/types/registrator.hpp
         ${UTILS_DIR}/consistent_registrator.hpp
-)
+        ${UTILS_DIR}/direction_helper.cpp
+        ${UTILS_DIR}/direction_helper.hpp
+        )
 add_subdirectory(SFML)
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)

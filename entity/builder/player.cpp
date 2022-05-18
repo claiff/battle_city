@@ -24,7 +24,7 @@ namespace entity::builder
 
 		AnimateRectangleShape animate_player_view{view, registrator, 10};
 
-		entity::builder::Projectile projectile_builder{manager, types::MovementInfo{5, 35}};
+		entity::builder::Projectile projectile_builder{manager, types::MovementInfo{10, 35}};
 		return std::make_shared < entity::Player >( animate_player_view, projectile_builder, collisions,
 													types::MovementInfo{5, 35} );
 	}
