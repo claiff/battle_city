@@ -35,10 +35,7 @@ namespace entity
 
 	void Player::Fire()
 	{
-		auto position = mView.GetPlayerRect().getPosition();
-		auto direction = utils::DirectionHelper::AngleToDirection( mView.GetRotation());
-		auto projectile = mProjectileBuilder.Build( position, direction );
-		mProjectiles.push_back( projectile );
+		mProjectiles.push_back( GetProjectile());
 	}
 
 	void Player::StartMove( types::Direction direction )
@@ -127,5 +124,38 @@ namespace entity
 		rect.top += step.y;
 		auto collisions = mLayers->GetCollisions( rect );
 		return collisions.empty();
+	}
+
+	Projectile Player::GetProjectile() const
+	{
+		auto position = GetProjectilePosition();
+		auto direction = utils::DirectionHelper::AngleToDirection( mView.GetRotation());
+		return mProjectileBuilder.Build( position, direction );
+	}
+
+	sf::Vector2f Player::GetProjectilePosition() const
+	{
+		auto view_rect = mView.GetPlayerRect();
+		auto direction = utils::DirectionHelper::AngleToDirection( mView.GetRotation());
+		auto position = view_rect.getPosition();
+		if( direction == types::Direction::Up )
+		{
+			position.x += view_rect.width / 2;
+		}
+		if( direction == types::Direction::Right )
+		{
+			position.x += view_rect.width;
+			position.y += view_rect.height / 2;
+		}
+		if( direction == types::Direction::Down )
+		{
+			position.x += view_rect.width / 2;
+			position.y += view_rect.height;
+		}
+		if( direction == types::Direction::Left )
+		{
+			position.y += view_rect.height / 2;
+		}
+		return position;
 	}
 }

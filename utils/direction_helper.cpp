@@ -40,24 +40,22 @@ namespace utils
 		}
 	}
 
-	sf::Vector2f DirectionHelper::StepOnDirection( entity::types::Direction direction, float step )
+	sf::Vector2f DirectionHelper::StepOnDirection( entity::types::Direction direction, float step, float zero_step )
 	{
-		static constexpr int ZERO_STEP = 0;
-
 		sf::Vector2f result;
 		switch( direction )
 		{
 			case entity::types::Direction::Up:
-				result = {ZERO_STEP, -step};
+				result = {zero_step, -step};
 				break;
 			case entity::types::Direction::Down:
-				result = {ZERO_STEP, step};
+				result = {zero_step, step};
 				break;
 			case entity::types::Direction::Left:
-				result = {-step, ZERO_STEP};
+				result = {-step, zero_step};
 				break;
 			case entity::types::Direction::Right:
-				result = {step, ZERO_STEP};
+				result = {step, zero_step};
 				break;
 			default:
 				result = {};

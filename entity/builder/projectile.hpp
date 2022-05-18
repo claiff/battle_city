@@ -18,8 +18,13 @@ namespace entity::builder
 
 		[[nodiscard]] entity::Projectile Build( sf::Vector2f const& position, types::Direction direction ) const;
 	private:
+		void FixApplyViewPosition( const sf::Vector2f& position, sf::Sprite const& sprite,
+								   types::Direction direction, sf::RectangleShape& result ) const;
+		void ApplyViewSize( sf::RectangleShape& result, const sf::Sprite& sprite ) const;
+
 		resource::Manager mManager;
 		types::MovementInfo mMoveInfo;
 		[[nodiscard]] sf::RectangleShape GetView( sf::Vector2f const& position, types::Direction direction ) const;
+
 	};
 }

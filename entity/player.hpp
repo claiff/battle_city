@@ -35,7 +35,8 @@ namespace entity
 		void ApplyRotation();
 		void ApplyPlayerMovement();
 		bool IsEnableStep( sf::Vector2f const& step ) const noexcept;
-
+		Projectile GetProjectile() const;
+		sf::Vector2f GetProjectilePosition() const;
 
 		utils::types::IPolicyPtr mMovementPolicy;
 		float mStepMove;
