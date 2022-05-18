@@ -26,5 +26,8 @@ namespace entity::builder
 		types::MovementInfo mMoveInfo;
 		[[nodiscard]] sf::RectangleShape GetView( sf::Vector2f const& position, types::Direction direction ) const;
 
+		void
+		CorrectPosition(  sf::Vector2f const& position, types::Direction direction, sf::RectangleShape& result,
+						  sf::Vector2f const& projectile_size ) const;
 	};
 }

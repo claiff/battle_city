@@ -37,6 +37,7 @@ namespace entity
 		bool IsEnableStep( sf::Vector2f const& step ) const noexcept;
 		Projectile GetProjectile() const;
 		sf::Vector2f GetProjectilePosition() const;
+		void CorrectPosition( sf::FloatRect const& view_rect, types::Direction direction, sf::Vector2f& position ) const;
 
 		utils::types::IPolicyPtr mMovementPolicy;
 		float mStepMove;
@@ -46,6 +47,7 @@ namespace entity
 		AnimateRectangleShape mView;
 		builder::Projectile mProjectileBuilder;
 		std::list < Projectile > mProjectiles;
+
 	};
 }
 

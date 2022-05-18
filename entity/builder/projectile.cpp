@@ -40,27 +40,30 @@ namespace entity::builder
 	{
 		auto sprite_scale = sprite.getScale();
 		auto sprite_texture_rect = sprite.getTextureRect();
-		//auto step = utils::DirectionHelper::StepOnDirection( direction, 1, 1 );
 		sf::Vector2f projectile_size = {sprite_texture_rect.width * sprite_scale.x,
 										sprite_texture_rect.height * sprite_scale.y};
+		CorrectPosition( position, direction, result, projectile_size );
+	}
 
-		if( direction == types::Direction::Up )
+	void Projectile::CorrectPosition( sf::Vector2f const& position, types::Direction direction,
+									  sf::RectangleShape& result, sf::Vector2f const& projectile_size ) const
+	{
+		switch( direction )
 		{
-			result.setPosition(
-					{position.x - (projectile_size.x / 2), position.y - projectile_size.y} );
+			case types::Direction::Up:
+				result.setPosition( {position.x - (projectile_size.x / 2), position.y - projectile_size.y} );
+				break;
+			case types::Direction::Right:
+				result.setPosition( {position.x + projectile_size.x, position.y - (projectile_size.y / 2)} );
+				break;
+			case types::Direction::Down:
+				result.setPosition( {position.x + (projectile_size.x / 2), position.y + projectile_size.y} );
+				break;
+			case types::Direction::Left:
+				result.setPosition( {position.x - projectile_size.x, position.y + (projectile_size.y / 2)} );
+				break;
 		}
-		if( direction == types::Direction::Right )
-		{
-			result.setPosition( {position.x + projectile_size.x, position.y - (projectile_size.y / 2)} );
-		}
-		if( direction == types::Direction::Down )
-		{
-			result.setPosition( {position.x + (projectile_size.x / 2), position.y + projectile_size.y} );
-		}
-		if( direction == types::Direction::Left )
-		{
-			result.setPosition( {position.x - projectile_size.x, position.y + (projectile_size.y / 2)} );
-		}
+
 	}
 
 	void Projectile::ApplyViewSize( sf::RectangleShape& result, sf::Sprite const& sprite ) const

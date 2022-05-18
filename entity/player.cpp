@@ -138,24 +138,30 @@ namespace entity
 		auto view_rect = mView.GetPlayerRect();
 		auto direction = utils::DirectionHelper::AngleToDirection( mView.GetRotation());
 		auto position = view_rect.getPosition();
-		if( direction == types::Direction::Up )
-		{
-			position.x += view_rect.width / 2;
-		}
-		if( direction == types::Direction::Right )
-		{
-			position.x += view_rect.width;
-			position.y += view_rect.height / 2;
-		}
-		if( direction == types::Direction::Down )
-		{
-			position.x += view_rect.width / 2;
-			position.y += view_rect.height;
-		}
-		if( direction == types::Direction::Left )
-		{
-			position.y += view_rect.height / 2;
-		}
+		CorrectPosition( view_rect, direction, position );
 		return position;
+	}
+
+	void Player::CorrectPosition( sf::FloatRect const& view_rect, types::Direction direction, sf::Vector2f& position ) const
+	{
+		switch( direction )
+		{
+			case types::Direction::Up:
+				position.x += view_rect.width / 2;
+				break;
+			case types::Direction::Right:
+				position.x += view_rect.width;
+				position.y += view_rect.height / 2;
+				break;
+			case types::Direction::Down:
+				position.x += view_rect.width / 2;
+				position.y += view_rect.height;
+				break;
+			case types::Direction::Left:
+				position.y += view_rect.height / 2;
+				break;
+			default:
+				break;
+		}
 	}
 }
