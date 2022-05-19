@@ -8,12 +8,14 @@
 
 namespace utils::types
 {
-  class IPolicy
-  {
-  public:
-	virtual ~IPolicy() = default;
+	class IPolicy
+	{
+	public:
+		virtual ~IPolicy() = default;
 
-	[[nodiscard]] virtual bool IsTime() const = 0;
-  };
-  using IPolicyPtr = std::shared_ptr<IPolicy>;
+		[[nodiscard]] virtual bool IsTime() const = 0;
+		virtual void SetPeriod( unsigned int period_ms ) = 0;
+	};
+
+	using IPolicyPtr = std::shared_ptr < IPolicy >;
 }

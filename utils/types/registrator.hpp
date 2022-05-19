@@ -16,6 +16,7 @@ namespace utils::types
 
 		virtual T& Get() = 0;
 		virtual void Add( T const& element ) = 0;
+		virtual void ResetCount() = 0;
 	};
 
 	template<typename T>

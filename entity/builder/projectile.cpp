@@ -7,7 +7,8 @@
 
 namespace entity::builder
 {
-	Projectile::Projectile( const resource::Manager& manager, const types::MovementInfo& move_info )
+	Projectile::Projectile( resource::Manager < resource::Id::AllyTank > const& manager,
+							const types::MovementInfo& move_info )
 			: mManager( manager )
 			, mMoveInfo( move_info )
 	{
@@ -22,7 +23,7 @@ namespace entity::builder
 	sf::RectangleShape Projectile::GetView( sf::Vector2f const& position, types::Direction direction ) const
 	{
 		sf::RectangleShape result;
-		auto sprite = mManager.Get( resource::Id::Projectile );
+		auto sprite = mManager.Get( resource::Id::AllyTank::Projectile );
 		ApplyViewSize( result, sprite );
 
 		FixApplyViewPosition( position, sprite, direction, result );

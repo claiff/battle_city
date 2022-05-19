@@ -12,7 +12,7 @@ namespace layer
 	//Constructors
 	//
 
-	Background::Background( resource::Manager const& sprite_manager )
+	Background::Background( resource::Manager< resource::Id::Landscape > const& sprite_manager )
 			: mSpriteManager( sprite_manager )
 	{
 
@@ -28,7 +28,7 @@ namespace layer
 		{
 			mBase->draw( target, states );
 		}
-		auto sprite = mSpriteManager.Get( resource::Id::Background );
+		auto sprite = mSpriteManager.Get( resource::Id::Landscape::None );
 		SetScaleOnFullWindow( sprite );
 		target.draw( sprite );
 	}

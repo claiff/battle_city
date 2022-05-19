@@ -7,7 +7,9 @@
 #include "app/types/ikeys.hpp"
 #include "layer/background.hpp"
 #include "layer/border.hpp"
-#include "resource/builder/sprite.hpp"
+#include "resource/builder/ally_tank.hpp"
+#include "resource/builder/landscape.hpp"
+#include "resource/builder/border.hpp"
 #include "entity/builder/player.hpp"
 
 namespace state
@@ -21,15 +23,15 @@ namespace state
 	Game::Game( std::shared_ptr < sf::RenderWindow > const& window )
 			: IState( window )
 	{
-		auto sprite_manager = resource::builder::Sprite{}.Build();
-		ApplyLayers( sprite_manager );
-		mPlayer = entity::builder::Player{}.Build( sprite_manager, mLayers );
+		ApplyLayers();
+		mPlayer = entity::builder::Player{}.Build( resource::builder::AllyTank{}.Build(), mLayers );
 	}
 
-	void Game::ApplyLayers( resource::Manager const& manager )
+	void Game::ApplyLayers()
 	{
-		auto layers = std::make_shared < layer::Border >( manager );
-		layers->Apply( std::make_shared < layer::Background >( manager ));
+		auto layers = std::make_shared < layer::Border >( resource::builder::Border{}.Build());
+
+		layers->Apply( std::make_shared < layer::Background >( resource::builder::Landscape{}.Build()));
 		mLayers = layers;
 	}
 
@@ -135,8 +137,6 @@ namespace state
 		}
 		return mInstance;
 	}
-
-
 
 
 }

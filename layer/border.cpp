@@ -13,9 +13,9 @@ namespace layer
 	//Constructors
 	//
 
-	Border::Border( resource::Manager const& sprite_manager )
+	Border::Border( resource::Manager<resource::Id::Border> const& sprite_manager )
 	{
-		auto sprite = sprite_manager.Get( resource::Id::Border );
+		auto sprite = sprite_manager.Get( resource::Id::Border::Background );
 		ApplyBorderUp( sprite );
 
 		ApplyBorderDown( sprite );
