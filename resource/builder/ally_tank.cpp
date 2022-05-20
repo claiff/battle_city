@@ -5,6 +5,7 @@
 #include <SFML/Graphics/Texture.hpp>
 
 #include "ally_tank.hpp"
+#include "resource/texture_getter.hpp"
 
 namespace resource::builder
 {
@@ -28,7 +29,7 @@ namespace resource::builder
 		static const sf::Vector2i PROJECTILE_POSITION = {323, 102};
 		static const sf::Vector2i PROJECTILE_SIZE = {3, 4};
 
-		Manager < Id::AllyTank > result{GetTexturePath()};
+		Manager < Id::AllyTank > result{TextureGetter::Get()};
 
 		result.Add( Id::AllyTank::NormalYellow_1, {NORMAL_ANIM_1_POSITION, PLAYER_SIZE}, GetScale( PLAYER_SIZE ));
 		result.Add( Id::AllyTank::NormalYellow_2, {NORMAL_ANIM_2_POSITION, PLAYER_SIZE}, GetScale( PLAYER_SIZE ));

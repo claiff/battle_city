@@ -24,6 +24,8 @@ namespace entity::builder
 			   layer::types::LayerPtr const& collisions ) const;
 
 	private:
+
+		TankInfo GetNormalTankInfo( resource::Manager < resource::Id::AllyTank > const& manager ) const;
 		TankInfo GetLightTankInfo( resource::Manager < resource::Id::AllyTank > const& manager ) const;
 		TankInfo GetMediumTankInfo( resource::Manager < resource::Id::AllyTank > const& manager ) const;
 		TankInfo GetHeavyTankInfo( resource::Manager < resource::Id::AllyTank > const& manager ) const;

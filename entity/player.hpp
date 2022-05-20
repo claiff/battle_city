@@ -57,7 +57,7 @@ namespace entity
 
 		builder::Projectile mProjectileBuilder;
 		std::list < Projectile > mProjectiles;
-		TankInfo& mCurrentTank;
+		TankInfo mCurrentTank;
 		TankInfoRegistrator mTanksSet;
 	};
 }

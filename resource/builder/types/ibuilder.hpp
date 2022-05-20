@@ -17,11 +17,6 @@ namespace resource::builder::types
 
 		virtual Manager < T > Build() const = 0;
 	protected:
-		[[nodiscard]] std::string GetTexturePath() const
-		{
-			static const std::string TEXTURE_PATH = "../../battle_city/media/general_sprites.png";
-			return TEXTURE_PATH;
-		}
 
 		/*!
 		\brief Определяет масштабирование спрайта

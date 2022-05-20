@@ -20,12 +20,11 @@ namespace entity
 			mTanksSet( tanks_set )
 			, mProjectileBuilder( projectile_builder )
 			, mLayers( layers )
-			, mCurrentTank( tanks_set.Get())
-			, mMovementPolicy( std::make_shared < utils::TimerPolicy >( mCurrentTank.speed.period_ms ))
 			, mDirection( types::Direction::Up )
 			, mIsMove( false )
 	{
-
+		mCurrentTank = mTanksSet.Get();
+		mMovementPolicy = std::make_shared < utils::TimerPolicy >( mCurrentTank.speed.period_ms );
 	}
 
 	//
@@ -34,12 +33,24 @@ namespace entity
 
 	void Player::Fire()
 	{
+		static int counter = 0;
+		if( mProjectiles.size() >= mCurrentTank.count_projectiles )
+		{
+			return;
+		}
 		mProjectiles.push_back( GetProjectile());
-		if( mProjectiles.size() == 3 )
+
+		if(counter > 4)
 		{
 			mTanksSet.ResetCount();
+			Upgrade();
+			counter = 0;
 		}
-		Upgrade();
+		else
+		{
+			Upgrade();
+			counter++;
+		}
 	}
 
 	void Player::StartMove( types::Direction direction )

@@ -9,9 +9,8 @@
 
 namespace resource::builder
 {
-
-
-	class Border : public types::IBuilder<Id::Border>
+	class Border
+			: public types::IBuilder < Id::Border >
 	{
 	public:
 		Border() = default;

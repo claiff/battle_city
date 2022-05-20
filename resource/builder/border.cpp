@@ -3,15 +3,15 @@
 //
 
 #include "border.hpp"
+#include "resource/texture_getter.hpp"
 
 namespace resource::builder
 {
-
 	Manager < Id::Border > Border::Build() const
 	{
 		static const sf::Vector2i BORDER_POSITION = {368, 0};
 
-		Manager < Id::Border > result{GetTexturePath()};
+		Manager < Id::Border > result{TextureGetter::Get()};
 
 		auto default_size = GetDefaultSpriteSize();
 		result.Add( Id::Border::Background, {BORDER_POSITION, default_size}, GetScale( default_size ));

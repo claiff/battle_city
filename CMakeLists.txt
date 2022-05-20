@@ -31,6 +31,13 @@ add_executable(${PROJECT_NAME}
         ${RESOURCE_DIR}/builder/border.cpp
         ${RESOURCE_DIR}/builder/border.hpp
         ${RESOURCE_DIR}/builder/types/ibuilder.hpp
+        ${RESOURCE_DIR}/builder/landscape.cpp
+        ${RESOURCE_DIR}/builder/landscape.hpp
+        ${RESOURCE_DIR}/builder/border.cpp
+        ${RESOURCE_DIR}/builder/border.hpp
+        ${RESOURCE_DIR}/builder/types/ibuilder.hpp
+        ${RESOURCE_DIR}/texture_getter.cpp
+        ${RESOURCE_DIR}/texture_getter.hpp
 
         ${STATE_DIR}/types/istate.hpp
         ${STATE_DIR}/game.cpp
@@ -65,11 +72,8 @@ add_executable(${PROJECT_NAME}
         ${UTILS_DIR}/consistent_registrator.hpp
         ${UTILS_DIR}/direction_helper.cpp
         ${UTILS_DIR}/direction_helper.hpp
-        resource/builder/landscape.cpp
-        resource/builder/landscape.hpp
-        resource/builder/border.cpp
-        resource/builder/border.hpp
-        resource/builder/types/ibuilder.hpp)
+
+        )
 add_subdirectory(SFML)
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)

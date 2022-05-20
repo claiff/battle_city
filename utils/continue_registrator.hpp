@@ -26,12 +26,14 @@ namespace utils
 
 		T& Get() override
 		{
-			if( mElementCounter != mElements.size())
+			auto& result = mElements.at( mElementCounter );
+			if( mElementCounter <= mElements.size() - 2)
 			{
+				//TODO нужно не сразу получать
 				++mElementCounter;
 			}
 
-			return mElements.at( mElementCounter );
+			return result;
 		}
 
 		void Add( T const& element ) override

@@ -42,11 +42,10 @@ namespace resource
 	class Manager
 	{
 	public:
-		explicit Manager( std::string const& texture_path )
+		explicit Manager( sf::Texture const& texture )
+				: mTexture( texture )
 		{
-			mTexture = std::make_shared < sf::Texture >();
-			auto is_load_file = mTexture->loadFromFile( texture_path );
-			assert( is_load_file );
+
 		}
 
 		~Manager() = default;
@@ -54,14 +53,14 @@ namespace resource
 		void Add( T id, sf::IntRect const& rect_texture, sf::Vector2f const& scale = {1, 1} )
 		{
 			sf::Sprite sprite;
-			sprite.setTexture( *mTexture );
+			sprite.setTexture( mTexture );
 			sprite.setTextureRect( rect_texture );
 			sprite.setScale( scale );
 			auto result = mResource.insert( std::make_pair( id, std::move( sprite )));
 			assert( result.second );
 		}
 
-		[[nodiscard]] sf::Sprite Get( T id ) const
+		[[nodiscard]] sf::Sprite const& Get( T id ) const
 		{
 			auto find = mResource.find( id );
 			if( find == mResource.end())
@@ -69,12 +68,12 @@ namespace resource
 				find = mResource.find( id );
 			}
 			assert( find != mResource.end());
-			auto result = find->second;
-			return result;
+			return find->second;
+
 		}
 
 	private:
-		std::shared_ptr < sf::Texture > mTexture;
+		sf::Texture const& mTexture;
 		std::map < T, sf::Sprite > mResource;
 	};
 }

@@ -37,10 +37,25 @@ namespace entity::builder
 	Player::GetTankInfoRegistrator( const resource::Manager < resource::Id::AllyTank >& ally_tank_manager ) const
 	{
 		TankInfoRegistrator tank_info_set;
+		tank_info_set.Add( GetNormalTankInfo( ally_tank_manager ));
 		tank_info_set.Add( GetLightTankInfo( ally_tank_manager ));
 		tank_info_set.Add( GetMediumTankInfo( ally_tank_manager ));
 		tank_info_set.Add( GetHeavyTankInfo( ally_tank_manager ));
 		return tank_info_set;
+	}
+
+	TankInfo Player::GetNormalTankInfo( const resource::Manager < resource::Id::AllyTank >& manager ) const
+	{
+		TankInfo result;
+
+		auto registrator = GetRegistrator( {manager.Get( resource::Id::AllyTank::NormalYellow_1 ),
+											manager.Get( resource::Id::AllyTank::NormalYellow_2 )} );
+
+		result.speed = DEFAULT_MOVE_INFO;
+		result.mView = std::make_shared < AnimateRectangleShape >( GetPlayerShape( registrator->Get()), registrator,
+																   DEFAULT_RELOAD_TIME );
+		result.count_projectiles = 1;
+		return result;
 	}
 
 	TankInfo Player::GetLightTankInfo( resource::Manager < resource::Id::AllyTank > const& manager ) const
@@ -57,7 +72,7 @@ namespace entity::builder
 		return result;
 	}
 
-	TankInfo Player::GetMediumTankInfo( resource::Manager< resource::Id::AllyTank > const& manager ) const
+	TankInfo Player::GetMediumTankInfo( resource::Manager < resource::Id::AllyTank > const& manager ) const
 	{
 		TankInfo result;
 
@@ -72,7 +87,7 @@ namespace entity::builder
 		return result;
 	}
 
-	TankInfo Player::GetHeavyTankInfo( resource::Manager< resource::Id::AllyTank > const& manager ) const
+	TankInfo Player::GetHeavyTankInfo( resource::Manager < resource::Id::AllyTank > const& manager ) const
 	{
 		TankInfo result;
 
@@ -98,7 +113,7 @@ namespace entity::builder
 
 	sf::RectangleShape Player::GetPlayerShape( sf::Sprite const& sprite ) const
 	{
-		sf::RectangleShape result;
+ 		sf::RectangleShape result;
 		result.setTexture( sprite.getTexture());
 		result.setPosition( {700, 200} );
 		result.setTextureRect( sprite.getTextureRect());
@@ -106,4 +121,6 @@ namespace entity::builder
 						 static_cast<float>(sprite.getTextureRect().height) * sprite.getScale().y} );
 		return result;
 	}
+
+
 }
