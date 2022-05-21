@@ -6,7 +6,7 @@
 
 namespace utils
 {
-	TimerPolicy::TimerPolicy( int period_ms )
+	TimerPolicy::TimerPolicy( unsigned int period_ms )
 			:
 			mPeriod( static_cast<double >(period_ms) / 1000 )
 			, mTime( std::chrono::steady_clock::now())
@@ -23,6 +23,12 @@ namespace utils
 			return true;
 		}
 		return false;
+	}
+
+	void TimerPolicy::SetPeriod( unsigned int period_ms )
+	{
+		mPeriod = static_cast<double >(period_ms) / 1000;
+		mTime = std::chrono::steady_clock::now();
 	}
 
 }

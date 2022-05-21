@@ -4,6 +4,7 @@
 
 #include "border.hpp"
 #include "resource/ini_reader.hpp"
+#include "resource/texture_getter.hpp"
 
 namespace layer
 {
@@ -13,11 +14,11 @@ namespace layer
 	//Constructors
 	//
 
-	Border::Border( resource::Manager const& sprite_manager )
+	Border::Border( resource::Manager<resource::Id::Border> const& sprite_manager )
 	{
-		auto sprite = sprite_manager.Get( resource::Id::Border );
-		ApplyBorderUp( sprite );
+		const auto& sprite = sprite_manager.Get( resource::Id::Border::Background );
 
+		ApplyBorderUp( sprite );
 		ApplyBorderDown( sprite );
 		ApplyBorderLeft( sprite );
 		ApplyBorderRight( sprite );
@@ -33,7 +34,6 @@ namespace layer
 		{
 			mBase->draw( target, states );
 		}
-
 		target.draw( mUp );
 		target.draw( mRight );
 		target.draw( mDown );

@@ -12,26 +12,28 @@
 namespace utils
 {
 	template<typename T>
-	class ConsistentRegistrator
+	class ContinueRegistrator
 			: public types::Registrator < T >
 	{
 	public:
-		ConsistentRegistrator()
+		ContinueRegistrator()
 				: mElementCounter{0}
 		{
 
 		}
 
-		~ConsistentRegistrator() override = default;
+		~ContinueRegistrator() override = default;
 
 		T& Get() override
 		{
-			if( mElementCounter == mElements.size())
+			auto& result = mElements.at( mElementCounter );
+			if( mElementCounter <= mElements.size() - 2)
 			{
-				mElementCounter = 0;
+				//TODO нужно не сразу получать
+				++mElementCounter;
 			}
 
-			return mElements.at( mElementCounter++ );
+			return result;
 		}
 
 		void Add( T const& element ) override
@@ -47,7 +49,7 @@ namespace utils
 
 	private:
 		std::vector < T > mElements;
-		std::size_t mElementCounter;
+		mutable std::size_t mElementCounter;
 	};
 }
 

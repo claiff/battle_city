@@ -18,7 +18,7 @@ namespace layer
 			: public utils::types::IDecorator < types::ILayer >
 	{
 	public:
-		explicit Border( resource::Manager const& sprite_manager );
+		explicit Border( resource::Manager < resource::Id::Border > const& sprite_manager );
 		~Border() override = default;
 
 		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;

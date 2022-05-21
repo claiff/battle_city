@@ -8,7 +8,9 @@
 
 namespace entity::types
 {
-	class ITankEntity : public IEntity
+
+	class ITankEntity
+			: public IEntity
 	{
 	public:
 		~ITankEntity() override = default;
@@ -16,6 +18,8 @@ namespace entity::types
 		virtual void Fire() = 0;
 		virtual void StartMove( Direction direction ) = 0;
 		virtual void StopMove( Direction direction ) = 0;
+		virtual void Upgrade() = 0;
 	};
+
 	using ITankEntityPtr = std::shared_ptr < ITankEntity >;
 }

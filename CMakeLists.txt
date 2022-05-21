@@ -19,14 +19,25 @@ add_executable(${PROJECT_NAME}
         ${APP_DIR}/keyboard_keys.hpp
         ${APP_DIR}/types/ikeys.hpp
 
-        ${RESOURCE_DIR}/manager.cpp
         ${RESOURCE_DIR}/manager.hpp
         ${RESOURCE_DIR}/ini_reader.cpp
         ${RESOURCE_DIR}/ini_reader.hpp
         ${RESOURCE_DIR}/parser.cpp
         ${RESOURCE_DIR}/parser.hpp
-        ${RESOURCE_DIR}/builder/sprite.cpp
-        ${RESOURCE_DIR}/builder/sprite.hpp
+        ${RESOURCE_DIR}/builder/ally_tank.cpp
+        ${RESOURCE_DIR}/builder/ally_tank.hpp
+        ${RESOURCE_DIR}/builder/landscape.cpp
+        ${RESOURCE_DIR}/builder/landscape.hpp
+        ${RESOURCE_DIR}/builder/border.cpp
+        ${RESOURCE_DIR}/builder/border.hpp
+        ${RESOURCE_DIR}/builder/types/ibuilder.hpp
+        ${RESOURCE_DIR}/builder/landscape.cpp
+        ${RESOURCE_DIR}/builder/landscape.hpp
+        ${RESOURCE_DIR}/builder/border.cpp
+        ${RESOURCE_DIR}/builder/border.hpp
+        ${RESOURCE_DIR}/builder/types/ibuilder.hpp
+        ${RESOURCE_DIR}/texture_getter.cpp
+        ${RESOURCE_DIR}/texture_getter.hpp
 
         ${STATE_DIR}/types/istate.hpp
         ${STATE_DIR}/game.cpp
@@ -61,6 +72,7 @@ add_executable(${PROJECT_NAME}
         ${UTILS_DIR}/consistent_registrator.hpp
         ${UTILS_DIR}/direction_helper.cpp
         ${UTILS_DIR}/direction_helper.hpp
+
         )
 add_subdirectory(SFML)
 

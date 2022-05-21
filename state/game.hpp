@@ -29,7 +29,7 @@ namespace state
 		static std::shared_ptr < Game >
 		GetInstance( std::shared_ptr < sf::RenderWindow > const& window );
 	private:
-		void ApplyLayers( resource::Manager const& manager );
+		void ApplyLayers();
 		void DrawLayers();
 		void DrawPlayer();
 		[[nodiscard]] bool IsKeyPushed( app::types::Keys key ) const noexcept;
