@@ -50,7 +50,6 @@ namespace entity
 		CorrectPosition( sf::FloatRect const& view_rect, types::Direction direction, sf::Vector2f& position ) const;
 
 		utils::types::IPolicyPtr mMovementPolicy;
-		float mStepMove;
 		types::Direction mDirection;
 		bool mIsMove;
 		layer::types::LayerPtr mLayers;

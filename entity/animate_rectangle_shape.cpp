@@ -80,7 +80,15 @@ namespace entity
 		mView.setTextureRect( sprite.getTextureRect());
 	}
 
+	void AnimateRectangleShape::SetPosition( sf::Vector2f const& position )
+	{
+		mView.setPosition( position );
+	}
 
+	sf::Vector2f AnimateRectangleShape::GetPosition() const
+	{
+		return mView.getPosition();
+	}
 
 
 } // entity

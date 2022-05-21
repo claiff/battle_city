@@ -28,6 +28,8 @@ namespace entity
 		sf::Angle GetRotation() const;
 		sf::FloatRect GetPlayerRect() const;
 		void SetAnimation( bool value );
+		void SetPosition( sf::Vector2f const& position );
+		sf::Vector2f GetPosition() const;
 	protected:
 		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;
 	private:

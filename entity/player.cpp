@@ -40,7 +40,7 @@ namespace entity
 		}
 		mProjectiles.push_back( GetProjectile());
 
-		if(counter > 4)
+		if( counter > 4 )
 		{
 			mTanksSet.ResetCount();
 			Upgrade();
@@ -125,7 +125,7 @@ namespace entity
 
 	void Player::ApplyPlayerMovement()
 	{
-		auto step = utils::DirectionHelper::StepOnDirection( mDirection, mStepMove );
+		auto step = utils::DirectionHelper::StepOnDirection( mDirection, mCurrentTank.speed.step );
 		if( IsEnableStep( step ))
 		{
 			mCurrentTank.mView->Move( step );
@@ -183,6 +183,9 @@ namespace entity
 
 	void Player::Upgrade()
 	{
-		mCurrentTank = mTanksSet.Get();
+		auto temp_tank = mTanksSet.Get();
+		temp_tank.mView->SetPosition( mCurrentTank.mView->GetPosition());
+		temp_tank.mView->SetRotation( mCurrentTank.mView->GetRotation());
+		mCurrentTank = temp_tank;
 	}
 }
