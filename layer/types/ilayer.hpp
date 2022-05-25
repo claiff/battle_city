@@ -8,6 +8,7 @@
 #include <vector>
 
 #include <SFML/include/SFML/Graphics/Drawable.hpp>
+#include <SFML/include/SFML/Graphics/Rect.hpp>
 
 namespace layer::types
 {

@@ -35,7 +35,19 @@ namespace resource
 
 		enum class Landscape
 		{
-			None
+			None,
+			Brick_1,
+			Brick_2,
+			Brick_3,
+			Brick_4,
+			Brick_5,
+			Iron_1,
+			Iron_2,
+			Iron_3,
+			Iron_4,
+			Iron_5,
+			Flag_1,
+			Flag_2,
 		};
 	}
 	template<class T>

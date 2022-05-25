@@ -17,6 +17,9 @@ namespace resource::builder
 		~Landscape() override = default;
 
 		Manager < Id::Landscape > Build() const override;
+		void ApplyBricks( Manager < Id::Landscape >& result ) const;
+		sf::Vector2i GetLandscapeSize() const;
+		void ApplyIrons( Manager <Id::Landscape>& result ) const;
 	};
 }
 
