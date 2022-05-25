@@ -11,6 +11,9 @@
 #include "resource/builder/landscape.hpp"
 #include "resource/builder/border.hpp"
 #include "entity/builder/player.hpp"
+#include "layer/landscape.hpp"
+#include "layer/levels/reader.hpp"
+#include "resource/landscape_parser.hpp"
 
 namespace state
 {
@@ -30,8 +33,13 @@ namespace state
 	void Game::ApplyLayers()
 	{
 		auto layers = std::make_shared < layer::Border >( resource::builder::Border{}.Build());
+		auto game_rect = layers->GetGameRect();
+		//layers->Apply( std::make_shared < layer::Background >( resource::builder::Landscape{}.Build()));
 
-		layers->Apply( std::make_shared < layer::Background >( resource::builder::Landscape{}.Build()));
+		resource::LandscapeParser parser;
+		layer::levels::Reader reader{"layer/levels/", parser};
+		layers->Apply(
+				std::make_shared < layer::Landscape >( game_rect, resource::builder::Landscape{}.Build(), reader ));
 		mLayers = layers;
 	}
 
@@ -45,7 +53,7 @@ namespace state
 		mWindow->clear( {0xFF, 0xFF, 0xFF} );
 
 		DrawLayers();
-		DrawPlayer();
+		//DrawPlayer();
 
 		mWindow->display();
 	}

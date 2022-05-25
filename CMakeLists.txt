@@ -73,7 +73,7 @@ add_executable(${PROJECT_NAME}
         ${UTILS_DIR}/direction_helper.cpp
         ${UTILS_DIR}/direction_helper.hpp
 
-        )
+        layer/landscape.cpp layer/landscape.hpp layer/levels/reader.cpp layer/levels/reader.hpp resource/landscape_parser.cpp resource/landscape_parser.hpp)
 add_subdirectory(SFML)
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)

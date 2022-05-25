@@ -21,6 +21,7 @@ namespace layer
 		explicit Border( resource::Manager < resource::Id::Border > const& sprite_manager );
 		~Border() override = default;
 
+		sf::FloatRect GetGameRect()const;
 		void draw( sf::RenderTarget& target, const sf::RenderStates& states ) const override;
 		types::CollisionsSet GetCollisions( sf::FloatRect const& rect ) override;
 	private:

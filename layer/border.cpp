@@ -28,6 +28,16 @@ namespace layer
 	//Public methods
 	//
 
+	sf::FloatRect Border::GetGameRect() const
+	{
+		sf::FloatRect result;
+		result.top = mUp.getSize().y;
+		result.left = mLeft.getSize().x;
+		result.width = GetWindowSize().x - result.left - mRight.getSize().x;
+		result.height = GetWindowSize().y - result.top - mDown.getSize().y;
+		return result;
+	}
+
 	void Border::draw( sf::RenderTarget& target, sf::RenderStates const& states ) const
 	{
 		if( mBase )
@@ -162,5 +172,4 @@ namespace layer
 		auto bounds = border.getGlobalBounds();
 		return bounds.findIntersection( rect ) ? true : false;
 	}
-
 }
