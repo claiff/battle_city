@@ -3,7 +3,7 @@
 //
 
 #include "background.hpp"
-#include "resource/ini_reader.hpp"
+#include "resource/reader/ini.hpp"
 
 namespace layer
 {
@@ -57,8 +57,8 @@ namespace layer
 
 	sf::Vector2f Background::GetScaleOnWhileWindow() const
 	{
-		auto count_sprite_in_row = std::stoi( resource::IniReader::GetValue( "count_sprite_in_row" ));
-		auto count_sprite_in_column = std::stoi( resource::IniReader::GetValue( "count_sprite_in_column" ));
+		auto count_sprite_in_row = std::stoi( resource::reader::Ini::GetValue( "count_sprite_in_row" ));
+		auto count_sprite_in_column = std::stoi( resource::reader::Ini::GetValue( "count_sprite_in_column" ));
 		sf::Vector2f scale = {static_cast<float>(count_sprite_in_row), static_cast<float>(count_sprite_in_column)};
 		return scale;
 	}

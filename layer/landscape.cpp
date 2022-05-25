@@ -10,7 +10,7 @@ namespace layer
 {
 	Landscape::Landscape( sf::FloatRect const& game_field,
 						  const resource::Manager < resource::Id::Landscape >& sprite_manager,
-						  levels::Reader const& reader )
+						  resource::reader::Landscape const& reader )
 			: mLevel( 1 )
 			, mSpriteManager( sprite_manager )
 			, mGameField( game_field )

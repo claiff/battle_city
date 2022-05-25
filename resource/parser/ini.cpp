@@ -4,11 +4,15 @@
 
 #include <algorithm>
 
-#include "parser.hpp"
+#include "ini.hpp"
 
-namespace resource
+namespace resource::parser
 {
-	ParseResult Parser::Parse( const std::string& text ) const
+	//
+	//Public methods
+	//
+
+	ParseResult Ini::Parse(  std::string const& text ) const
 	{
 		static const std::string SLASH_SIGN = "//";
 		static const std::string EQUAL_SIGN = "=";
@@ -34,7 +38,11 @@ namespace resource
 		return result;
 	}
 
-	void Parser::ClearOnSlash( std::string& parameter ) const
+	//
+	//Private methods
+	//
+
+	void Ini::ClearOnSlash( std::string& parameter ) const
 	{
 		static const std::string SLASH_SIGN = "//";
 

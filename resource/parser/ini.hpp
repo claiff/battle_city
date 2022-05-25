@@ -7,17 +7,20 @@
 #include <optional>
 #include <string>
 
-namespace resource
+#include "resource/types/iparser.hpp"
+
+namespace resource::parser
 {
 	using ParseResult = std::optional < std::pair < std::string, std::string > >;
 
-	class Parser
+	class Ini
+			: public types::IParser < ParseResult >
 	{
 	public:
-		Parser() = default;
-		~Parser() = default;
+		Ini() = default;
+		~Ini() override = default;
 
-		ParseResult Parse( std::string const& text ) const;
+		[[nodiscard]] ParseResult Parse( std::string const& text ) const override;
 	private:
 		void ClearOnSlash( std::string& parameter ) const;
 	};

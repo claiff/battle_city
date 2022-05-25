@@ -20,24 +20,32 @@ add_executable(${PROJECT_NAME}
         ${APP_DIR}/types/ikeys.hpp
 
         ${RESOURCE_DIR}/manager.hpp
-        ${RESOURCE_DIR}/ini_reader.cpp
-        ${RESOURCE_DIR}/ini_reader.hpp
-        ${RESOURCE_DIR}/parser.cpp
-        ${RESOURCE_DIR}/parser.hpp
+        ${RESOURCE_DIR}/texture_getter.cpp
+        ${RESOURCE_DIR}/texture_getter.hpp
+
         ${RESOURCE_DIR}/builder/ally_tank.cpp
         ${RESOURCE_DIR}/builder/ally_tank.hpp
         ${RESOURCE_DIR}/builder/landscape.cpp
         ${RESOURCE_DIR}/builder/landscape.hpp
         ${RESOURCE_DIR}/builder/border.cpp
         ${RESOURCE_DIR}/builder/border.hpp
-        ${RESOURCE_DIR}/builder/types/ibuilder.hpp
         ${RESOURCE_DIR}/builder/landscape.cpp
         ${RESOURCE_DIR}/builder/landscape.hpp
         ${RESOURCE_DIR}/builder/border.cpp
         ${RESOURCE_DIR}/builder/border.hpp
-        ${RESOURCE_DIR}/builder/types/ibuilder.hpp
-        ${RESOURCE_DIR}/texture_getter.cpp
-        ${RESOURCE_DIR}/texture_getter.hpp
+
+        ${RESOURCE_DIR}/parser/ini.cpp
+        ${RESOURCE_DIR}/parser/ini.hpp
+        ${RESOURCE_DIR}/parser/landscape.cpp
+        ${RESOURCE_DIR}/parser/landscape.hpp
+
+        ${RESOURCE_DIR}/reader/ini.cpp
+        ${RESOURCE_DIR}/reader/ini.hpp
+        ${RESOURCE_DIR}/reader/landscape.cpp
+        ${RESOURCE_DIR}/reader/landscape.hpp
+
+        ${RESOURCE_DIR}/types/ibuilder.hpp
+        ${RESOURCE_DIR}/types/iparser.hpp
 
         ${STATE_DIR}/types/istate.hpp
         ${STATE_DIR}/game.cpp
@@ -73,7 +81,7 @@ add_executable(${PROJECT_NAME}
         ${UTILS_DIR}/direction_helper.cpp
         ${UTILS_DIR}/direction_helper.hpp
 
-        layer/landscape.cpp layer/landscape.hpp layer/levels/reader.cpp layer/levels/reader.hpp resource/landscape_parser.cpp resource/landscape_parser.hpp)
+        layer/landscape.cpp layer/landscape.hpp resource/reader/landscape.cpp resource/reader/landscape.hpp resource/parser/landscape.cpp resource/parser/landscape.hpp resource/types/iparser.hpp)
 add_subdirectory(SFML)
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)
