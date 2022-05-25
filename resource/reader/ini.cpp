@@ -3,15 +3,15 @@
 //
 #include <fstream>
 
-#include "ini_reader.hpp"
-#include "parser.hpp"
+#include "ini.hpp"
+#include "resource/parser/ini.hpp"
 
-namespace resource
+namespace resource::reader
 {
-	ParametersSet IniReader::mParameters {};
-	bool IniReader::mIsInit = false;
+	ParametersSet Ini::mParameters {};
+	bool Ini::mIsInit = false;
 
-	std::string IniReader::GetValue( std::string const& parameter ) noexcept
+	std::string Ini::GetValue( std::string const& parameter ) noexcept
 	{
 		if( !mIsInit )
 		{
@@ -27,7 +27,7 @@ namespace resource
 		}
 	}
 
-	void IniReader::InitReader()
+	void Ini::InitReader()
 	{
 		static const std::string PATH = R"(../../battle_city/settings.ini)";
 
@@ -46,10 +46,9 @@ namespace resource
 		ini_file.close();
 	}
 
-	void IniReader::ProcessLine( std::string const& line )
+	void Ini::ProcessLine( std::string const& line )
 	{
-		Parser parser;
-		auto result = parser.Parse( line );
+		auto result = resource::parser::Ini{}.Parse( line );
 		if( !result )
 		{
 			return;

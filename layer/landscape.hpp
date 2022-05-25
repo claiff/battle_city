@@ -10,7 +10,7 @@
 #include "types/ilayer.hpp"
 #include "utils/types/idecorator.hpp"
 #include "resource/manager.hpp"
-#include "levels/reader.hpp"
+#include "resource/reader/landscape.hpp"
 
 namespace layer
 {
@@ -19,7 +19,7 @@ namespace layer
 	{
 	public:
 		Landscape( sf::FloatRect const& game_field, resource::Manager < resource::Id::Landscape > const& sprite_manager,
-				   levels::Reader const& reader );
+				   resource::reader::Landscape const& reader );
 		~Landscape() override = default;
 
 		types::CollisionsSet GetCollisions( const sf::FloatRect& rect ) override;

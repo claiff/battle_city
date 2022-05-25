@@ -3,7 +3,7 @@
 //
 
 #include "border.hpp"
-#include "resource/ini_reader.hpp"
+#include "resource/reader/ini.hpp"
 #include "resource/texture_getter.hpp"
 
 namespace layer
@@ -162,8 +162,8 @@ namespace layer
 
 	sf::Vector2f Border::GetWindowSize() const
 	{
-		auto window_width = std::stof( resource::IniReader::GetValue( "default_window_width" ));
-		auto window_height = std::stof( resource::IniReader::GetValue( "default_window_height" ));
+		auto window_width = std::stof( resource::reader::Ini::GetValue( "default_window_width" ));
+		auto window_height = std::stof( resource::reader::Ini::GetValue( "default_window_height" ));
 		return {window_width, window_height};
 	}
 

@@ -5,7 +5,7 @@
 #pragma once
 
 #include "resource/manager.hpp"
-#include "resource/ini_reader.hpp"
+#include "resource/reader/ini.hpp"
 
 namespace resource::builder::types
 {
@@ -43,8 +43,8 @@ namespace resource::builder::types
 		sf::Vector2f GetSpriteSizeOnWindow() const
 		{
 			auto window_size = GetWindowSize();
-			auto count_sprite_in_row = std::stoi( IniReader::GetValue( "count_sprite_in_row" ));
-			auto count_sprite_in_column = std::stoi( IniReader::GetValue( "count_sprite_in_column" ));
+			auto count_sprite_in_row = std::stoi( reader::Ini::GetValue( "count_sprite_in_row" ));
+			auto count_sprite_in_column = std::stoi( reader::Ini::GetValue( "count_sprite_in_column" ));
 
 			auto width = static_cast<float>(window_size.x) / count_sprite_in_row;
 			auto height = static_cast<float>(window_size.y) / count_sprite_in_column;
@@ -57,8 +57,8 @@ namespace resource::builder::types
 		sf::Vector2i GetWindowSize() const
 		{
 			//TODO Возможно параметр нужно сделать не string
-			auto window_width = std::stoi( IniReader::GetValue( "default_window_width" ));
-			auto height_width = std::stoi( IniReader::GetValue( "default_window_height" ));
+			auto window_width = std::stoi( reader::Ini::GetValue( "default_window_width" ));
+			auto height_width = std::stoi( reader::Ini::GetValue( "default_window_height" ));
 			return {window_width, height_width};
 		}
 	};

@@ -5,7 +5,7 @@
 
 #pragma once
 
-#include "types/ibuilder.hpp"
+#include "resource/types/ibuilder.hpp"
 
 namespace resource::builder
 {

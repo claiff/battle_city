@@ -7,14 +7,14 @@
 #include <string>
 #include <unordered_map>
 
-namespace resource
+namespace resource::reader
 {
 	using ParametersSet = std::unordered_map < std::string, std::string >;
 
-	class IniReader
+	class Ini
 	{
 	public:
-		~IniReader() = default;
+		~Ini() = default;
 
 		static std::string GetValue( std::string const& parameter ) noexcept;
 	private:
