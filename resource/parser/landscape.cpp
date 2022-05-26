@@ -13,6 +13,7 @@ namespace resource::parser
 	Landscape::Landscape()
 	{
 		mLandscapes.insert( {"N", Id::Landscape::None} );
+		mLandscapes.insert( {"F", Id::Landscape::Flag_1} );
 
 		InsertBricks();
 		InsertIrons();
