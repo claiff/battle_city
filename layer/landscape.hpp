@@ -31,6 +31,7 @@ namespace layer
 		sf::Vector2f GetSpriteSize( sf::Sprite const& sprite ) const;
 		[[nodiscard]] bool IsOutXBorder( const sf::Vector2f& shift, const sf::Vector2f& sprite_size ) const noexcept;
 		void ApplyNextLine( sf::Vector2f& shift, const sf::Vector2f& sprite_size ) const;
+		void DrawFlag(sf::RenderTarget& target) const;
 
 		unsigned int mLevel;
 		sf::FloatRect mGameField;

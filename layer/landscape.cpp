@@ -72,6 +72,4 @@ namespace layer
 		shift.y += sprite_size.y;
 		shift.x = 0;
 	}
-
-
 }

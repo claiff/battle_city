@@ -11,7 +11,7 @@ namespace resource::builder
 	Manager < Id::Landscape > Landscape::Build() const
 	{
 		static const sf::Vector2i BACKGROUND_POSITION = {336, 0};
-
+		static const sf::Vector2i FLAG_POSITION = {304, 32};
 
 		sf::Vector2i LANDSCAPE_SIZE = GetLandscapeSize();
 
@@ -19,6 +19,7 @@ namespace resource::builder
 
 		auto default_size = GetDefaultSpriteSize();
 		result.Add( Id::Landscape::None, {BACKGROUND_POSITION, LANDSCAPE_SIZE}, GetScale( LANDSCAPE_SIZE ));
+		result.Add( Id::Landscape::Flag_1, {FLAG_POSITION, LANDSCAPE_SIZE}, GetScale( LANDSCAPE_SIZE ));
 
 		ApplyBricks( result );
 		ApplyIrons( result );
