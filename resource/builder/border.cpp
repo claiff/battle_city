@@ -9,7 +9,7 @@ namespace resource::builder
 {
 	Manager < Id::Border > Border::Build() const
 	{
-		static const sf::Vector2i BORDER_POSITION = {368, 0};
+		static const sf::Vector2i BORDER_POSITION = {369, 0};
 
 		Manager < Id::Border > result{TextureGetter::Get()};
 

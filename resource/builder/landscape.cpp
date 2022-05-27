@@ -10,7 +10,7 @@ namespace resource::builder
 
 	Manager < Id::Landscape > Landscape::Build() const
 	{
-		static const sf::Vector2i BACKGROUND_POSITION = {336, 0};
+		static const sf::Vector2i BACKGROUND_POSITION = {337, 0};
 		static const sf::Vector2i FLAG_POSITION = {304, 32};
 
 		sf::Vector2i LANDSCAPE_SIZE = GetLandscapeSize();

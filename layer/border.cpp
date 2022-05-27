@@ -9,7 +9,10 @@
 namespace layer
 {
 	static const sf::Vector2f ZERO_POSITION = {0, 0};
-
+	static const unsigned int COUNT_RIGHT_BORDER = 2;
+	static const float COUNT_BOTTOM_BORDER = 0.5;
+	static const unsigned int COUNT_LEFT_BORDER = 1;
+	static const float COUNT_TOP_BORDER = 0.5;
 	//
 	//Constructors
 	//
@@ -81,7 +84,7 @@ namespace layer
 	sf::Vector2f Border::GetSizeUpBorder( const sf::Sprite& sprite ) const
 	{
 		auto window_size = GetWindowSize();
-		auto y = sprite.getTextureRect().height * sprite.getScale().y;
+		auto y = COUNT_TOP_BORDER * sprite.getTextureRect().height * sprite.getScale().y;
 		return {window_size.x, y};
 	}
 
@@ -102,7 +105,7 @@ namespace layer
 
 		auto window_size = GetWindowSize();
 		auto init_scale = sprite.getScale();
-		float x = window_size.x - sprite.getTextureRect().width * init_scale.x;
+		float x = window_size.x - COUNT_RIGHT_BORDER * sprite.getTextureRect().width * init_scale.x;
 		return {x, ZERO_POSITION_Y};
 	}
 
@@ -129,7 +132,7 @@ namespace layer
 
 		auto window_size = GetWindowSize();
 		auto init_scale = sprite.getScale();
-		float y = window_size.y - sprite.getTextureRect().height * init_scale.y;
+		float y = window_size.y - COUNT_BOTTOM_BORDER * sprite.getTextureRect().height * init_scale.y;
 		return {ZERO_POSITION_X, y};
 	}
 
@@ -150,7 +153,7 @@ namespace layer
 	sf::Vector2f Border::GetSizeLeftBorder( sf::Sprite const& sprite ) const
 	{
 		auto window_size = GetWindowSize();
-		auto x = sprite.getTextureRect().width * sprite.getScale().x;
+		auto x = COUNT_LEFT_BORDER * sprite.getTextureRect().width * sprite.getScale().x;
 		return {x, window_size.y};
 	}
 

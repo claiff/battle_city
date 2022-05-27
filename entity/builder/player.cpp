@@ -115,7 +115,7 @@ namespace entity::builder
 	{
  		sf::RectangleShape result;
 		result.setTexture( sprite.getTexture());
-		result.setPosition( {700, 200} );
+		result.setPosition( {370, 700} );
 		result.setTextureRect( sprite.getTextureRect());
 		result.setSize( {static_cast<float>(sprite.getTextureRect().width * sprite.getScale().x),
 						 static_cast<float>(sprite.getTextureRect().height) * sprite.getScale().y} );

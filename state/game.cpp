@@ -51,7 +51,7 @@ namespace state
 		mWindow->clear( {0xFF, 0xFF, 0xFF} );
 
 		DrawLayers();
-		//DrawPlayer();
+		DrawPlayer();
 
 		mWindow->display();
 	}
