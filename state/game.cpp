@@ -4,15 +4,21 @@
 
 #include "game.hpp"
 #include "menu.hpp"
+
 #include "app/types/ikeys.hpp"
+
 #include "layer/border.hpp"
-#include "resource/builder/ally_tank.hpp"
-#include "resource/builder/landscape.hpp"
-#include "resource/builder/border.hpp"
-#include "entity/builder/player.hpp"
 #include "layer/landscape.hpp"
+
+#include "entity/builder/player.hpp"
+
 #include "resource/reader/landscape.hpp"
 #include "resource/parser/landscape.hpp"
+#include "resource/builder/landscape.hpp"
+#include "resource/builder/ally_tank.hpp"
+#include "resource/builder/border.hpp"
+#include "resource/texture_getter.hpp"
+#include "resource/landscape/builder/manager.hpp"
 
 namespace state
 {
@@ -36,8 +42,12 @@ namespace state
 
 		resource::parser::Landscape parser;
 		resource::reader::Landscape reader{"layer/levels/", parser};
+
+		auto manager = resource::landscape::builder::Manager{}.Build();
 		layers->Apply(
-				std::make_shared < layer::Landscape >( game_rect, resource::builder::Landscape{}.Build(), reader ));
+				std::make_shared < layer::Landscape >( game_rect,
+													   resource::builder::Landscape{reader, game_rect, manager,},
+													   reader ));
 		mLayers = layers;
 	}
 
@@ -51,7 +61,7 @@ namespace state
 		mWindow->clear( {0xFF, 0xFF, 0xFF} );
 
 		DrawLayers();
-		DrawPlayer();
+		//DrawPlayer();
 
 		mWindow->display();
 	}

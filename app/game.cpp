@@ -6,9 +6,6 @@
 #include "game.hpp"
 #include "state/menu.hpp"
 #include "state/game.hpp"
-
-#include <utility>
-#include "layer/background.hpp"
 #include "resource/manager.hpp"
 
 namespace app

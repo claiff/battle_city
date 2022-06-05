@@ -2,6 +2,8 @@
 // Created by claiff on 25.05.22.
 //
 
+#include <string>
+
 namespace resource::types
 {
 	template<typename T>
