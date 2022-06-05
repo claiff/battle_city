@@ -2,6 +2,8 @@
 // Created by claiff on 23.05.22.
 //
 
+#include <sstream>
+
 #include "landscape.hpp"
 
 namespace resource::parser
@@ -12,11 +14,13 @@ namespace resource::parser
 
 	Landscape::Landscape()
 	{
-		mLandscapes.insert( {"N", Id::Landscape::None} );
-		mLandscapes.insert( {"F", Id::Landscape::Flag_1} );
+		mLandscapes.insert( {"N", landscape::Id::Landscape::None} );
+		mLandscapes.insert( {"B", landscape::Id::Landscape::Brick} );
+		mLandscapes.insert( {"Ir", landscape::Id::Landscape::Iron} );
+		mLandscapes.insert( {"F", landscape::Id::Landscape::Flag} );
 
-		InsertBricks();
-		InsertIrons();
+		//InsertBricks();
+		//InsertIrons();
 	}
 
 	//
@@ -46,21 +50,4 @@ namespace resource::parser
 	//Private methods
 	//
 
-	void Landscape::InsertBricks()
-	{
-		mLandscapes.insert( {"B1", Id::Landscape::Brick_1} );
-		mLandscapes.insert( {"B2", Id::Landscape::Brick_2} );
-		mLandscapes.insert( {"B3", Id::Landscape::Brick_3} );
-		mLandscapes.insert( {"B4", Id::Landscape::Brick_4} );
-		mLandscapes.insert( {"B5", Id::Landscape::Brick_5} );
-	}
-
-	void Landscape::InsertIrons()
-	{
-		mLandscapes.insert( {"I1", Id::Landscape::Iron_1} );
-		mLandscapes.insert( {"I2", Id::Landscape::Iron_2} );
-		mLandscapes.insert( {"I3", Id::Landscape::Iron_3} );
-		mLandscapes.insert( {"I4", Id::Landscape::Iron_4} );
-		mLandscapes.insert( {"I5", Id::Landscape::Iron_5} );
-	}
 }

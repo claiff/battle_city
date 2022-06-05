@@ -7,13 +7,13 @@
 
 #include <list>
 
-#include "resource/manager.hpp"
+#include "resource/landscape/manager.hpp"
 #include "resource/types/iparser.hpp"
 
 namespace resource::parser
 {
-	using ParseResult = std::list < Id::Landscape >;
-	using LandscapeTable = std::map < std::string, Id::Landscape >;
+	using ParseResult = std::list < landscape::Id::Landscape >;
+	using LandscapeTable = std::map < std::string, landscape::Id::Landscape >;
 
 	class Landscape
 			: public types::IParser < ParseResult >

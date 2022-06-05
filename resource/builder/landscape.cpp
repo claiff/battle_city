@@ -1,68 +1,68 @@
 //
-// Created by claiff on 19.05.22.
+// Created by claiff on 27.05.22.
 //
 
 #include "landscape.hpp"
-#include "resource/texture_getter.hpp"
 
 namespace resource::builder
 {
-
-	Manager < Id::Landscape > Landscape::Build() const
+	Landscape::Landscape( reader::Landscape const& reader, sf::FloatRect const& game_field,
+						  landscape::Manager const& manager )
+			: mReader( reader )
+			, mGameField( game_field )
+			, mManager( manager )
 	{
-		static const sf::Vector2i BACKGROUND_POSITION = {337, 0};
-		static const sf::Vector2i FLAG_POSITION = {304, 32};
 
-		sf::Vector2i LANDSCAPE_SIZE = GetLandscapeSize();
+	}
 
-		Manager < Id::Landscape > result{TextureGetter::Get()};
+	BuildResult Landscape::Build( unsigned int level ) const
+	{
+		BuildResult result;
 
-		auto default_size = GetDefaultSpriteSize();
-		result.Add( Id::Landscape::None, {BACKGROUND_POSITION, LANDSCAPE_SIZE}, GetScale( LANDSCAPE_SIZE ));
-		result.Add( Id::Landscape::Flag_1, {FLAG_POSITION, LANDSCAPE_SIZE}, GetScale( LANDSCAPE_SIZE ));
+		auto landscape_ids = mReader.Read( level );
+		sf::Vector2f sprite_position = {mGameField.left, mGameField.top};
+		for( auto it = landscape_ids.cbegin(); it != landscape_ids.cend(); )
+		{
+			auto array_landscapes = GetArrayOfLandscapes( it, sprite_position );
+			result.push_back( array_landscapes );
 
-		ApplyBricks( result );
-		ApplyIrons( result );
-
+			sprite_position.x += array_landscapes.at( 0 )->getSize().x * 2;
+			if( sprite_position.x > mGameField.width )
+			{
+				sprite_position.y += array_landscapes.at( 0 )->getSize().y * 2;
+				sprite_position.x = mGameField.left;
+			}
+		}
 		return result;
 	}
 
-	void Landscape::ApplyIrons( Manager <Id::Landscape>& result ) const
+//TODO Refactor
+	ArrayOfLandscapes
+	Landscape::GetArrayOfLandscapes( LandscapeConstIterator& it,
+									 sf::Vector2f const& start_position ) const
 	{
-		static const sf::Vector2i IRON_1_POSITION = {256, 16};
-		static const sf::Vector2i IRON_2_POSITION = {272, 16};
-		static const sf::Vector2i IRON_3_POSITION = {288, 16};
-		static const sf::Vector2i IRON_4_POSITION = {304, 16};
-		static const sf::Vector2i IRON_5_POSITION = {320, 16};
+		static constexpr int COUNT_ROW = 2;
+		static constexpr int COUNT_COLUMN = 2;
 
-		auto landscape_size = GetLandscapeSize();
-		result.Add( Id::Landscape::Iron_1, {IRON_1_POSITION, landscape_size}, GetScale( landscape_size ));
-		result.Add( Id::Landscape::Iron_2, {IRON_2_POSITION, landscape_size}, GetScale( landscape_size ));
-		result.Add( Id::Landscape::Iron_3, {IRON_3_POSITION, landscape_size}, GetScale( landscape_size ));
-		result.Add( Id::Landscape::Iron_4, {IRON_4_POSITION, landscape_size}, GetScale( landscape_size ));
-		result.Add( Id::Landscape::Iron_5, {IRON_5_POSITION, landscape_size}, GetScale( landscape_size ));
-	}
+		ArrayOfLandscapes result;
+		types::ILandscapePtr shape;
+		sf::Vector2f shift{start_position};
 
-	sf::Vector2i Landscape::GetLandscapeSize() const
-	{
-		static const sf::Vector2i LANDSCAPE_SIZE = {16, 16};
-		return LANDSCAPE_SIZE;
-	}
+		for( auto column = 0; column < COUNT_COLUMN; ++column )
+		{
+			for( auto row = 0; row < COUNT_ROW; ++row )
+			{
+				shape = mManager.Get( *it++ );
 
-	void Landscape::ApplyBricks( Manager < Id::Landscape >& result ) const
-	{
-		static const sf::Vector2i BRICK_1_POSITION = {256, 0};
-		static const sf::Vector2i BRICK_2_POSITION = {272, 0};
-		static const sf::Vector2i BRICK_3_POSITION = {288, 0};
-		static const sf::Vector2i BRICK_4_POSITION = {304, 0};
-		static const sf::Vector2i BRICK_5_POSITION = {320, 0};
+				shape->setPosition( shift );
+				result.at( COUNT_ROW * column + row ) = shape;
 
-		auto landscape_size = GetLandscapeSize();
+				shift.x += shape->getSize().x;
+			}
+			shift.y += shape->getSize().y;
+			shift.x = start_position.x;
+		}
 
-		result.Add( Id::Landscape::Brick_1, {BRICK_1_POSITION, landscape_size}, GetScale( landscape_size ));
-		result.Add( Id::Landscape::Brick_2, {BRICK_2_POSITION, landscape_size}, GetScale( landscape_size ));
-		result.Add( Id::Landscape::Brick_3, {BRICK_3_POSITION, landscape_size}, GetScale( landscape_size ));
-		result.Add( Id::Landscape::Brick_4, {BRICK_4_POSITION, landscape_size}, GetScale( landscape_size ));
-		result.Add( Id::Landscape::Brick_5, {BRICK_5_POSITION, landscape_size}, GetScale( landscape_size ));
+		return result;
 	}
 }

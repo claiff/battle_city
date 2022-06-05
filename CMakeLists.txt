@@ -54,8 +54,6 @@ add_executable(${PROJECT_NAME}
         ${STATE_DIR}/menu.hpp
 
         ${LAYER_DIR}/types/ilayer.hpp
-        ${LAYER_DIR}/background.cpp
-        ${LAYER_DIR}/background.hpp
         ${LAYER_DIR}/border.cpp
         ${LAYER_DIR}/border.hpp
 
@@ -81,7 +79,7 @@ add_executable(${PROJECT_NAME}
         ${UTILS_DIR}/direction_helper.cpp
         ${UTILS_DIR}/direction_helper.hpp
 
-        layer/landscape.cpp layer/landscape.hpp resource/reader/landscape.cpp resource/reader/landscape.hpp resource/parser/landscape.cpp resource/parser/landscape.hpp resource/types/iparser.hpp)
+        layer/landscape.cpp layer/landscape.hpp resource/reader/landscape.cpp resource/reader/landscape.hpp resource/parser/landscape.cpp resource/parser/landscape.hpp resource/types/iparser.hpp resource/builder/landscape.cpp resource/builder/landscape.hpp resource/landscape/brick.cpp resource/landscape/brick.hpp resource/landscape/manager.cpp resource/landscape/manager.hpp resource/types/ilandscape.hpp resource/landscape/builder/manager.cpp resource/landscape/builder/manager.hpp)
 add_subdirectory(SFML)
 
 target_include_directories(${PROJECT_NAME} PRIVATE .)

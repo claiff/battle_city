@@ -10,12 +10,12 @@
 
 #include "SFML/include/SFML/Graphics/RectangleShape.hpp"
 
-#include "resource/manager.hpp"
+#include "resource/landscape/manager.hpp"
 #include "resource/parser/landscape.hpp"
 
 namespace resource::reader
 {
-	using ReadingResult = std::list < resource::Id::Landscape >;
+	using ReadingResult = std::list < resource::landscape::Id::Landscape >;
 
 	class Landscape
 	{
