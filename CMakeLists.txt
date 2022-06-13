@@ -19,7 +19,6 @@ add_executable(${PROJECT_NAME}
         ${APP_DIR}/keyboard_keys.hpp
         ${APP_DIR}/types/ikeys.hpp
 
-        ${RESOURCE_DIR}/manager.hpp
         ${RESOURCE_DIR}/texture_getter.cpp
         ${RESOURCE_DIR}/texture_getter.hpp
 
@@ -44,7 +43,6 @@ add_executable(${PROJECT_NAME}
         ${RESOURCE_DIR}/reader/landscape.cpp
         ${RESOURCE_DIR}/reader/landscape.hpp
 
-        ${RESOURCE_DIR}/types/ibuilder.hpp
         ${RESOURCE_DIR}/types/iparser.hpp
 
         ${STATE_DIR}/types/istate.hpp
