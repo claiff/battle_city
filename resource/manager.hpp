@@ -41,6 +41,8 @@ namespace resource
 			Brick_3,
 			Brick_4,
 			Brick_5,
+			Brick_6,
+			Brick_7,
 			Iron_1,
 			Iron_2,
 			Iron_3,

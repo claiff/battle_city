@@ -53,6 +53,8 @@ namespace resource::parser
 		mLandscapes.insert( {"B3", Id::Landscape::Brick_3} );
 		mLandscapes.insert( {"B4", Id::Landscape::Brick_4} );
 		mLandscapes.insert( {"B5", Id::Landscape::Brick_5} );
+		mLandscapes.insert( {"B6", Id::Landscape::Brick_6} );
+		mLandscapes.insert( {"B7", Id::Landscape::Brick_7} );
 	}
 
 	void Landscape::InsertIrons()

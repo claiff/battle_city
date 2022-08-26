@@ -10,7 +10,7 @@ namespace resource::builder
 
 	Manager < Id::Landscape > Landscape::Build() const
 	{
-		static const sf::Vector2i BACKGROUND_POSITION = {336, 0};
+		static const sf::Vector2i BACKGROUND_POSITION = {336, 32};
 		static const sf::Vector2i FLAG_POSITION = {304, 32};
 
 		sf::Vector2i LANDSCAPE_SIZE = GetLandscapeSize();
@@ -56,6 +56,8 @@ namespace resource::builder
 		static const sf::Vector2i BRICK_3_POSITION = {288, 0};
 		static const sf::Vector2i BRICK_4_POSITION = {304, 0};
 		static const sf::Vector2i BRICK_5_POSITION = {320, 0};
+		static const sf::Vector2i BRICK_6_POSITION = {336, 0};
+		static const sf::Vector2i BRICK_7_POSITION = {352, 0};
 
 		auto landscape_size = GetLandscapeSize();
 
@@ -64,5 +66,7 @@ namespace resource::builder
 		result.Add( Id::Landscape::Brick_3, {BRICK_3_POSITION, landscape_size}, GetScale( landscape_size ));
 		result.Add( Id::Landscape::Brick_4, {BRICK_4_POSITION, landscape_size}, GetScale( landscape_size ));
 		result.Add( Id::Landscape::Brick_5, {BRICK_5_POSITION, landscape_size}, GetScale( landscape_size ));
+		result.Add( Id::Landscape::Brick_6, {BRICK_6_POSITION, landscape_size}, GetScale( landscape_size ));
+		result.Add( Id::Landscape::Brick_7, {BRICK_7_POSITION, landscape_size}, GetScale( landscape_size ));
 	}
 }
