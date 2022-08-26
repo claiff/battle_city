@@ -19,7 +19,7 @@ namespace resource
 
 	void TextureGetter::CreateTexture()
 	{
-		static const std::string TEXTURE_PATH = "../../battle_city/media/general_sprites.png";
+		static const std::string TEXTURE_PATH = "../battle_city/media/general_sprites.png";
 
 		mTexture = std::make_shared < sf::Texture >();
 		auto is_load_file = mTexture->loadFromFile( TEXTURE_PATH );

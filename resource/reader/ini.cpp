@@ -29,7 +29,7 @@ namespace resource::reader
 
 	void Ini::InitReader()
 	{
-		static const std::string PATH = R"(../../battle_city/settings.ini)";
+		static const std::string PATH = R"(../battle_city/settings.ini)";
 
 		std::string line;
 		std::ifstream ini_file( PATH );

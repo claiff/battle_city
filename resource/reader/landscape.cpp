@@ -54,7 +54,7 @@ namespace resource::reader
 	std::string Landscape::GetLevelFilePath( unsigned int level ) const
 	{
 		//TODO путь
-		static const std::string PATH = R"(../../battle_city/)";
+		static const std::string PATH = R"(../battle_city/)";
 		static const std::string DEFAULT_EXTENSION = ".txt";
 
 		return PATH + mFolder + std::to_string( level ) + DEFAULT_EXTENSION;
